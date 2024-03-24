@@ -5,19 +5,20 @@
     font-family: "Poppins",sans-serif;
 
 }
-body{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: white;
+.navbar {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 15px 0;
 }
-.container{
-width: 420px;
-background-color:rgb(63,85,136);
-color: rgb(56, 44, 44);
-border-radius: 10px;
-padding:30px 40px;
+
+.container {
+    width: 420px;
+    margin: auto;
+    background-color: rgb(63, 85, 136);
+    color: rgb(56, 44, 44);
+    border-radius: 10px;
+    padding: 30px 40px;
+    margin-top: 200px; /* Navbar ile container arasındaki boşluğu ayarlar */
 }
 .container h1{
     font-size: 36px;
