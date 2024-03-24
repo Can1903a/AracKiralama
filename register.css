@@ -6,47 +6,51 @@ body {
 }
 
 .register-container {
-    background-color: #007bff; /* Mavi */
+    background-color: #3498db; /* Mavi */
     color: #fff; /* Beyaz */
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 300px;
     margin: 100px auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
     margin-top: 0;
+    text-align: center;
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
-    padding: 8px;
+    width: calc(100% - 22px);
+    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 button {
-    background-color: #ffd700; /* Altın sarısı */
-    color: #333; /* Gri */
+    background-color: #f39c12; /* Altın sarısı */
+    color: #fff; /* Beyaz */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;
+    font-size: 16px;
 }
 
 button:hover {
-    background-color: #ffdf00; /* Daha parlak bir altın sarısı */
+    background-color: #e67e22; /* Daha koyu bir altın sarısı */
 }
