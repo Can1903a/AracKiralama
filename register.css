@@ -1,6 +1,6 @@
 
 .ustkisim {
-
+    background-image: url('kanyon.jpg');
    height: 100vh;
    width: 100%;
    background-size: cover;
@@ -8,14 +8,18 @@
    background-repeat: no-repeat;
    background-attachment: fixed;
 }
+
 .navbar {
     
     margin-top: -2px ;
-    margin-left: -6px;
+
     width: 100%;
     background-color: rgba(13, 24, 11, 0.7); /* Saydamlık için rgba kullanımı */
-
+    font-weight: bold;
     color: black;
+    background-image: url('arkaplan.png'); /* Navbarın arkasındaki resim */
+    background-size: cover; /* Resmin tam olarak görünmesini sağlar */
+    background-attachment: fixed;
 }
 .logo {
    
@@ -37,7 +41,7 @@ margin: 0px 20px;
     color: rgb(56, 44, 44);
     border-radius: 10px;
     padding: 30px 40px;
-    margin-top: 110px; /* Navbar ile container arasındaki boşluğu ayarlar */
+    margin-top:-700px; /* Navbar ile container arasındaki boşluğu ayarlar */
 }
 .container h1{
     font-size: 36px;
