@@ -5,9 +5,9 @@
     font-family: "Poppins",sans-serif;
 
 }
-.navbar {
+.navbar-brand {
     width: 100%;
-    background-color: #ffffff;
+    background-color:rgb(63, 85, 136);
     padding: 15px 0;
 }
 
