@@ -18,7 +18,7 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 $gunluk_ucret = $row['Arac_gunluk_ucret'];
 
-// Toplam ücreti hesapla
+
 $toplam_ucret = $toplam_gun * $gunluk_ucret;
 
 // Rezervasyon yap
