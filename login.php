@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/AracKiralama/css/register.css">
+  <link rel="stylesheet" href="/AracKiralama/css/login.css">
 </head>
 <div class="ustkisim">
 <body>
