@@ -28,7 +28,6 @@ if (isset($_SESSION['Kullanici_id'])) {
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,11 +59,11 @@ if (isset($_SESSION['Kullanici_id'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+            <li class="nav-item active">
                     <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
+                    <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
@@ -73,45 +72,11 @@ if (isset($_SESSION['Kullanici_id'])) {
                 <?php echo $signupLink; ?>
                 <?php echo $welcomeMessage; ?>
                 <?php echo $logoutLink; ?>
-        
+             
             </ul>
         </div>
     </div>
 </nav>
-
-
-    <!-- Ana içerik -->
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form action="araclar.php" method="get">
-                    <div class="form-group">
-                        <label for="sube">Şube:</label>
-                        <select name="sube" id="sube" class="form-control" required>
-                            <option value="">Şube Seçiniz</option>
-                            <?php
-                             $sql = "SELECT * FROM Subeler";
-                             $result = $conn->query($sql);
-                             while($row = $result->fetch_assoc()) {
-                                 echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
-                             }
-                            ?> 
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="baslangic_tarihi">Başlangıç Tarihi:</label>
-                        <input type="text" id="baslangic_tarihi" name="baslangic_tarihi" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="bitis_tarihi">Bitiş Tarihi:</label>
-                        <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
