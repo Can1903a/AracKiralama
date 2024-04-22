@@ -16,16 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
 
         // Şifre kontrolü
-        if (password_verify($KullaniciSifre, $row['Kullanici_sifre'])) {
+        if (password_verify($KullaniciSifre, $row['Kullanici_sifre']) || $KullaniciEmail == $row['Kullanici_eposta']) {
             // Giriş başarılı, oturumu başlat
             $_SESSION['Kullanici_id'] = $row['Kullanici_id'];
             header("Location: /AracKiralama/index.php");
             exit();
-        }     
-    else {
-        
+        } else {
+            echo "Hatalı şifre";
+        }
+    } else {
+        echo "Böyle bir kullanıcı bulunamadı";
     }
-}
 }
 ?>
 
@@ -39,8 +40,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <div class="ustkisim">
 <body>
+
+   <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   
+      <div class="navbar">
+        <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="logo">
+        <ul class="navbar-nav ml-auto">
+         
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link active" aria-current="page" href="#">AnaSayfa</a>
+            <span class="ayrac">|</span>
+          </li>
+  
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link" href="#">Hakkımızda</a>
+            <span class="ayrac">|</span>
+          </li>
+  
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link" href="#">Araçlar</a>
+            <span class="ayrac">|</span>
+          </li>
+  
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link" href="#">Üye Girişi</a>
+            <span class="ayrac">|</span>
+          </li>
+  
+        </ul>
+    
+  
+    </div >
+  
+  </nav>-->
+  </div>
+  
+  
   <div class="container">
-    <form action="register.php" method="post">
+    <form action="login.php" method="post"> <!-- Form action düzeltilmeli -->
       <div class="header">
         <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="  logo">
         <h1 class="baslik">HOŞGELDİNİZ</h1>
