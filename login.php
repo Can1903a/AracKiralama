@@ -3,63 +3,40 @@ include 'database.php';
 include 'bootstrap.php';
 session_start();
 
-
-
-// Kullanıcı giriş yapmışsa
-if (isset($_SESSION['Kullanici_id'])) {
-    $KullaniciID = $_SESSION['Kullanici_id'];
-
-    // Müşteri bilgilerini çek
-    $KullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id= $KullaniciID";
-    $KullaniciResult = $conn->query($KullaniciQuery);
-
-    if ($KullaniciResult->num_rows > 0) {
-        $kullanici = $KullaniciResult->fetch_assoc();
-        $isim = $kullanici['Kullanici_isim']; 
-        $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
-        echo $welcomeMessage;
-    }
-
-    $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
-    $loginLink = ""; // Giriş yap linkini görünmez yap
-    $signupLink = ""; // Kayıt ol linkini görünmez yap
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Formdan gelen verileri al
     $KullaniciEmail = $_POST['Kullanici_eposta'];
     $KullaniciSifre = $_POST['Kullanici_sifre'];
 
     // Veritabanında bu kullanıcıyı kontrol et
-    $sql = "SELECT * FROM kullanici WHERE Kullanici_eposta = '$KullaniciEmail' AND Kullanici_sifre = '$KullaniciSifre'";
+    $sql = "SELECT * FROM kullanici WHERE Kullanici_eposta = '$KullaniciEmail'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $KullaniciID = $row['Kullanici_id'];
 
         // Şifre kontrolü
         if (password_verify($KullaniciSifre, $row['Kullanici_sifre']) || $KullaniciEmail == $row['Kullanici_eposta']) {
             // Giriş başarılı, oturumu başlat
             $_SESSION['Kullanici_id'] = $row['Kullanici_id'];
-            $_SESSION['Kullanici_id'] = $KullaniciID;
             header("Location: /AracKiralama/index.php");
             exit();
-        }     
-    else {
-        
+        } else {
+            echo "Hatalı şifre";
+        }
+    } else {
+        echo "Böyle bir kullanıcı bulunamadı";
     }
-}
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/AracKiralama/css/register.css">
-  <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/AracKiralama/css/register.css">
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
 </head>
 <div class="ustkisim">
 <body>
@@ -100,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
   <div class="container">
-    <form action="register.php" method="post">
+    <form action="login.php" method="post"> <!-- Form action düzeltilmeli -->
       <div class="header">
         <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="  logo">
         <h1 class="baslik">HOŞGELDİNİZ</h1>
