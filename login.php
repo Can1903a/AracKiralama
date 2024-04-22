@@ -77,11 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
   <div class="container">
-<<<<<<< Updated upstream
     <form action="login.php" method="post"> <!-- Form action düzeltilmeli -->
-=======
-    <form action="register.php" method="post">
->>>>>>> Stashed changes
       <div class="header">
         <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="  logo">
         <h1 class="baslik">HOŞGELDİNİZ</h1>

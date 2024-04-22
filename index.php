@@ -1,37 +1,12 @@
 <?php
-
 include 'database.php';
 include 'bootstrap.php';
 session_start();
 
 $welcomeMessage = "";
 $logoutLink = "";
-<<<<<<< Updated upstream
 $loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
-=======
-$loginLink = "<a class='nav-link' aria-current='page' href='/AracKiralama/login.php'>Giriş Yap</a>";
-$signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
-
-// Kullanıcı giriş yapmışsa
-if (isset($_SESSION['Kullanici_id'])) {
-    $kullaniciID = $_SESSION['Kullanici_id'];
-
-    // Müşteri bilgilerini çek
-    $kullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id = $kullaniciID";
-    $kullaniciResult = $conn->query($kullaniciQuery);
-
-    if ($kullaniciResult->num_rows > 0) {
-        $kullanici = $kullaniciResult->fetch_assoc();
-        $isim = $kullanici['Kullanici_isim'];
-        $welcomeMessage = "<span class='nav-link'>Hoşgeldiniz, " . $isim . "</span>";
-    }
-
-    $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
-    $loginLink = ""; // Giriş yap linkini görünmez yap
-    $signupLink = ""; // Kayıt ol linkini görünmez yap
-}
->>>>>>> Stashed changes
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
