@@ -5,7 +5,7 @@ session_start();
 
 $welcomeMessage = "";
 $logoutLink = "";
-$loginLink = "<a class='nav-link' aria-current='page' href='/AracKiralama/login.php'>Giriş Yap</a>";
+$loginLink = "<a class='nav-link'  href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
 
 // Kullanıcı giriş yapmışsa
@@ -19,7 +19,7 @@ if (isset($_SESSION['Kullanici_id'])) {
     if ($kullaniciResult->num_rows > 0) {
         $kullanici = $kullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim'];
-        $welcomeMessage = "<span class='nav-link'>Hoşgeldiniz, " . $isim . "</span>";
+        $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
     }
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
@@ -58,6 +58,7 @@ while($row = $result->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <title>Boş Araçlar</title>
    
     <style>
@@ -106,7 +107,6 @@ while($row = $result->fetch_assoc()) {
 <div class="container mt-5">
     <div class="row justify-content-center mt-5">
         <?php
-        include 'database.php';
         $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
         $result = $conn->query($sql);
         
@@ -115,25 +115,25 @@ while($row = $result->fetch_assoc()) {
         } else 
             while($row = $result->fetch_assoc()) {
                 ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $row['Arac_marka']; ?></h5>
-                            <p class="card-text">Model: <?php echo $row['Arac_model']; ?></p>
-                            <p class="card-text">Yıl: <?php echo $row['Arac_yil']; ?></p>
-                            <p class="card-text">Renk: <?php echo $row['Arac_renk']; ?></p>
-                            <p class="card-text">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
-                            <!-- Ek olarak görsel de ekleyebilirsiniz -->
-                            <?php 
-                            // Aracın görsel varsa
-                            if ($row['Arac_Görsel']) {
-                                echo '<img src="data:image/jpeg;base64,'.base64_encode($row['Arac_Görsel']).'" class="card-img-top" alt="Arac_Görsel">';
-                            }
-                            ?>
-                        </div>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-primary btn-block">Teklifi İncele</a>
-                        </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $row['Arac_marka']; ?></h5>
+                                    <p class="card-text">Model: <?php echo $row['Arac_model']; ?></p>
+                                    <p class="card-text">Yıl: <?php echo $row['Arac_yil']; ?></p>
+                                    <p class="card-text">Renk: <?php echo $row['Arac_renk']; ?></p>
+                                    <p class="card-text">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
+                                    <?php 
+                                    // Aracın görsel varsa
+                                    if ($row['Arac_Görsel']) {
+                                        echo '<img src="data:image/jpeg;base64,'.base64_encode($row['Arac_Görsel']).'" class="card-img-top" alt="Arac_Görsel">';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="card-footer">
+                                <a href="/AracKiralama/aracdetay.php?id=<?php echo $row['Arac_id']; ?>&sube=<?php echo $sube_id; ?>&baslangic_tarihi=<?php echo $baslangic_tarihi; ?>&bitis_tarihi=<?php echo $bitis_tarihi; ?>" class="btn btn-primary btn-block">Detayları Gör</a>
+                                </div>
+                            </a>
                     </div>
                 </div>
             </div>
