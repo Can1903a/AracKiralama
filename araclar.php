@@ -95,7 +95,6 @@ while($row = $result->fetch_assoc()) {
         include 'database.php';
         $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
         $result = $conn->query($sql);
-<<<<<<< HEAD
         
         if ($result->num_rows === 0) {
             echo '<div class="col-md-12"><p class="text-center">Müsait aracımız kalmamıştır.</p></div>';
@@ -121,28 +120,6 @@ while($row = $result->fetch_assoc()) {
                         <div class="card-footer">
                             <a href="#" class="btn btn-primary btn-block">Teklifi İncele</a>
                         </div>
-=======
-        while($row = $result->fetch_assoc()) {
-            ?>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['Arac_marka']; ?></h5>
-                        <p class="card-text">Model: <?php echo $row['Arac_model']; ?></p>
-                        <p class="card-text">Yıl: <?php echo $row['Arac_yil']; ?></p>
-                        <p class="card-text">Renk: <?php echo $row['Arac_renk']; ?></p>
-                        <p class="card-text">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
-                        <!-- Ek olarak görsel de ekleyebilirsiniz -->
-                        <?php 
-                        // Aracın görsel varsa
-                        if ($row['Arac_Görsel']) {
-                            echo '<img src="data:image/jpeg;base64,'.base64_encode($row['Arac_Görsel']).'" class="card-img-top" alt="Arac_Görsel">';
-                        }
-                        ?>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary btn-block">Teklifi İncele</a>
->>>>>>> 614248986663a5b6653dc105040ecc10afaafddd
                     </div>
                 </div>
             <?php
