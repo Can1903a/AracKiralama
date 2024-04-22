@@ -9,15 +9,15 @@ $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
-    $musteriID = $_SESSION['Kullanici_id'];
+    $kullaniciID = $_SESSION['Kullanici_id'];
 
     // Müşteri bilgilerini çek
-    $musteriQuery = "SELECT * FROM kullanicilar WHERE kullanici_id = $musteriID";
-    $musteriResult = $conn->query($musteriQuery);
+    $kullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id = $kullaniciID";
+    $kullaniciResult = $conn->query($kullaniciQuery);
 
-    if ($musteriResult->num_rows > 0) {
-        $musteri = $musteriResult->fetch_assoc();
-        $isim = $musteri['kullanici_adi']; // "Musteriler_Adi" sütun adını kullanarak adı çekin
+    if ($kullaniciResult->num_rows > 0) {
+        $kullanici = $kullaniciResult->fetch_assoc();
+        $isim = $kullanici['Kullanici_isim'];
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
         
     }
@@ -26,10 +26,6 @@ if (isset($_SESSION['Kullanici_id'])) {
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
-
-
-
-
 
 // Araç listesini getir
 $sql = "SELECT * FROM Araclar";
@@ -90,18 +86,18 @@ $result = $conn->query($sql);
         <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="rezervasyon.php" method="post">
+                <form action="araclar.php" method="get">
                     <div class="form-group">
                         <label for="sube">Şube:</label>
-                        <select name="sube" id="sube" class="form-control">
+                        <select name="sube" id="sube" class="form-control" required>
                             <option value="">Şube Seçiniz</option>
                             <?php
-                            $sql = "SELECT * FROM Subeler";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                                echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
-                            }
-                            ?>
+                             $sql = "SELECT * FROM Subeler";
+                             $result = $conn->query($sql);
+                             while($row = $result->fetch_assoc()) {
+                                 echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
+                             }
+                            ?> 
                         </select>
                     </div>
                     <div class="form-group">
@@ -112,8 +108,7 @@ $result = $conn->query($sql);
                         <label for="bitis_tarihi">Bitiş Tarihi:</label>
                         <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required>
                     </div>
-                    <div id="araclar" class="mb-3"></div>
-                    <button type="submit" class="btn btn-primary btn-block">Rezervasyon Yap</button>
+                    <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
                 </form>
             </div>
         </div>
