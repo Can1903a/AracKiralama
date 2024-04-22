@@ -27,6 +27,29 @@ if (isset($_SESSION['Kullanici_id'])) {
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
 
+$sube_id = $_GET['sube'];
+// Seçilen tarih aralığı
+$baslangic_tarihi = $_GET['baslangic_tarihi'];
+$bitis_tarihi = $_GET['bitis_tarihi'];
+
+// Seçilen tarih aralığına göre gün sayısı hesapla
+$baslangic = strtotime($baslangic_tarihi);
+$bitis = strtotime($bitis_tarihi);
+$gun_sayisi = ($bitis - $baslangic) / (60 * 60 * 24);
+
+// Toplam kiralama bedeli için değişken
+$toplam_bedel = 0;
+
+// Veritabanından araçların günlük ücretlerini al
+$sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+$result = $conn->query($sql);
+
+// Her bir aracın günlük ücreti ile gün sayısını çarpıp toplam fiyatı hesapla
+while($row = $result->fetch_assoc()) {
+    $gunluk_ucret = $row['Arac_gunluk_ucret'];
+    $toplam_bedel += $gunluk_ucret * $gun_sayisi;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +104,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                         <p class="card-text">Model: <?php echo $row['Arac_model']; ?></p>
                         <p class="card-text">Yıl: <?php echo $row['Arac_yil']; ?></p>
                         <p class="card-text">Renk: <?php echo $row['Arac_renk']; ?></p>
-                        <p class="card-text">Günlük Ücret: <?php echo $row['Arac_gunluk_ucret']; ?> ₺</p>
+                        <p class="card-text">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
                         <!-- Ek olarak görsel de ekleyebilirsiniz -->
                         <?php 
                         // Aracın görsel varsa
