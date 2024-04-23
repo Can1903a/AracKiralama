@@ -1,0 +1,30 @@
+.detaylar {
+    margin-top: 57.59px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.detaylar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.detaylar li {
+    flex: 1;
+    text-align: center;
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.detaylar li.active {
+    color: #007bff;
+}
+
+.detaylar li:not(:last-child) {
+    border-right: 2px solid #ccc;
+}
