@@ -86,7 +86,14 @@ $tarih_araligi = $baslangic_tarihi . ' - ' . $bitis_tarihi;
 // Adım
 $adim = isset($_GET['adim']) ? $_GET['adim'] : 2; 
 
-
+// Aktif tik işaretini oluştur
+function aktifTik($hedefAdim, $simdikiAdim) {
+    if ($hedefAdim == $simdikiAdim) {
+        return '<span class="tik">&#10003;</span>';
+    } else {
+        return '';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -128,9 +135,9 @@ $adim = isset($_GET['adim']) ? $_GET['adim'] : 2;
     </nav>
     <nav class="detaylar">
     <ul>
-        <li class="<?php echo $adim == 1 ? 'active' : ''; ?>">Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
-        <li class="<?php echo $adim == 2 ? 'active' : ''; ?>">Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
-        <li class="<?php echo $adim == 3 ? 'active' : ''; ?>">Ödeme Bilgileri</li>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
+    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
+<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
         <!-- Diğer adımlar buraya eklenebilir -->
     </ul>
 </nav>

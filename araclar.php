@@ -50,7 +50,49 @@ while($row = $result->fetch_assoc()) {
     $toplam_bedel += $gunluk_ucret * $gun_sayisi;
 }
 
+// Tarih aralığı
+$baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
+$bitis_tarihi = isset($_GET['bitis_tarihi']) ? $_GET['bitis_tarihi'] : "Belirtilmedi";
+$tarih_araligi = $baslangic_tarihi . ' - ' . $bitis_tarihi;
+
+// Adım
+$adim = isset($_GET['adim']) ? $_GET['adim'] : 1; 
+
+// Subeyi getir
+if(isset($_GET['sube']) && !empty($_GET['sube'])) {
+    $sube_id = $_GET['sube'];
+    
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$sube_id";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $sube = $result->fetch_assoc();
+
+        // Şube adını al
+        $secilen_sube_ad = $sube['Sube_adı'];
+    } else {
+        // Şube bulunamadı, hata mesajı gösterilebilir
+        echo "Sube bulunamadı.";
+        exit;
+    }
+} else {
+    // Sube parametresi belirtilmemiş veya boş, hata mesajı gösterilebilir
+    echo "Sube belirtilmemiş veya boş.";
+    exit;
+}
+
+// Aktif tik işaretini oluştur
+function aktifTik($hedefAdim, $simdikiAdim) {
+    if ($hedefAdim == $simdikiAdim) {
+        return '<span class="tik">&#10003;</span>';
+    } else {
+        return '';
+    }
+}
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="tr">
@@ -58,6 +100,7 @@ while($row = $result->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">
+    <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <title>Boş Araçlar</title>
    
@@ -102,6 +145,17 @@ while($row = $result->fetch_assoc()) {
             </div>
         </div>
     </nav>
+
+    <nav class="detaylar">
+    <ul>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
+    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: </li>
+<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
+
+        <!-- Diğer adımlar buraya eklenebilir -->
+    </ul>
+</nav>
+
 
    <!-- Ana içerik -->
 <div class="container mt-5">
