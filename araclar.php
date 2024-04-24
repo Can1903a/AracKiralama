@@ -2,41 +2,33 @@
 include 'database.php';
 include 'bootstrap.php';
 session_start();
-
 $welcomeMessage = "";
 $logoutLink = "";
 $loginLink = "<a class='nav-link'  href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
-
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
     $kullaniciID = $_SESSION['Kullanici_id'];
-
     // Müşteri bilgilerini çek
     $kullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id = $kullaniciID";
     $kullaniciResult = $conn->query($kullaniciQuery);
-
     if ($kullaniciResult->num_rows > 0) {
         $kullanici = $kullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim'];
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
     }
-
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
-
 $sube_id = $_GET['sube'];
 // Seçilen tarih aralığı
 $baslangic_tarihi = $_GET['baslangic_tarihi'];
 $bitis_tarihi = $_GET['bitis_tarihi'];
-
 // Seçilen tarih aralığına göre gün sayısı hesapla
 $baslangic = strtotime($baslangic_tarihi);
 $bitis = strtotime($bitis_tarihi);
 $gun_sayisi = ($bitis - $baslangic) / (60 * 60 * 24);
-
 // Toplam kiralama bedeli için değişken
 $toplam_bedel = 0;
 
@@ -50,15 +42,12 @@ while($row = $result->fetch_assoc()) {
     $toplam_bedel += $gunluk_ucret * $gun_sayisi;
 }
 $_SESSION['toplam_bedel'] = $toplam_bedel;
-
 // Tarih aralığı
 $baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
 $bitis_tarihi = isset($_GET['bitis_tarihi']) ? $_GET['bitis_tarihi'] : "Belirtilmedi";
 $tarih_araligi = $baslangic_tarihi . ' - ' . $bitis_tarihi;
-
 // Adım
 $adim = isset($_GET['adim']) ? $_GET['adim'] : 1; 
-
 // Subeyi getir
 if(isset($_GET['sube']) && !empty($_GET['sube'])) {
     $sube_id = $_GET['sube'];
@@ -68,7 +57,6 @@ if(isset($_GET['sube']) && !empty($_GET['sube'])) {
     
     if ($result->num_rows > 0) {
         $sube = $result->fetch_assoc();
-
         // Şube adını al
         $secilen_sube_ad = $sube['Sube_adı'];
     } else {
@@ -81,7 +69,6 @@ if(isset($_GET['sube']) && !empty($_GET['sube'])) {
     echo "Sube belirtilmemiş veya boş.";
     exit;
 }
-
 // Aktif tik işaretini oluştur
 function aktifTik($hedefAdim, $simdikiAdim) {
     if ($hedefAdim == $simdikiAdim) {
@@ -90,11 +77,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         return '';
     }
 }
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -146,18 +129,14 @@ function aktifTik($hedefAdim, $simdikiAdim) {
             </div>
         </div>
     </nav>
-
     <nav class="detaylar">
     <ul>
     <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
     <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: </li>
 <li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
-
         <!-- Diğer adımlar buraya eklenebilir -->
     </ul>
 </nav>
-
-
    <!-- Ana içerik -->
 <!-- Ana içerik -->
 <div class="container mt-5">
@@ -165,7 +144,6 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         <?php
         $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
         $result = $conn->query($sql);
-
         if ($result->num_rows === 0) {
             echo '<div class="col-md-12"><p class="text-center">Müsait aracımız kalmamıştır.</p></div>';
         } else {
@@ -178,7 +156,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
                             <p class="card-text">Model: <?php echo $row['Arac_model']; ?></p>
                             <p class="card-text">Yıl: <?php echo $row['Arac_yil']; ?></p>
                             <p class="card-text">Renk: <?php echo $row['Arac_renk']; ?></p>
-                            <p class="card-text">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
+                            <p class="card-text">Toplam Ücret: <?php echo $row['Arac_gunluk_ucret'] * $gun_sayisi; ?> ₺</p>
                             <?php 
                             // Aracın görsel varsa
                             if ($row['Arac_Görsel']) {
@@ -203,12 +181,9 @@ function aktifTik($hedefAdim, $simdikiAdim) {
             <span class="text-muted">Araç Kiralama &copy; 2024</span>
         </div>
     </footer>
-
-
     <script type="text/javascript" src="js/arac.js"></script>
 
 
-        
-
 </body>
+</html>
 </html>

@@ -95,8 +95,6 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     }
 }
 
-$toplam_bedel = isset($_SESSION['toplam_bedel']) ? $_SESSION['toplam_bedel'] : 0;
-
 ?>
 
 <!DOCTYPE html>
