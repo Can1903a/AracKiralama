@@ -95,6 +95,9 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     }
 }
 
+$toplam_bedel = isset($_SESSION['toplam_bedel_' . $arac_id]) ? $_SESSION['toplam_bedel_' . $arac_id] : 0;
+
+
 ?>
 
 <!DOCTYPE html>

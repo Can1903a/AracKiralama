@@ -29,6 +29,8 @@ $bitis_tarihi = $_GET['bitis_tarihi'];
 $baslangic = strtotime($baslangic_tarihi);
 $bitis = strtotime($bitis_tarihi);
 $gun_sayisi = ($bitis - $baslangic) / (60 * 60 * 24);
+
+
 // Toplam kiralama bedeli için değişken
 $toplam_bedel = 0;
 
@@ -42,6 +44,7 @@ while($row = $result->fetch_assoc()) {
     $toplam_bedel += $gunluk_ucret * $gun_sayisi;
 }
 $_SESSION['toplam_bedel'] = $toplam_bedel;
+
 // Tarih aralığı
 $baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
 $bitis_tarihi = isset($_GET['bitis_tarihi']) ? $_GET['bitis_tarihi'] : "Belirtilmedi";
