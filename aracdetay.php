@@ -50,8 +50,6 @@ if(isset($_GET['sube']) && !empty($_GET['sube'])) {
     exit;
 }
 
-
-
 // Aracı getir
 if(isset($_GET['id'])) {
     $arac_id = $_GET['id'];
@@ -63,9 +61,7 @@ if(isset($_GET['id'])) {
         $arac = $result->fetch_assoc();
 
         // Aracın adını ve modelini al
-        $secilen_arac_ad = $arac['Arac_marka'];
-        $secilen_arac_model = $arac['Arac_model'];
-        $secilen_arac_ad_model = $secilen_arac_ad . ' ' . $secilen_arac_model; // Marka ve modeli birleştir
+        $secilen_arac_ad_model = $arac['Arac_marka'] . ' ' . $arac['Arac_model'];
     } else {
         // Arac bulunamadı, hata mesajı gösterilebilir
         echo "Arac bulunamadı.";
@@ -76,7 +72,6 @@ if(isset($_GET['id'])) {
     echo "Arac ID belirtilmemiş.";
     exit;
 }
-
 
 // Tarih aralığı
 $baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
@@ -95,8 +90,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     }
 }
 
-$toplam_bedel = isset($_SESSION['toplam_bedel_' . $arac_id]) ? $_SESSION['toplam_bedel_' . $arac_id] : 0;
-
+$toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
 
 ?>
 
