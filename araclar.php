@@ -33,7 +33,7 @@ $gun_sayisi = ($bitis - $baslangic) / (60 * 60 * 24);
 $toplam_bedel = 0;
 
 // Veritabanından araçların günlük ücretlerini al
-$sql = "SELECT Arac_id, Arac_marka, Arac_model, Arac_yil, Arac_renk, Arac_gunluk_ucret, Arac_Görsel FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+$sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
 $result = $conn->query($sql);
 
 // Her bir aracın günlük ücreti ile gün sayısını çarpıp toplam fiyatı hesapla
