@@ -94,6 +94,9 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         return '';
     }
 }
+
+$toplam_bedel = isset($_SESSION['toplam_bedel']) ? $_SESSION['toplam_bedel'] : 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +156,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
                 <h2 class="mt-4"><?php echo $arac['Arac_marka']; ?> <?php echo $arac['Arac_model']; ?></h2>
                 <p class="lead">Yıl: <?php echo $arac['Arac_yil']; ?></p>
                 <p class="lead">Renk: <?php echo $arac['Arac_renk']; ?></p>
-                <p class="lead">Günlük Ücret: <?php echo $arac['Arac_gunluk_ucret']; ?> ₺</p>
+                <p class="lead">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
                 <hr>
                 <!-- Diğer araç özellikleri buraya eklenebilir -->
 

@@ -49,6 +49,7 @@ while($row = $result->fetch_assoc()) {
     $gunluk_ucret = $row['Arac_gunluk_ucret'];
     $toplam_bedel += $gunluk_ucret * $gun_sayisi;
 }
+$_SESSION['toplam_bedel'] = $toplam_bedel;
 
 // Tarih aralığı
 $baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
