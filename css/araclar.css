@@ -1,3 +1,23 @@
+/* Genel stiller */
+body {
+    padding-top: 60px; /* Navbar'ı gölgelememesi için */
+    margin-bottom: 100px; /* Footer'ın altında boşluk bırak */
+}
+
+.footer {
+    position: relative; /* Diğer içeriklerin üzerine binmesini engelle */
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    bottom: 0;
+}
+
+.container {
+    padding-top: 20px; /* Container üst boşluk */
+}
+
+/* Kart stilleri */
 .card {
     background-color: #f8f9fa; /* Kart arka plan rengi */
     border: 3px solid #ff7b00; /* Kart kenar çizgisi */
@@ -5,6 +25,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Kart gölge */
     transition: all 0.3s ease; /* Kart geçiş efekti */
     margin-bottom: 20px; /* Kartlar arasındaki boşluk */
+    height: 500px;
 }
 
 .card:hover {
@@ -35,10 +56,7 @@
     height: auto; /* Görsel yükseklik */
 }
 
-.container {
-    padding-top: 20px; /* Container üst boşluk */
-}
-
+/* Buton stilleri */
 .btn-primary {
     background-color: #ff9100; /* Arka plan rengi */
     color: #fff; /* Yazı rengi */
@@ -51,7 +69,6 @@
     transition: background-color 0.3s ease; /* Geçiş efekti */
 }
 
-/* Butonun hover efektini tanımla */
 .btn-primary:hover {
     background-color: #ff7b00; /* Hover arka plan rengi */
     color: #fff; /* Hover yazı rengi */
