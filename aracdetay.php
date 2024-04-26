@@ -27,28 +27,47 @@ if (isset($_SESSION['Kullanici_id'])) {
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
 
-// Subeyi getir
+// Alış şubesini belirle
 if(isset($_GET['sube']) && !empty($_GET['sube'])) {
-    $sube_id = $_GET['sube'];
+    $alis_sube = $_GET['sube'];
     
-    $sql = "SELECT * FROM Subeler WHERE Sube_id=$sube_id";
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$alis_sube";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
         $sube = $result->fetch_assoc();
 
-        // Şube adını al
-        $secilen_sube_ad = $sube['Sube_adı'];
+        // Alış şube adını al
+        $alis_sube_ad = $sube['Sube_adı'];
+        
     } else {
         // Şube bulunamadı, hata mesajı gösterilebilir
-        echo "Sube bulunamadı.";
+        echo "Alış şube bulunamadı.";
         exit;
     }
 } else {
-    // Sube parametresi belirtilmemiş veya boş, hata mesajı gösterilebilir
-    echo "Sube belirtilmemiş veya boş.";
+    // Alış şube parametresi belirtilmemiş veya boş, hata mesajı gösterilebilir
+    echo "Alış şube belirtilmemiş veya boş.";
     exit;
 }
+
+// Varış şubesi (varsayılan olarak alış şubesi ile aynı)
+if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
+    $varis_sube = $_GET['varis_sube'];
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$varis_sube";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $sube = $result->fetch_assoc();
+
+        $varis_sube_ad = $sube['Sube_adı'];
+    }
+} else {
+    // Eğer varış şubesi belirtilmemişse, alış şubesini varsayılan olarak kullan
+    $varis_sube_ad = $alis_sube_ad;
+}
+
+
 
 // Aracı getir
 if(isset($_GET['id'])) {
@@ -101,7 +120,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
-    <title>Document</title>
+    <title>Araç Detay</title>
 </head>
 
 <body>
@@ -133,7 +152,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
     </nav>
     <nav class="detaylar">
     <ul>
-    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
     <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
 <li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
         <!-- Diğer adımlar buraya eklenebilir -->

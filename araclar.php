@@ -21,7 +21,6 @@ if (isset($_SESSION['Kullanici_id'])) {
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
-$sube_id = $_GET['sube'];
 // Seçilen tarih aralığı
 $baslangic_tarihi = $_GET['baslangic_tarihi'];
 $bitis_tarihi = $_GET['bitis_tarihi'];
@@ -34,7 +33,7 @@ $_SESSION['gun_sayisi'] = $gun_sayisi;
 
 // Toplam kiralama bedeli için değişken
 $toplam_bedel = 0;
-
+$sube_id = $_GET['alis_sube'];
 // Veritabanından araçların günlük ücretlerini al
 $sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
 $result = $conn->query($sql);
@@ -51,27 +50,67 @@ $bitis_tarihi = isset($_GET['bitis_tarihi']) ? $_GET['bitis_tarihi'] : "Belirtil
 $tarih_araligi = $baslangic_tarihi . ' - ' . $bitis_tarihi;
 // Adım
 $adim = isset($_GET['adim']) ? $_GET['adim'] : 1; 
-// Subeyi getir
-if(isset($_GET['sube']) && !empty($_GET['sube'])) {
-    $sube_id = $_GET['sube'];
-    
-    $sql = "SELECT * FROM Subeler WHERE Sube_id=$sube_id";
+
+
+
+// Alış şubesi
+if(isset($_GET['alis_sube']) && !empty($_GET['alis_sube'])) {
+    $alis_sube = $_GET['alis_sube'];
+
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$alis_sube";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
         $sube = $result->fetch_assoc();
-        // Şube adını al
-        $secilen_sube_ad = $sube['Sube_adı'];
+
+        // Aracın adını ve modelini al
+        $alis_sube_ad = $sube['Sube_adı'];
     } else {
-        // Şube bulunamadı, hata mesajı gösterilebilir
+        // Arac bulunamadı, hata mesajı gösterilebilir
         echo "Sube bulunamadı.";
         exit;
     }
+
 } else {
-    // Sube parametresi belirtilmemiş veya boş, hata mesajı gösterilebilir
-    echo "Sube belirtilmemiş veya boş.";
+    echo "Alış şubesi belirtilmemiş.";
     exit;
 }
+
+// Varış şubesi (varsayılan olarak alış şubesi ile aynı)
+if(isset($_GET['farkli_varis_sube']) && !empty($_GET['varis_sube'])) {
+    $varis_sube = $_GET['varis_sube'];
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$varis_sube";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $sube = $result->fetch_assoc();
+
+        // Aracın adını ve modelini al
+        $varis_sube_ad = $sube['Sube_adı'];
+} else {
+    $varis_sube = $alis_sube;
+}
+}
+// Eğer varış şubesi alış şubesi ile aynı değilse, sadece uygun varış şubesine sahip araçları seç
+if ($alis_sube != $varis_sube) {
+    $sql .= " AND sube_id=$varis_sube";
+}
+
+// Başlangıç ve bitiş tarihleri
+if(isset($_GET['baslangic_tarihi']) && isset($_GET['bitis_tarihi']) && !empty($_GET['baslangic_tarihi']) && !empty($_GET['bitis_tarihi'])) {
+    $baslangic_tarihi = $_GET['baslangic_tarihi'];
+    $bitis_tarihi = $_GET['bitis_tarihi'];
+} else {
+    echo "Başlangıç veya bitiş tarihi belirtilmemiş.";
+    exit;
+}
+
+// Araçları sorgulama
+$sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$alis_sube";
+$result = $conn->query($sql);
+
+
+
 // Aktif tik işaretini oluştur
 function aktifTik($hedefAdim, $simdikiAdim) {
     if ($hedefAdim == $simdikiAdim) {
@@ -80,6 +119,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         return '';
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -89,7 +129,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
-    <title>Boş Araçlar</title>
+    <title>Araçlar</title>
    
     <style>
         body {
@@ -134,13 +174,14 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     </nav>
     <nav class="detaylar">
     <ul>
-    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı ve Şube Seçimi: <?php echo $tarih_araligi; ?> - <?php echo $secilen_sube_ad; ?></li>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
     <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: </li>
 <li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
         <!-- Diğer adımlar buraya eklenebilir -->
     </ul>
 </nav>
-   <!-- Ana içerik -->
+
+
 <!-- Ana içerik -->
 <div class="container mt-5">
     <div class="row justify-content-center mt-5">
@@ -168,7 +209,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
                             ?>
                         </div>
                         <div class="card-footer">
-                            <a href="/AracKiralama/aracdetay.php?id=<?php echo $row['Arac_id']; ?>&sube=<?php echo $sube_id; ?>&baslangic_tarihi=<?php echo $baslangic_tarihi; ?>&bitis_tarihi=<?php echo $bitis_tarihi; ?>" class="btn btn-primary btn-block">Detayları Gör</a>
+                        <a href="/AracKiralama/aracdetay.php?id=<?php echo $row['Arac_id']; ?>&sube=<?php echo $sube_id; ?>&varis_sube=<?php echo $varis_sube; ?>&baslangic_tarihi=<?php echo $baslangic_tarihi; ?>&bitis_tarihi=<?php echo $bitis_tarihi; ?>" class="btn btn-primary btn-block">Detayları Gör</a>
                         </div>
                     </div>
                 </div>
