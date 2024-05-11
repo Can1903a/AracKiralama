@@ -78,13 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/index.php">Anasayfa</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
                     </li>
                     <?php echo $loginLink; ?>
