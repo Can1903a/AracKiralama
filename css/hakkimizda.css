@@ -1,0 +1,44 @@
+/* Hakkımızda İçeriği Stili */
+.container {
+    
+    margin: auto;
+}
+
+h2 {
+    
+    color: #ff8800;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-family: 'Pacifico', cursive;
+    
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.row {
+    
+    background-color: #c5c5c5; /* Hafif arka plan rengi */
+    transition: transform 0.3s ease-in-out; /* Dönüşüm efekti için geçiş */
+    border-radius: 10px;
+    margin-top: 25%;
+    padding: 20px; /* İçeriğin etrafına 20 piksellik boşluk bırakır */
+}
+
+/* Hover efekti */
+.row:hover {
+    transform: scale(1.01); /* Üzerine gelince boyutunu büyüt */
+}

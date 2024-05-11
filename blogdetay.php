@@ -27,33 +27,23 @@ if (isset($_SESSION['Kullanici_id'])) {
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
 
-// Form gönderildiğinde
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Formdan gelen verileri al
-    $adSoyad = $_POST['adSoyad'];
-    $eposta = $_POST['eposta'];
-    $telefon = $_POST['telefon'];
-    $konu = $_POST['konu'];
-    $mesaj = $_POST['mesaj'];
+// Blog gönderisi ID'sini al
+$blogID = $_GET['id'];
 
-    // Veritabanına ekle
-    $insertQuery = "INSERT INTO iletisim (adsoyad, eposta, telno, konu, mesaj) VALUES ('$adSoyad', '$eposta', '$telefon', '$konu', '$mesaj')";
+// Veritabanından ilgili blog gönderisini al
+$blogQuery = "SELECT * FROM blog WHERE id = $blogID";
+$blogResult = $conn->query($blogQuery);
 
-    if ($conn->query($insertQuery) === TRUE) {
-        echo "<p style='color: green; text-align: center;'>Mesajınız başarıyla gönderildi.</p>";
-    } else {
-        echo "<p style='color: red; text-align: center;'>Hata: " . $conn->error . "</p>";
-    }
-}
 ?>
-
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
-    <title>İletişim</title>
+    <link rel="stylesheet" href="/AracKiralama/css/blogdetay.css">
+
+    <title>Araç Kiralama</title>
     <style>
         body {
             padding-top: 60px; /* Navbar'ı gölgelememesi için */
@@ -69,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">Araç Kiralama</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
                     </li>
                     <?php echo $loginLink; ?>
@@ -95,34 +85,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </nav>
-    <!-- Ana içerik -->
+
+    <!-- Main Content -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">İletişim Formu</h1>
+        <h1 class="text-center mb-4">Blog Detayı</h1>
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <div class="form-group">
-                        <label for="adSoyad">Ad Soyad:</label>
-                        <input type="text" id="adSoyad" name="adSoyad" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="eposta">E-posta:</label>
-                        <input type="email" id="eposta" name="eposta" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefon">Telefon:</label>
-                        <input type="tel" id="telefon" name="telefon" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="konu">Konu:</label>
-                        <input type="text" id="konu" name="konu" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mesaj">Mesaj:</label>
-                        <textarea id="mesaj" name="mesaj" class="form-control" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Gönder</button>
-                </form>
+            <div class="col-md-8">
+                <?php
+                // Blog gönderisi varsa göster, yoksa hata mesajı göster
+                if ($blogResult->num_rows > 0) {
+                    $blog = $blogResult->fetch_assoc();
+                    $blogTitle = $blog['baslik'];
+                    $blogContent = $blog['icerik'];
+                    $blogDate = $blog['olusturma_tarihi'];
+                    $blogImage = base64_encode($blog['resim']); // Resmi base64 ile kodlayarak göster
+
+                    // Blog gönderisi içeriğini görüntüle
+                    echo "<h2>$blogTitle</h2>";
+                    echo "<p>$blogDate</p>";
+                    echo "<img src='data:image/jpeg;base64,$blogImage' alt='$blogTitle' />";
+                    echo "<p>$blogContent</p>";
+                } else {
+                    echo "<p>Bu blog gönderisi bulunamadı.</p>";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -135,5 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
 
     <script type="text/javascript" src="js/arac.js"></script>
+    
 </body>
 </html>
