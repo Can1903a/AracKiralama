@@ -8,7 +8,6 @@ $logoutLink = "";
 $loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
 
-
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
     $KullaniciID = $_SESSION['Kullanici_id'];
@@ -27,13 +26,23 @@ if (isset($_SESSION['Kullanici_id'])) {
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
+
+// Blog gönderisi ID'sini al
+$blogID = $_GET['id'];
+
+// Veritabanından ilgili blog gönderisini al
+$blogQuery = "SELECT * FROM blog WHERE id = $blogID";
+$blogResult = $conn->query($blogQuery);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <link rel="stylesheet" href="/AracKiralama/css/blogdetay.css">
+
     <title>Araç Kiralama</title>
     <style>
         body {
@@ -50,8 +59,8 @@ if (isset($_SESSION['Kullanici_id'])) {
     </style>
 </head>
 <body>
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">Araç Kiralama</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,6 +85,34 @@ if (isset($_SESSION['Kullanici_id'])) {
             </div>
         </div>
     </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Blog Detayı</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <?php
+                // Blog gönderisi varsa göster, yoksa hata mesajı göster
+                if ($blogResult->num_rows > 0) {
+                    $blog = $blogResult->fetch_assoc();
+                    $blogTitle = $blog['baslik'];
+                    $blogContent = $blog['icerik'];
+                    $blogDate = $blog['olusturma_tarihi'];
+                    $blogImage = base64_encode($blog['resim']); // Resmi base64 ile kodlayarak göster
+
+                    // Blog gönderisi içeriğini görüntüle
+                    echo "<h2>$blogTitle</h2>";
+                    echo "<p>$blogDate</p>";
+                    echo "<img src='data:image/jpeg;base64,$blogImage' alt='$blogTitle' />";
+                    echo "<p>$blogContent</p>";
+                } else {
+                    echo "<p>Bu blog gönderisi bulunamadı.</p>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container text-center">
@@ -83,9 +120,7 @@ if (isset($_SESSION['Kullanici_id'])) {
         </div>
     </footer>
 
-
     <script type="text/javascript" src="js/arac.js"></script>
-
-
+    
 </body>
 </html>

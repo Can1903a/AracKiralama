@@ -143,7 +143,33 @@ if (isset($_SESSION['Kullanici_id'])) {
     });
 </script>
 
+<!-- Blog Bölümü -->
+<section id="blog" class="container mt-5">
+    <h2 class="text-center mb-4">Son Blog Yazıları</h2>
+    <div class="row">
+        <!-- Blog Kartları -->
+        <?php
+        // Blog gönderilerini veritabanından al
+        $blogQuery = "SELECT * FROM blog ORDER BY id DESC LIMIT 3"; // Örnek sorgu, 3 adet en son blog gönderisini alır
+        $blogResult = $conn->query($blogQuery);
 
+        if ($blogResult->num_rows > 0) {
+            while($row = $blogResult->fetch_assoc()) {
+                echo '<div class="col-md-4 mb-4">';
+                echo '<div class="card">';
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($row['resim']) . '" class="card-img-top" alt="Blog Resmi">';
+                echo '<div class="card-body">';
+                echo '<h5 class="card-title">' . $row['baslik'] . '</h5>';
+                echo '<p class="card-text">' . $row['icerik'] . '</p>';
+                echo '<a href="blogdetay.php?id=' . $row['id'] . '" class="btn btn-primary">Devamını Oku</a>';
+                echo '</div></div></div>';
+            }
+        } else {
+            echo '<p class="text-center">Henüz blog gönderisi bulunmamaktadır.</p>';
+        }
+        ?>
+    </div>
+</section>
 
 
     
