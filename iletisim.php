@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
                     </li>
                     <?php echo $loginLink; ?>
