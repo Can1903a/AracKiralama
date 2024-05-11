@@ -77,20 +77,30 @@ if(isset($_GET['alis_sube']) && !empty($_GET['alis_sube'])) {
 }
 
 // Varış şubesi (varsayılan olarak alış şubesi ile aynı)
-if(isset($_GET['farkli_varis_sube']) && !empty($_GET['varis_sube'])) {
+if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
     $varis_sube = $_GET['varis_sube'];
+    
     $sql = "SELECT * FROM Subeler WHERE Sube_id=$varis_sube";
     $result = $conn->query($sql);
-
+    
     if ($result->num_rows > 0) {
         $sube = $result->fetch_assoc();
 
-        // Aracın adını ve modelini al
+        // Varış şube adını al
         $varis_sube_ad = $sube['Sube_adı'];
+        
+    } else {
+        // Şube bulunamadı, hata mesajı gösterilebilir
+        echo "Varış şube bulunamadı.";
+        exit;
+    }
 } else {
-    $varis_sube = $alis_sube;
+    // Eğer varış şubesi belirtilmemişse, alış şubesini varsayılan olarak kullan
+    $varis_sube = $alis_sube; // varış şubesini alış şubesiyle aynı yap
+    $varis_sube_ad = $alis_sube_ad; // varış şube adını da alış şube adıyla aynı yap
 }
-}
+
+
 // Eğer varış şubesi alış şubesi ile aynı değilse, sadece uygun varış şubesine sahip araçları seç
 if ($alis_sube != $varis_sube) {
     $sql .= " AND sube_id=$varis_sube";
