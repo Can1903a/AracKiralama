@@ -1,6 +1,5 @@
 <?php
 include 'database.php';
-include 'bootstrap.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,16 +15,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
 
         // Şifre kontrolü
-        if (password_verify($KullaniciSifre, $row['Kullanici_sifre']) || $KullaniciEmail == $row['Kullanici_eposta']) {
-            // Giriş başarılı, oturumu başlat
+        if (password_verify($KullaniciSifre, $row['Kullanici_sifre']) && $KullaniciEmail == $row['Kullanici_eposta']) {
+            // Giriş başarılı
             $_SESSION['Kullanici_id'] = $row['Kullanici_id'];
-            header("Location: /AracKiralama/index.php");
+            echo 'success';
             exit();
         } else {
-            echo "Hatalı şifre";
+            // Hatalı giriş
+            echo 'Kullanıcı adı veya şifre hatalı.';
+            exit();
         }
     } else {
-        echo "Böyle bir kullanıcı bulunamadı";
+        // Kullanıcı bulunamadı
+        echo 'Kullanıcı bulunamadı.';
+        exit();
     }
 }
 ?>
@@ -37,6 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/register.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 <div class="ustkisim">
 <body>
@@ -77,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
   <div class="container">
-    <form action="login.php" method="post"> <!-- Form action düzeltilmeli -->
+    <form action="login.php" method="post" onsubmit="event.preventDefault(); login(); "> <!-- Form action düzeltilmeli -->
       <div class="header">
         <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="  logo">
         <h1 class="baslik">HOŞGELDİNİZ</h1>
@@ -92,5 +97,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <button type="submit" class="btn">Giriş Yap</button>
     </form>
   </div>
+
+  <script>
+    function login() {
+        // Form verilerini al
+        var email = document.getElementById('eposta').value;
+        var password = document.getElementById('sifre').value;
+
+        // Ajax isteği gönder
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "login.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = xhr.responseText;
+                if (response.trim() === 'success') { // trim ile boşlukları temizle
+                    // Başarılı giriş
+                    window.location.href = "/AracKiralama/index.php";
+                } else {
+                    // Hatalı giriş, uyarı göster
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata!',
+                        text: response,
+                        confirmButtonText: 'Tamam'
+                    });
+                }
+            }
+        };
+        xhr.send("Kullanici_eposta=" + email + "&Kullanici_sifre=" + password);
+    }
+</script>
 </body>
 </html>
