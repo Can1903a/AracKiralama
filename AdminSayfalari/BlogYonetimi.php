@@ -1,13 +1,39 @@
 <?php
 include 'database.php';
+
+// Mevcut blogları veritabanından al
+$query = "SELECT * FROM blog";
+$result = mysqli_query($conn, $query);
+
+// Blogları silme işlemini burada gerçekleştir
+if(isset($_POST['sil'])) {
+    $silinenler = $_POST['sil'];
+    
+    foreach($silinenler as $blog_id) {
+        // Silme sorgusu
+        $sil_query = "DELETE FROM blog WHERE id = $blog_id";
+        
+        // Sorguyu çalıştır
+        if(mysqli_query($conn, $sil_query)) {
+            echo "Blog(ID: $blog_id) başarıyla silindi.<br>";
+            header("Refresh:0");
+        } else {
+            echo "Blog(ID: $blog_id) silinirken bir hata oluştu: " . mysqli_error($conn) . "<br>";
+        }
+    }
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="/AracKiralama/AdminSayfalari/css/AdminSayfa.css">  <!-- Harici CSS dosyası -->
+    <link rel="stylesheet" href="/AracKiralama/AdminSayfalari/css/AdminSayfa.css">
+    <link rel="stylesheet" href="/AracKiralama/AdminSayfalari/css/BlogYonetimi.css">
+    <!-- Harici CSS dosyalarını buraya ekleyebilirsin -->
 </head>
 <body>
     <div class="sidebar">
@@ -24,8 +50,28 @@ include 'database.php';
     </div>
 
     <div class="content">
-        <h2>Blog Yönetimi</h2>
-        <!-- Buraya içerik gelecek -->
-    </div>
+    <h2>Blog Yönetimi</h2>
+    <form method="POST" action=""> <!-- Silme formu -->
+        <div class="card-container">
+            <!-- Her bir blogu döngüyle listele -->
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<div class='card'>";
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($row['resim']) . '" alt="' . $row['baslik'] . '">';
+                echo "<div class='card-content'>";
+                echo "<h3><strong>" . $row['baslik'] . "</strong></h3>"; // Sadece başlık yazdırılıyor, bağlantı kaldırıldı
+                echo "<p> Eklenme Tarihi:   " . $row['olusturma_tarihi'] . "</p>";
+                echo "<br>";
+                echo "<input type='checkbox' name='sil[]' value='" . $row['id'] . "' class='checkbox'>"; // Her blog için bir seçim kutusu oluştur
+                echo "<button type='button' onclick=\"window.location.href='/AracKiralama/AdminSayfalari/blogduzenle.php?id=" . $row['id'] . "'\">Blog'u Düzenle</button>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
+        </div>
+        <input type="submit" value="Seçili Blogları Sil" class="delete-button"> <!-- Seçilen blogları silme butonu -->
+    </form>
+    <a href="/AracKiralama/AdminSayfalari/BlogEkle.php" class="add-button">Yeni Blog Ekle</a> <!-- Yeni blog ekleme butonu -->
+</div>
 </body>
 </html>
