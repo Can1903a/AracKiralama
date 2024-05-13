@@ -7,6 +7,8 @@ $(document).ready(function(){
         timepicker:false,
         minDate: 0,
         step: 30,
+        scrollMonth : false,
+        scrollInput : false,
         onClose: function(selectedDate){
             // Başlangıç tarihi seçildiğinde bitiş tarihi input'unu aç
             $('#bitis_tarihi').prop('disabled', false);
@@ -25,6 +27,8 @@ $(document).ready(function(){
         timepicker:false,
         minDate: 0,
         step: 30,
+        scrollMonth : false,
+        scrollInput : false,
         onClose: function(selectedDate){
             // Bitiş tarihi seçildiğinde başlangıç tarihini ileri atan kullanıcıya uyarı ver
             var baslangicTarihi = $('#baslangic_tarihi').val();
@@ -36,19 +40,7 @@ $(document).ready(function(){
         
     });
 
-   
-     // datetimepicker'ın değerini değiştiren olayı dinleme
-     $('#baslangic_tarihi, #bitis_tarihi').on('change', function(){
-        var selectedDate = $(this).val();
-        var currentDate = new Date();
-        var formattedCurrentDate = formatDate(currentDate);
-        
-        // Seçilen tarih bugünden önceyse uyarı verme ve tarih alanını bugün olarak ayarlama
-        if (selectedDate < formattedCurrentDate) {
-            alert("Seçilen tarih geçmiş bir tarih olamaz!");
-            $(this).val(formattedCurrentDate); // Tarih alanını bugünün tarihi olarak ayarlama
-        }
-    });
+
 });
 
 // Tarihi "gün.ay.yıl" formatına dönüştüren yardımcı işlev
