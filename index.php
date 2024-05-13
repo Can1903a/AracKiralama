@@ -112,7 +112,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                 </div>
                 <div class="form-group">
                     <label for="baslangic_tarihi">Başlangıç Tarihi:</label>
-                    <input type="text" id="baslangic_tarihi" name="baslangic_tarihi"  class="form-control" required>
+                    <input type="text" id="baslangic_tarihi" name="baslangic_tarihi"  class="form-control" readonly="readonly" required>
                 </div>
                 <div class="form-group">
                     <label for="bitis_tarihi">Bitiş Tarihi:</label>
