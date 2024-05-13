@@ -182,7 +182,7 @@ if (isset($_SESSION['Kullanici_id'])) {
 
 
     <script type="text/javascript" src="js/arac.js"></script>
-
+    <script type="text/javascript" src="js/logout.js"></script>
 
 </body>
 </html>
