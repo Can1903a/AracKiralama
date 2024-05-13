@@ -123,7 +123,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                 </div>
                 <div class="form-group">
                     <label for="bitis_tarihi">Bitiş Tarihi:</label>
-                    <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required>
+                    <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required disabled>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
             </form>
@@ -183,6 +183,6 @@ if (isset($_SESSION['Kullanici_id'])) {
 
     <script type="text/javascript" src="js/arac.js"></script>
     <script type="text/javascript" src="js/logout.js"></script>
-
+    <script type="text/javascript" src="js/tarih.js"></script>
 </body>
 </html>

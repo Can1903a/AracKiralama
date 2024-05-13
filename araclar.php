@@ -236,6 +236,8 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         </div>
     </footer>
     <script type="text/javascript" src="js/arac.js"></script>
+    <script type="text/javascript" src="js/tarih.js"></script>
+
 
 
 </body>
