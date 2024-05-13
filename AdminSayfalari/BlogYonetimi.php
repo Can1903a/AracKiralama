@@ -37,7 +37,7 @@ if(isset($_POST['sil'])) {
 </head>
 <body>
     <div class="sidebar">
-        <h2>Admin Panel</h2>
+        <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
                 <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>
@@ -50,7 +50,8 @@ if(isset($_POST['sil'])) {
     </div>
 
     <div class="content">
-    <h2>Blog Yönetimi</h2>
+    <h2 class="BlogYonetimi">Blog Yönetimi</h2>
+    
     <form method="POST" action=""> <!-- Silme formu -->
         <div class="card-container">
             <!-- Her bir blogu döngüyle listele -->
@@ -62,7 +63,9 @@ if(isset($_POST['sil'])) {
                 echo "<h3><strong>" . $row['baslik'] . "</strong></h3>"; // Sadece başlık yazdırılıyor, bağlantı kaldırıldı
                 echo "<p> Eklenme Tarihi:   " . $row['olusturma_tarihi'] . "</p>";
                 echo "<br>";
-                echo "<input type='checkbox' name='sil[]' value='" . $row['id'] . "' class='checkbox'>"; // Her blog için bir seçim kutusu oluştur
+                echo "Seç: <input type='checkbox' name='sil[]' value='" . $row['id'] . "' class='checkbox'>"; // Her blog için bir seçim kutusu oluştur
+                echo "<br>";
+                echo "<br>";
                 echo "<button type='button' onclick=\"window.location.href='/AracKiralama/AdminSayfalari/blogduzenle.php?id=" . $row['id'] . "'\">Blog'u Düzenle</button>";
                 echo "</div>";
                 echo "</div>";

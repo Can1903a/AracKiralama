@@ -16,9 +16,14 @@ body {
     padding-top: 20px;
 }
 
+
+
 .sidebar h2 {
-    color: #fff;
+    color: #000000;
     text-align: center;
+    background-color: #ff9100; 
+    padding: 10px;
+    text-decoration: underline;
 }
 
 .menu ul {

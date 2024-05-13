@@ -57,7 +57,7 @@ if(isset($_POST['kaydet'])) {
 </head>
 <body>
     <div class="sidebar">
-        <h2>Admin Panel</h2>
+        <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
                 <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>
@@ -77,9 +77,9 @@ if(isset($_POST['kaydet'])) {
             <label for="baslik">Başlık:</label><br>
             <input type="text" id="baslik" name="baslik" value="<?php echo $blog['baslik']; ?>"><br>
             <label for="icerik">İçerik:</label><br>
-            <textarea id="icerik" name="icerik"><?php echo $blog['icerik']; ?></textarea><br>
+            <textarea id="icerik1" name="icerik"><?php echo $blog['icerik']; ?></textarea><br>
             <label for="resim">Mevcut Resim:</label><br>
-            <img src="data:image/jpeg;base64,<?php echo base64_encode($blog['resim']); ?>" alt="Mevcut Resim" width="50%" height="50%"><br>
+            <img src="data:image/jpeg;base64,<?php echo base64_encode($blog['resim']); ?>" alt="Mevcut Resim" width="35%" height="35%"><br><br>
             <label for="yeni_resim">Yeni Resim:</label><br>
             <input type="file" id="yeni_resim" name="yeni_resim"><br>
             <input type="submit" name="kaydet" value="Kaydet">

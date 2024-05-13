@@ -17,7 +17,7 @@ $result = mysqli_query($conn, $query);
 </head>
 <body>
     <div class="sidebar">
-        <h2>Admin Panel</h2>
+        <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
                 <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>
@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $query);
     </div>
 
     <div class="content">
-        <h2>İletişim Yönetimi</h2>
+        <h2 class="IletisimYonetimi">İletişim Yönetimi</h2>
         <table>
             <tr>
                 <th>Ad Soyad</th>

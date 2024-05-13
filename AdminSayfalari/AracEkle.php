@@ -15,7 +15,7 @@ include 'database.php';
         <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
-                <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php" class="active">Anasayfa</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/AracYonetimi.php">Araç Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
@@ -25,7 +25,7 @@ include 'database.php';
     </div>
 
     <div class="content">
-        <h2>Anasayfa</h2>
+        <h2>Araç Ekle</h2>
         <!-- Buraya içerik gelecek -->
     </div>
 </body>

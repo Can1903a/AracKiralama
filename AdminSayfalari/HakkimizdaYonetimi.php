@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="sidebar">
-    <h2>Admin Panel</h2>
+    <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
                 <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>

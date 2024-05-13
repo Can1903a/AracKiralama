@@ -1,4 +1,3 @@
-
 body, html {
     margin: 0;
     padding: 0;
@@ -17,9 +16,10 @@ form {
 }
 
 label {
-    display: block;
+    display: inline-block;
     margin-bottom: 5px;
     font-weight: bold;
+    width: 100px; /* Etiketlerin genişliğini ayarlar */
 }
 
 input[type="text"],
@@ -36,9 +36,13 @@ input[type="file"] {
     margin-bottom: 15px;
 }
 
-#icerik1
-{
-    height: 100px;
+select {
+    width: 50%; /* Combobox'un genişliğini ayarlar */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 input[type="submit"] {
@@ -54,4 +58,3 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #82ff5d;
 }
-
