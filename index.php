@@ -7,7 +7,7 @@ $welcomeMessage = "";
 $logoutLink = "";
 $loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
-
+$profil = "";
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
@@ -21,6 +21,7 @@ if (isset($_SESSION['Kullanici_id'])) {
         $kullanici = $KullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim']; 
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
@@ -63,6 +64,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                 <?php echo $loginLink; ?>
                 <?php echo $signupLink; ?>
                 <?php echo $welcomeMessage; ?>
+                <?php echo $profil; ?>
                 <?php echo $logoutLink; ?>
         
             </ul>

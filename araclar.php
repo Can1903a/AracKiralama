@@ -4,6 +4,7 @@ include 'bootstrap.php';
 session_start();
 $welcomeMessage = "";
 $logoutLink = "";
+$profil = "";
 $loginLink = "<a class='nav-link'  href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
 // Kullanıcı giriş yapmışsa
@@ -16,6 +17,8 @@ if (isset($_SESSION['Kullanici_id'])) {
         $kullanici = $kullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim'];
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
+
     }
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
@@ -183,6 +186,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
                     <?php echo $loginLink; ?>
                     <?php echo $signupLink; ?>
                     <?php echo $welcomeMessage; ?>
+                    <?php echo $profil; ?>
                     <?php echo $logoutLink; ?>
                 </ul>
             </div>

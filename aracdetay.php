@@ -181,7 +181,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                 <p class="lead">Yıl: <?php echo $arac['Arac_yil']; ?></p>
                 <p class="lead">Renk: <?php echo $arac['Arac_renk']; ?></p>
                 <p class="lead">Günlük Ücret: <?php echo $gunluk_bedel; ?> ₺</p>
-                <p class="lead">Toplam Ücret "<?php echo $gunsayisi; ?> Gün": <?php echo $toplam_bedel; ?> ₺</p>
+                <p class="lead"><?php echo $gunsayisi; ?> Gün'ün Toplam Ücreti": <?php echo $toplam_bedel; ?> ₺</p>
                 <hr>
                 <!-- Diğer araç özellikleri buraya eklenebilir -->
 
