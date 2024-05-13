@@ -109,7 +109,17 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     }
 }
 
-$toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
+$gunluk_bedel = $arac['Arac_gunluk_ucret'];
+
+
+$gunsayisi = $_SESSION['gun_sayisi'];
+if ($gunsayisi == 0) {
+    $gunsayisi = 1;
+}else {
+    $gunsayisi += 1; // Başlangıç tarihinin de dahil edilmesi gerekiyor
+}
+
+$toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
 
 ?>
 
@@ -170,7 +180,8 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
                 <h2 class="mt-4"><?php echo $arac['Arac_marka']; ?> <?php echo $arac['Arac_model']; ?></h2>
                 <p class="lead">Yıl: <?php echo $arac['Arac_yil']; ?></p>
                 <p class="lead">Renk: <?php echo $arac['Arac_renk']; ?></p>
-                <p class="lead">Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</p>
+                <p class="lead">Günlük Ücret: <?php echo $gunluk_bedel; ?> ₺</p>
+                <p class="lead">Toplam Ücret "<?php echo $gunsayisi; ?> Gün": <?php echo $toplam_bedel; ?> ₺</p>
                 <hr>
                 <!-- Diğer araç özellikleri buraya eklenebilir -->
 
