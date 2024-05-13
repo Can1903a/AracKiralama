@@ -192,6 +192,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $_SESSION['gun_sayisi'];
 
 
     <script type="text/javascript" src="js/arac.js"></script>
+    <script type="text/javascript" src="js/tarih.js"></script>
 
 
         

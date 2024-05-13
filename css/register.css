@@ -43,6 +43,8 @@ margin: 0px 20px;
     padding: 30px 40px;
     margin-top:-700px; /* Navbar ile container arasındaki boşluğu ayarlar */
 }
+
+
 .container h1{
     font-size: 36px;
     text-align: center;
@@ -50,7 +52,7 @@ margin: 0px 20px;
 }
 .container .input-box{
     position: relative; /* Eklendi */
-    width: 83%;
+    width: 100%;
     height: 50px;
     margin: 30px 0;
 }
@@ -60,10 +62,10 @@ margin: 0px 20px;
     border:none;
     outline: none;
     border: 2px solid rgba(0, 0, 0, 0.2); /* Renk değeri düzeltildi */
-border-radius: 40px;
-font-size: 16px;
-color: black;
-padding: 0 45px 0 20px; /* Sağa ve sola padding eklendi */
+    border-radius: 40px;
+    font-size: 16px;
+    color: black;
+    padding: 0 45px 0 20px; /* Sağa ve sola padding eklendi */
 }
 .input-box input::placeholder{
     color: black;

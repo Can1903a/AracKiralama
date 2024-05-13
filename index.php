@@ -35,25 +35,16 @@ if (isset($_SESSION['Kullanici_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/AracKiralama/css/login.css">
+  <link rel="stylesheet" href="/AracKiralama/css/index.css">
     <title>Araç Kiralama</title>
-    <style>
-        body {
-            padding-top: 60px; /* Navbar'ı gölgelememesi için */
-        }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding: 10px 0;
-        }
-    </style>
+   
 </head>
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
+    <div class="background-image"></div> <!-- Arka plan resmi -->
+    <div class="overlay"></div> <!-- Sağ kısmı tekrar etmek için overlay -->
         <a class="navbar-brand" href="#">Araç Kiralama</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -79,6 +70,8 @@ if (isset($_SESSION['Kullanici_id'])) {
     </div>
 </nav>
 
+<br>    
+<br>    
 
     <!-- Ana içerik -->
 <div class="container mt-5">
@@ -123,7 +116,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                 </div>
                 <div class="form-group">
                     <label for="bitis_tarihi">Bitiş Tarihi:</label>
-                    <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required>
+                    <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required disabled>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
             </form>
@@ -144,9 +137,10 @@ if (isset($_SESSION['Kullanici_id'])) {
 </script>
 
 <!-- Blog Bölümü -->
-<section id="blog" class="container mt-5">
+<section id="blog" class="container-fluid mt-5">
+
     <h2 class="text-center mb-4">Son Blog Yazıları</h2>
-    <div class="row">
+    <div class="row justify-content-center">
         <!-- Blog Kartları -->
         <?php
         // Blog gönderilerini veritabanından al
@@ -171,7 +165,9 @@ if (isset($_SESSION['Kullanici_id'])) {
     </div>
 </section>
 
-
+<br>
+<br>
+<br>    
     
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
@@ -183,6 +179,6 @@ if (isset($_SESSION['Kullanici_id'])) {
 
     <script type="text/javascript" src="js/arac.js"></script>
     <script type="text/javascript" src="js/logout.js"></script>
-
+    <script type="text/javascript" src="js/tarih.js"></script>
 </body>
 </html>
