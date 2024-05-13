@@ -42,3 +42,11 @@ p {
 .row:hover {
     transform: scale(1.01); /* Üzerine gelince boyutunu büyüt */
 }
+
+.welcome-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+    padding: 10px;
+}

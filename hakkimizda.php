@@ -3,6 +3,30 @@ include 'database.php';
 include 'bootstrap.php';
 session_start();
 
+$welcomeMessage = "";
+$logoutLink = "";
+$loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
+$signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
+
+// Kullanıcı giriş yapmışsa
+if (isset($_SESSION['Kullanici_id'])) {
+    $KullaniciID = $_SESSION['Kullanici_id'];
+
+    // Müşteri bilgilerini çek
+    $KullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id= $KullaniciID";
+    $KullaniciResult = $conn->query($KullaniciQuery);
+
+    if ($KullaniciResult->num_rows > 0) {
+        $kullanici = $KullaniciResult->fetch_assoc();
+        $isim = $kullanici['Kullanici_isim']; 
+        $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+    }
+
+    $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
+    $loginLink = ""; // Giriş yap linkini görünmez yap
+    $signupLink = ""; // Kayıt ol linkini görünmez yap
+}
+
 // Hakkımızda bilgilerini veritabanından al
 $hakkimizdaQuery = "SELECT * FROM hakkimizda";
 $hakkimizdaResult = $conn->query($hakkimizdaQuery);
@@ -43,12 +67,16 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
                     <li class="nav-item">
                         <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
                     </li>
-                    <!-- Giriş yap linki -->
-                    <?php if(!isset($_SESSION['Kullanici_id'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/AracKiralama/login.php">Giriş Yap</a>
-                        </li>
-                    <?php endif; ?>
+                    
+                    <?php echo $loginLink; ?>
+                    <?php echo $signupLink; ?>
+                    <?php echo $welcomeMessage; ?>
+                    
+                    
+                    
+                    
+
+                    
                     <!-- Çıkış yap linki -->
                     <?php if(isset($_SESSION['Kullanici_id'])): ?>
                         <li class="nav-item">
