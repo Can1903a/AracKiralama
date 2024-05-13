@@ -30,7 +30,12 @@ $bitis = strtotime($bitis_tarihi);
 $gun_sayisi = ($bitis - $baslangic) / (60 * 60 * 24);
 
 $_SESSION['gun_sayisi'] = $gun_sayisi;
-
+// Eğer başlangıç ve bitiş tarihleri aynı günse, en az 1 günlük ücret uygula
+if ($gun_sayisi == 0) {
+    $gun_sayisi = 1;
+}else {
+    $gun_sayisi += 1; // Başlangıç tarihinin de dahil edilmesi gerekiyor
+}
 // Toplam kiralama bedeli için değişken
 $toplam_bedel = 0;
 $sube_id = $_GET['alis_sube'];
@@ -139,6 +144,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <link rel="stylesheet" href="/AracKiralama/css/sayfalama.css">
     <title>Araçlar</title>
    
     <style>
@@ -196,7 +202,11 @@ function aktifTik($hedefAdim, $simdikiAdim) {
 <div class="container mt-5">
     <div class="row justify-content-center mt-5">
         <?php
-        $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+        $limit = 9; // Her sayfada gösterilecek araç sayısı
+        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Sayfa numarasını al
+        $start = ($page - 1) * $limit; // Başlangıç indeksi hesapla
+        
+        $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id LIMIT $start, $limit";
         $result = $conn->query($sql);
         if ($result->num_rows === 0) {
             echo '<div class="col-md-12"><p class="text-center">Müsait aracımız kalmamıştır.</p></div>';
@@ -229,6 +239,36 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         ?>
     </div>
 </div>
+
+<!-- Sayfalama Butonları -->
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <ul class="pagination">
+            <?php
+            $sql = "SELECT COUNT(*) as total FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            $total_pages = ceil($row["total"] / $limit); // Toplam sayfa sayısını hesapla
+            $previous = $page - 1;
+            $next = $page + 1;
+            ?>
+            <li class="page-item <?php if($page <= 1){ echo 'disabled'; } ?>">
+                <a class="page-link" href="/AracKiralama/araclar.php?alis_sube=<?php echo $_GET['alis_sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>&page=<?php echo $previous; ?>">Önceki</a>
+            </li>
+            <?php for($i = 1; $i <= $total_pages; $i++): ?>
+                <li class="page-item <?php if($page == $i) { echo 'active'; } ?>">
+                <a class="page-link" href="/AracKiralama/araclar.php?alis_sube=<?php echo $_GET['alis_sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+
+                </li>
+            <?php endfor; ?>
+            <li class="page-item <?php if($page >= $total_pages){ echo 'disabled'; } ?>">
+                <a class="page-link" href="/AracKiralama/araclar.php?alis_sube=<?php echo $_GET['alis_sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>&page=<?php echo $next; ?>">Sonraki</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container text-center">
