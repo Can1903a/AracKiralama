@@ -40,11 +40,10 @@ if (isset($_SESSION['Kullanici_id'])) {
    
 </head>
 <body>
+    <div class="foto">
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
-    <div class="background-image"></div> <!-- Arka plan resmi -->
-    <div class="overlay"></div> <!-- Sağ kısmı tekrar etmek için overlay -->
         <a class="navbar-brand" href="#">Araç Kiralama</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,18 +51,21 @@ if (isset($_SESSION['Kullanici_id'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
                 </li>
-                <?php echo $loginLink; ?>
-                <?php echo $signupLink; ?>
-                <?php echo $welcomeMessage; ?>
-                <?php echo $logoutLink; ?>
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+              
+                <?php echo $welcomeMessage ; ?>
+                
+                <?php echo $logoutLink ; ?>
         
             </ul>
         </div>
@@ -73,57 +75,57 @@ if (isset($_SESSION['Kullanici_id'])) {
 <br>    
 <br>    
 
-    <!-- Ana içerik -->
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form action="araclar.php" method="get">
-                <div class="form-group">
-                    <label for="alis_sube">Alış Şubesi:</label>
-                    <select name="alis_sube" id="alis_sube" class="form-control" required>
-                        <option value="">Alış Şubesi Seçiniz</option>
-                        <?php
-                         $sql = "SELECT * FROM Subeler";
-                         $result = $conn->query($sql);
-                         while($row = $result->fetch_assoc()) {
-                             echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
-                         }
-                        ?> 
-                    </select>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="farkli_varis_sube" name="farkli_varis_sube">
-                    <label class="form-check-label" for="farkli_varis_sube">Farklı Varış Şubesi</label>
-                </div>
-                <div id="varis_sube_container" style="display: none;">
+        <!-- Ana içerik -->
+    <div class="main-container mt-5">
+        <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="araclar.php" method="get">
                     <div class="form-group">
-                        <label for="varis_sube">Varış Şubesi:</label>
-                        <select name="varis_sube" id="varis_sube" class="form-control">
-                            <option value="">Varış Şubesi Seçiniz</option>
+                        <label for="alis_sube">Alış Şubesi:</label>
+                        <select name="alis_sube" id="alis_sube" class="form-control" required>
+                            <option value="">Alış Şubesi Seçiniz</option>
                             <?php
-                             mysqli_data_seek($result, 0); // İlk satıra geri dön
-                             while($row = $result->fetch_assoc()) {
-                                 echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
-                             }
+                            $sql = "SELECT * FROM Subeler";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                                echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
+                            }
                             ?> 
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="baslangic_tarihi">Başlangıç Tarihi:</label>
-                    <input type="text" id="baslangic_tarihi" name="baslangic_tarihi" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="bitis_tarihi">Bitiş Tarihi:</label>
-                    <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required disabled>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
-            </form>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="farkli_varis_sube" name="farkli_varis_sube">
+                        <label class="form-check-label" for="farkli_varis_sube">Farklı Varış Şubesi</label>
+                    </div>
+                    <div id="varis_sube_container" style="display: none;">
+                        <div class="form-group">
+                            <label for="varis_sube">Varış Şubesi:</label>
+                            <select name="varis_sube" id="varis_sube" class="form-control">
+                                <option value="">Varış Şubesi Seçiniz</option>
+                                <?php
+                                mysqli_data_seek($result, 0); // İlk satıra geri dön
+                                while($row = $result->fetch_assoc()) {
+                                    echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
+                                }
+                                ?> 
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="baslangic_tarihi">Başlangıç Tarihi:</label>
+                        <input type="text" id="baslangic_tarihi" name="baslangic_tarihi" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bitis_tarihi">Bitiş Tarihi:</label>
+                        <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" required disabled>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
+                       
 <script>
     // Farklı varış şubesi kutucuğunun durumuna göre varış şubesi seçim alanını göster/gizle
     document.getElementById('farkli_varis_sube').addEventListener('change', function() {
@@ -135,10 +137,10 @@ if (isset($_SESSION['Kullanici_id'])) {
         }
     });
 </script>
-
+</div>
 <!-- Blog Bölümü -->
 <section id="blog" class="container-fluid mt-5">
-
+<br>    
     <h2 class="text-center mb-4">Son Blog Yazıları</h2>
     <div class="row justify-content-center">
         <!-- Blog Kartları -->
