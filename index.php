@@ -40,7 +40,7 @@ if (isset($_SESSION['Kullanici_id'])) {
    
 </head>
 <body>
-    <div class="foto">
+    
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
@@ -59,12 +59,13 @@ if (isset($_SESSION['Kullanici_id'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
                 </li>
+                
                 <?php echo $loginLink ;  ?>
                
                 <?php echo $signupLink ; ?>
-              
-                <?php echo $welcomeMessage ; ?>
                 
+                 <?php echo $welcomeMessage ; ?>
+            
                 <?php echo $logoutLink ; ?>
         
             </ul>
@@ -137,7 +138,16 @@ if (isset($_SESSION['Kullanici_id'])) {
         }
     });
 </script>
+<br>
+<br>
+<br>
+<br>
+<div class="foto">
 </div>
+
+<br>
+<br>
+
 <!-- Blog Bölümü -->
 <section id="blog" class="container-fluid mt-5">
 <br>    
@@ -145,6 +155,16 @@ if (isset($_SESSION['Kullanici_id'])) {
     <div class="row justify-content-center">
         <!-- Blog Kartları -->
         <?php
+        // İçerik sütunundaki metni kısaltmak için fonksiyon
+function kisalt($metin, $uzunluk = 30, $son = '...') {
+    if (strlen($metin) <= $uzunluk) {
+        return $metin;
+    }
+    $kisaltilmisMetin = substr($metin, 0, $uzunluk);
+    // Kısaltılan metni boşluğa göre ayır ve sondaki kelimeyi sil
+    $kisaltilmisMetin = substr($kisaltilmisMetin, 0, strrpos($kisaltilmisMetin, ' '));
+    return $kisaltilmisMetin . $son;
+}
         // Blog gönderilerini veritabanından al
         $blogQuery = "SELECT * FROM blog ORDER BY id DESC LIMIT 3"; // Örnek sorgu, 3 adet en son blog gönderisini alır
         $blogResult = $conn->query($blogQuery);
@@ -156,15 +176,18 @@ if (isset($_SESSION['Kullanici_id'])) {
                 echo '<img src="data:image/jpeg;base64,' . base64_encode($row['resim']) . '" class="card-img-top" alt="Blog Resmi">';
                 echo '<div class="card-body">';
                 echo '<h5 class="card-title">' . $row['baslik'] . '</h5>';
-                echo '<p class="card-text">' . $row['icerik'] . '</p>';
+                echo '<p class="card-text">' . kisalt($row['icerik'], 180   ) . '</p>';
                 echo '<a href="blogdetay.php?id=' . $row['id'] . '" class="btn btn-primary">Devamını Oku</a>';
                 echo '</div></div></div>';
             }
         } else {
             echo '<p class="text-center">Henüz blog gönderisi bulunmamaktadır.</p>';
         }
+        
         ?>
+        
     </div>
+
 </section>
 
 <br>
@@ -173,8 +196,8 @@ if (isset($_SESSION['Kullanici_id'])) {
     
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
 

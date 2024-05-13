@@ -4,31 +4,52 @@ body {
 }
 
 
-.footer {
+.footer-container {
     position: fixed; /* Sabit pozisyon */
     bottom: 0; /* Sayfanın altına yapıştır */
     width: 100%; /* Tam genişlik */
-    background-color: #f5f5f5; /* Arka plan rengi */
+    background-color: #030303; /* Arka plan rengi */
     text-align: center; /* Metin hizalama */
     padding: 10px 0; /* Kenar boşlukları */
 }
 
 .main-container {
-    border: 2px solid #ccc; /* Kenarlık kalınlığı ve rengi */
+    border: 2px solid #0e0404; /* Kenarlık kalınlığı ve rengi */
     background-color: wheat; /* Arka plan rengi */
-    padding: 20px; /* İçerik ile kenarlık arasındaki boşluk */
+    padding: 20px 350px; /* İçerik ile kenarlık arasındaki boşluk */
+  
     border-radius: 10px; /* Kenar yuvarlaklığı */
+align-items: center;
 }
 
 .foto {
+ 
     background-image: url('/AracKiralama/images/uzun.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: center;
+ height:500px;
 
    
 }
 
+
+
+.navbar {
+    background-color: #ffad42; /* Hexadecimal renk değeri */
+    height: 100px;
+    padding: 10px; /* Sağ ve sol boşluk */
+    font-weight: bold;
+}
+.welcome-message {
+    color: black; /* İstediğiniz renk kodunu buraya yazın */
+}       
+
+.main-container {
+    background-color: transparent; /* Ana içeriğin arka planını şeffaf yap */
+    font-weight: bold;
+    
+}
 
 
 
@@ -36,7 +57,7 @@ body {
 /* Buton stilleri */
 .btn-primary {
     background-color: #ff9100; /* Arka plan rengi */
-    color: #fff; /* Yazı rengi */
+    color: #000000; /* Yazı rengi */
     border: none; /* Kenar çizgisi */
     border-radius: 5px; /* Köşe yuvarlaklığı */
     padding: 10px 20px; /* Buton iç içe içerik */
@@ -52,26 +73,20 @@ body {
     text-decoration: none; /* Hover metin altı çizgisi */
 }
 
-/* Navbar stilleri */
-.navbar {
-    background-color: #d8c305; /* Hexadecimal renk değeri */
-    opacity: 0.4;
-    height: 100px;
-    padding: 10px; /* Sağ ve sol boşluk */
-    font-weight: bold;
-    
-}
+
 
 /* Navbar linklerinin stilleri */
 .navbar-nav .nav-link {
     color: #0a0a00; /* Yazı rengi */
     font-weight: bold;
+    font-size: 18px; /* Yazı boyutunu belirle */
     text-align: right;
 }
 
 /* Navbar linklerinin hover stilleri */
 .navbar-nav .nav-link:hover {
     color: white; /* Hover rengi */
+   
 }
 #blog {
     background-color:#ffad42;
@@ -81,8 +96,8 @@ body {
     background-color: rgba(255, 255, 255, 0.9); /* Kart arka plan rengi (saydam beyaz) */
     border: 3px solid #ff7b00;
     border-radius: 10px; /* Kart kenar yuvarlaklığı */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);/* Kart gölgesi */
-    transition: all 0.3s ease;; /* Geçiş efekti */
+    box-shadow: 0 7px 8px rgba(0, 0, 0, 0.9);/* Kart gölgesi */
+    transition: all 1s ease;; /* Geçiş efekti */
     margin-bottom: 20px;
     height: auto;
 }

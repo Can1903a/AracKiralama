@@ -49,40 +49,36 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
     <title>Hakkımızda</title>
 </head>
 <body>
+     
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Araç Kiralama</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
-                    </li>
-                    
-                    <?php echo $loginLink; ?>
-                    <?php echo $signupLink; ?>
-                    <?php echo $welcomeMessage; ?>
-                    
-                    
-                    
-                    
-
-                    
-                    <!-- Çıkış yap linki -->
-                    <?php if(isset($_SESSION['Kullanici_id'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/AracKiralama/logout.php">Çıkış Yap</a>
-                        </li>
-                    <?php endif; ?>
+<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Araç Kiralama</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                </li>
+                
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+                
+                 <?php echo $welcomeMessage ; ?>
+            
+                <?php echo $logoutLink ; ?>
+        
+          
+        
                 </ul>
             </div>
         </div>
@@ -98,10 +94,10 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+   <!-- Footer -->
+   <footer class="footer mt-auto py-3 bg-black">
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
 
