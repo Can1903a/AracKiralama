@@ -51,8 +51,9 @@ if(isset($_POST['sil'])) {
 
     <div class="content">
     <h2 class="BlogYonetimi">Blog Yönetimi</h2>
-    
+    <a href="/AracKiralama/AdminSayfalari/BlogEkle.php" class="add-button">Yeni Blog Ekle</a> <!-- Yeni blog ekleme butonu -->
     <form method="POST" action=""> <!-- Silme formu -->
+    <input type="submit" value="Seçili Blogları Sil" class="delete-button"> <!-- Seçilen blogları silme butonu -->
         <div class="card-container">
             <!-- Her bir blogu döngüyle listele -->
             <?php
@@ -72,9 +73,9 @@ if(isset($_POST['sil'])) {
             }
             ?>
         </div>
-        <input type="submit" value="Seçili Blogları Sil" class="delete-button"> <!-- Seçilen blogları silme butonu -->
+        
     </form>
-    <a href="/AracKiralama/AdminSayfalari/BlogEkle.php" class="add-button">Yeni Blog Ekle</a> <!-- Yeni blog ekleme butonu -->
+    
 </div>
 </body>
 </html>

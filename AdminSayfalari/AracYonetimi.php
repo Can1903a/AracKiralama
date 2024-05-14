@@ -72,6 +72,13 @@ if(isset($_POST['sil']) && is_array($_POST['sil'])) {
                     echo "<p><strong>Renk:</strong> " . $row['Arac_renk'] . "</p>";
                     echo "<p><strong>Günlük Ücret:</strong> " . $row['Arac_gunluk_ucret'] . "</p>";
                     echo "<p><strong>Durum:</strong> " . $row['Arac_durum'] . "</p>";
+                    
+                    // Şube adını almak için sorgu oluştur
+                    $sube_query = "SELECT Sube_adi FROM subeler WHERE Sube_id = " . $row['sube_id'];
+                    $sube_result = mysqli_query($conn, $sube_query);
+                    $sube_row = mysqli_fetch_assoc($sube_result);
+
+                    echo "<p><strong>Bulunduğu Şube:</strong> " . $sube_row['Sube_adi'] . "</p>";
                     echo "<br>";
                     echo "Seç: <input type='checkbox' name='sil[]' value='" . $row['Arac_id'] . "' class='checkbox'>"; // Her araç için bir seçim kutusu oluştur
                     echo "<br>";                    

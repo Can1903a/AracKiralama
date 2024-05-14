@@ -79,8 +79,9 @@
 
 .content .delete-button {
     display: inline-blockblock;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px 20px;
+    margin-bottom: 10px;
     background-color: #dc3545;
     color: #fff;
     border: none;
@@ -96,8 +97,7 @@
 
 .content .add-button {
     display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
+    padding: 10px 10px;
     background-color: #28a745;
     color: #fff;
     border: none;

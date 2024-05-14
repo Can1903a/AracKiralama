@@ -102,7 +102,7 @@ if(isset($_POST['kaydet'])) {
             <select id="durum" name="durum">
                 <option value="Boş" <?php if($arac['Arac_durum'] == 'Boş') echo 'selected'; ?>>Boş</option>
                 <option value="Dolu" <?php if($arac['Arac_durum'] == 'Dolu') echo 'selected'; ?>>Dolu</option>
-            </select><br>
+            </select><br>           
             <label for="sube">Şube:</label>
             <select id="sube" name="sube">
     <?php foreach ($subeler as $sube): ?>
