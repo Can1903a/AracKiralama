@@ -72,7 +72,7 @@ if(isset($_GET['alis_sube']) && !empty($_GET['alis_sube'])) {
         $sube = $result->fetch_assoc();
 
         // Aracın adını ve modelini al
-        $alis_sube_ad = $sube['Sube_adı'];
+        $alis_sube_ad = $sube['Sube_adi'];
     } else {
         // Arac bulunamadı, hata mesajı gösterilebilir
         echo "Sube bulunamadı.";
@@ -95,7 +95,7 @@ if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
         $sube = $result->fetch_assoc();
 
         // Varış şube adını al
-        $varis_sube_ad = $sube['Sube_adı'];
+        $varis_sube_ad = $sube['Sube_adi'];
         
     } else {
         // Şube bulunamadı, hata mesajı gösterilebilir

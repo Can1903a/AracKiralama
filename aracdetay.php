@@ -60,7 +60,7 @@ if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
     if ($result->num_rows > 0) {
         $sube = $result->fetch_assoc();
 
-        $varis_sube_ad = $sube['Sube_adı'];
+        $varis_sube_ad = $sube['Sube_adi'];
     }
 } else {
     // Eğer varış şubesi belirtilmemişse, alış şubesini varsayılan olarak kullan
