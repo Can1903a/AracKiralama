@@ -38,7 +38,7 @@ if(isset($_GET['sube']) && !empty($_GET['sube'])) {
         $sube = $result->fetch_assoc();
 
         // Alış şube adını al
-        $alis_sube_ad = $sube['Sube_adı'];
+        $alis_sube_ad = $sube['Sube_adi'];
         
     } else {
         // Şube bulunamadı, hata mesajı gösterilebilir
@@ -190,7 +190,15 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                     <h3>Ek Seçenekler</h3>
                     <!-- Ek seçenekler buraya eklenebilir -->
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block mt-4">Kirala</button>
+                <form action="rezervasyon.php" method="GET">
+    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+    <input type="hidden" name="sube" value="<?php echo $_GET['sube']; ?>">
+    <input type="hidden" name="varis_sube" value="<?php echo $_GET['varis_sube']; ?>">
+    <input type="hidden" name="baslangic_tarihi" value="<?php echo $_GET['baslangic_tarihi']; ?>">
+    <input type="hidden" name="bitis_tarihi" value="<?php echo $_GET['bitis_tarihi']; ?>">
+<!-- Kirala butonu -->
+<a href="rezervasyon.php?id=<?php echo $_GET['id']; ?>&sube=<?php echo $_GET['sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>&arac_id=<?php echo $_GET['id']; ?>" class="btn btn-primary btn-lg btn-block mt-4">Kirala</a>
+</form>
             </div>
         </div>
     </div>

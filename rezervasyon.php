@@ -1,39 +1,251 @@
 <?php
 include 'database.php';
+include 'bootstrap.php';
+session_start();
 
-$sube_id = $_POST['sube'];
-$baslangic_tarihi = date('Y-m-d', strtotime($_POST['baslangic_tarihi'])); // 'DD.MM.YYYY' -> 'YYYY-MM-DD' formatına dönüştür
-$bitis_tarihi = date('Y-m-d', strtotime($_POST['bitis_tarihi'])); // 'DD.MM.YYYY' -> 'YYYY-MM-DD' formatına dönüştür
-$toplam_ucret = 0;
+$welcomeMessage = "";
+$logoutLink = "";
+$loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
+$signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
+$profil = "";
 
-// Toplam gün sayısını hesapla
-$datetime1 = new DateTime($baslangic_tarihi);
-$datetime2 = new DateTime($bitis_tarihi);
-$interval = $datetime1->diff($datetime2);
-$toplam_gun = $interval->format('%a');
+// Kullanıcı giriş yapmışsa
+if (isset($_SESSION['Kullanici_id'])) {
+    $KullaniciID = $_SESSION['Kullanici_id'];
 
-// Günlük ücreti al
-$sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$gunluk_ucret = $row['Arac_gunluk_ucret'];
+    // Müşteri bilgilerini çek
+    $KullaniciQuery = "SELECT * FROM kullanici WHERE Kullanici_id= $KullaniciID";
+    $KullaniciResult = $conn->query($KullaniciQuery);
 
+    if ($KullaniciResult->num_rows > 0) {
+        $kullanici = $KullaniciResult->fetch_assoc();
+        $isim = $kullanici['Kullanici_isim']; 
+        $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
+    }
 
-$toplam_ucret = $toplam_gun * $gunluk_ucret;
+    $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
+    $loginLink = ""; // Giriş yap linkini görünmez yap
+    $signupLink = ""; // Kayıt ol linkini görünmez yap
+}
+// Aracı getir
+if(isset($_GET['arac_id'])) {
+    $arac_id = $_GET['arac_id'];
+    
+    $sql = "SELECT * FROM Araclar WHERE Arac_id=$arac_id";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $arac = $result->fetch_assoc();
 
-// Rezervasyon yap
-$sql = "INSERT INTO Rezervasyonlar (arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret) 
-        SELECT Arac_id, '$baslangic_tarihi', '$bitis_tarihi', $toplam_ucret 
-        FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id LIMIT 1";
-if ($conn->query($sql) === TRUE) {
-    echo "Rezervasyon başarıyla yapıldı.";
+        // Aracın adını ve modelini al
+        $secilen_arac_ad_model = $arac['Arac_marka'] . ' ' . $arac['Arac_model'];
+    } else {
+        // Arac bulunamadı, hata mesajı gösterilebilir
+        echo "Arac bulunamadı.";
+        exit;
+    }
 } else {
-    echo "Rezervasyon yaparken hata oluştu: " . $conn->error;
+    // Arac ID belirtilmemiş, hata mesajı gösterilebilir
+    echo "Arac ID belirtilmemiş.";
+    exit;
 }
 
-// Araç durumunu güncelle
-$sql = "UPDATE Araclar SET Arac_durum='Dolu' WHERE Arac_durum='Bos' AND sube_id=$sube_id LIMIT 1";
-$conn->query($sql);
+$gunluk_bedel = $arac['Arac_gunluk_ucret'];
 
-$conn->close();
+
+$gunsayisi = $_SESSION['gun_sayisi'];
+if ($gunsayisi == 0) {
+    $gunsayisi = 1;
+}else {
+    $gunsayisi += 1; // Başlangıç tarihinin de dahil edilmesi gerekiyor
+}
+
+$toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
+// Kullanıcının kayıtlı kartlarını alalım
+$KartlarQuery = "SELECT * FROM kartlar WHERE kullanici_id = $KullaniciID";
+$KartlarResult = $conn->query($KartlarQuery);
+
+
+// Form gönderildiğinde rezervasyonu ekle
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
+    $kart_id = $_POST['kayitli_kart'];
+    $toplam_ucret = $_POST['toplam_ucret'];
+    $baslangic_tarihi = DateTime::createFromFormat('d.m.Y', $_POST['baslangic_tarihi'])->format('Y-m-d');
+    $bitis_tarihi = DateTime::createFromFormat('d.m.Y', $_POST['bitis_tarihi'])->format('Y-m-d');
+    $alis_sube_id = $_POST['alis_sube_id'];
+    $varis_sube_id = $_POST['varis_sube_id'];
+
+     // Eğer kullanıcı yeni bir kart ekliyorsa, kart bilgilerini al
+     if (!empty($_POST['kart_ad_soyad']) && !empty($_POST['kart_numarasi']) && !empty($_POST['son_kullanma_tarihi']) && !empty($_POST['cvv'])) {
+        $kart_ad_soyad = $_POST['kart_ad_soyad'];
+        $kart_numarasi = $_POST['kart_numarasi'];
+        $son_kullanma_tarihi = $_POST['son_kullanma_tarihi'];
+        $cvv = $_POST['cvv'];
+        $kart_id = ""; // Yeni kart eklenirken kart_id boş olarak kalacak
+    // Veritabanına ekle
+    $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret,  $kart_id, $alis_sube_id, $varis_sube_id);
+} else {
+    $kart_id = $_POST['kayitli_kart'];
+
+    // Veritabanına ekle
+    $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id);
+}
+    if ($stmt->execute()) {
+        header("Refresh:2; profil.php");
+    } else {
+        echo "Rezervasyon başarısız: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/AracKiralama/css/login.css">
+  <link rel="stylesheet" href="/AracKiralama/css/index.css">
+    <title>Araç Kiralama</title>
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Araç Kiralama</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                </li>
+                
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+                
+                 <?php echo $welcomeMessage ; ?>
+                <?php echo $profil; ?>
+            
+                <?php echo $logoutLink ; ?>
+        
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+        <h2 class="mb-4">Rezervasyon Yap</h2>
+        <div class="row">
+            <!-- Sol Tarafta Kart Seçimi -->
+            <div class="col-md-6">
+                <form id="rezervasyonForm" action="rezervasyon.php?arac_id=<?php echo $arac_id; ?>&sube=<?php echo $_GET['sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>" method="POST">
+                    <div class="form-group">
+                        <label for="kayitli_kart">Kayıtlı Kart Seçin:</label>
+                        <select class="form-control" id="kayitli_kart" name="kayitli_kart" onchange="disableOtherInput(this)">
+                            <option value="">Kart Seçin</option>
+                            <?php
+                            if ($KartlarResult->num_rows > 0) {
+                                while ($kart = $KartlarResult->fetch_assoc()) {
+                                    echo "<option value='" . $kart["kart_id"] . "'>" . $kart["kart_numarasi"] . "</option>";
+                                }
+                            } else {
+                                echo "<option value='' disabled>Kayıtlı kart bulunmamaktadır.</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h4>Toplam Ücret: <?php echo $toplam_bedel; ?></h4>
+                            <input type="hidden" name="toplam_ucret" value="<?php echo $toplam_bedel; ?>">
+                            <input type="hidden" name="arac_id" value="<?php echo $arac_id; ?>">
+                            <input type="hidden" name="baslangic_tarihi" value="<?php echo $_GET['baslangic_tarihi']; ?>">
+                            <input type="hidden" name="bitis_tarihi" value="<?php echo $_GET['bitis_tarihi']; ?>">
+                            <input type="hidden" name="alis_sube_id" value="<?php echo $_GET['sube']; ?>">
+                            <input type="hidden" name="varis_sube_id" value="<?php echo $_GET['varis_sube']; ?>">
+                        </div>
+                    </div>
+                    <!-- Rezervasyon Butonu -->
+                    <div class="row mt-4">
+                        <div class="col-md-12 text-center">
+                            <button type="submit" id="kirala" class="btn btn-primary" name="kirala">Rezervasyon Yap</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <!-- Sağ Tarafta Yeni Kart Ekleme -->
+        <div class="col-md-6">
+            <div class="card">
+                <h5 class="card-header">Yeni Kart Ekle</h5>
+                <div class="card-body">
+                    <form id="yeniKartEkleForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                        <div class="form-group">
+                            <label for="kart_ad_soyad">Kart Sahibi Adı Soyadı:</label>
+                            <input type="text" class="form-control" id="kart_ad_soyad" name="kart_ad_soyad">
+                        </div>
+                        <div class="form-group">
+                            <label for="kart_numarasi">Kart Numarası:</label>
+                            <input type="text" class="form-control" id="kart_numarasi" name="kart_numarasi" required oninput="formatKartNumarasi(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="son_kullanma_tarihi">Son Kullanma Tarihi:</label>
+                            <input type="date" class="form-control" id="son_kullanma_tarihi" name="son_kullanma_tarihi">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function disableOtherInput(selectElement) {
+        var otherInput = document.getElementById('yeniKartEkleForm');
+        if (selectElement.value !== '') {
+            otherInput.querySelectorAll('input').forEach(function (input) {
+                input.disabled = true;
+            });
+        } else {
+            otherInput.querySelectorAll('input').forEach(function (input) {
+                input.disabled = false;
+            });
+        }
+    }
+</script>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="js/arac.js"></script>
+    <script type="text/javascript" src="js/logout.js"></script>
+    <script type="text/javascript" src="js/tarih.js"></script>
+    <script type="text/javascript" src="js/kart.js"></script>
+</body>
+</html>
