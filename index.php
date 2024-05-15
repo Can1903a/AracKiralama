@@ -92,7 +92,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                             $sql = "SELECT * FROM Subeler";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
-                                echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
+                                echo "<option value='".$row['Sube_id']."'>".$row['Sube_adi']."</option>";
                             }
                             ?> 
                         </select>
@@ -109,7 +109,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                                 <?php
                                 mysqli_data_seek($result, 0); // İlk satıra geri dön
                                 while($row = $result->fetch_assoc()) {
-                                    echo "<option value='".$row['Sube_id']."'>".$row['Sube_adı']."</option>";
+                                    echo "<option value='".$row['Sube_id']."'>".$row['Sube_adi']."</option>";
                                 }
                                 ?> 
                             </select>

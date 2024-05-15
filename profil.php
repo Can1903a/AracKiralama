@@ -45,16 +45,17 @@ if (isset($_SESSION['Kullanici_id'])) {
     // Kullanıcının kartlarını al
     $KartlarQuery = "SELECT * FROM kartlar WHERE kullanici_id = $KullaniciID";
     $KartlarResult = $conn->query($KartlarQuery);
-// Kart silme işlemi
-if (isset($_GET['kart_sil'])) {
-    $kartID = $_GET['kart_sil'];
-    $silQuery = "DELETE FROM kartlar WHERE kart_id = $kartID AND kullanici_id = $KullaniciID";
-    if ($conn->query($silQuery) === TRUE) {
-        echo '<div class="alert alert-success" role="alert">Kart başarıyla silindi.</div>';
-    } else {
-        echo '<div class="alert alert-danger" role="alert">Kart silinirken bir hata oluştu.</div>';
+    if (isset($_GET['kart_sil'])) {
+        $kartID = $_GET['kart_sil'];
+        $silQuery = "DELETE FROM kartlar WHERE kart_id = $kartID AND kullanici_id = $KullaniciID";
+        if ($conn->query($silQuery) === TRUE) {
+            echo '<div class="alert alert-success" role="alert">Kart başarıyla silindi.</div>';
+            // Silme işleminden sonra sayfayı yenile
+            echo '<meta http-equiv="refresh" content="1;URL=/AracKiralama/profil.php">';
+        } else {
+            echo '<div class="alert alert-danger" role="alert">Kart silinirken bir hata oluştu.</div>';
+        }
     }
-}
     
 
     // Profil bilgilerini güncelleme işlemi
