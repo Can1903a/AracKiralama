@@ -114,6 +114,9 @@ if (isset($_SESSION['Kullanici_id'])) {
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
+
+
+
 ?>
 
 
@@ -162,7 +165,7 @@ if (isset($_SESSION['Kullanici_id'])) {
 
 <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <!-- Sekmeli menü -->
                 <ul class="nav nav-tabs mb-4">
                     <li class="nav-item">
@@ -173,6 +176,9 @@ if (isset($_SESSION['Kullanici_id'])) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="kart-islemleri-tab" data-toggle="tab" href="#kart-islemleri" role="tab" aria-controls="kart-islemleri" aria-selected="false">Kartlarım</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="rezervasyonlar-tab" data-toggle="tab" href="#rezervasyonlar" role="tab" aria-controls="rezervasyonlar" aria-selected="false">Rezervasyonlarım</a>
                     </li>
                 </ul>
 
@@ -232,8 +238,8 @@ if (isset($_SESSION['Kullanici_id'])) {
                             </div>
                         </div>
                     </div>
-                        <!-- Kart İşlemleri Menüsü -->
-                            <div class="tab-pane fade" id="kart-islemleri" role="tabpanel" aria-labelledby="kart-islemleri-tab">
+                    <!-- Kart İşlemleri Menüsü -->
+                    <div class="tab-pane fade" id="kart-islemleri" role="tabpanel" aria-labelledby="kart-islemleri-tab">
                                     <div class="card">
                                         <h5 class="card-header">Kart İşlemleri</h5>
                                         <div class="card-body">
@@ -292,9 +298,63 @@ if (isset($_SESSION['Kullanici_id'])) {
                                                     }
                                                     ?>
                                             </tbody>
-                                    </table>
-                            </div>
-                        </div>
+                                         </table>
+                                     </div>
+                                </div>
+                                </div>
+                                </div>
+                                   <!-- Rezervasyonlar sekmesi -->
+                    <div class="tab-pane fade" id="rezervasyonlar" role="tabpanel" aria-labelledby="rezervasyonlar-tab">
+                                <div class="card">
+                                    <h5 class="card-header">Rezervasyonlar</h5>
+                                    <div class="card-body">
+                                        <!-- Rezervasyonları listeleme -->
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Araç Bilgisi</th>
+                                                    <th>Başlangıç Tarihi</th>
+                                                    <th>Bitiş Tarihi</th>
+                                                    <th>Rezervasyon Tarihi</th>
+                                                    <!-- Diğer gereken sütun başlıkları eklenebilir -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                
+                                                // Kullanıcının rezervasyonlarını al
+                                                $RezervasyonlarQuery = "SELECT * FROM rezervasyon WHERE kullanici_id = $KullaniciID";
+                                                $RezervasyonlarResult = $conn->query($RezervasyonlarQuery);
+
+                                                if ($RezervasyonlarResult->num_rows > 0) {
+                                                    while ($rezervasyon = $RezervasyonlarResult->fetch_assoc()) {
+                                                        echo "<td>" . $rezervasyon["rezervasyon_id"] . "</td>";
+                                                        $aracID = $rezervasyon["arac_id"];
+                                                        // Araç bilgisini çekmek için araç tablosundan sorgu yapın
+                                                        $AracQuery = "SELECT * FROM araclar WHERE Arac_id = $aracID";
+                                                        $AracResult = $conn->query($AracQuery);
+                                                        if ($AracResult->num_rows > 0) {
+                                                            $arac = $AracResult->fetch_assoc();
+                                                            // Araç bilgisini kullanarak marka ve modeli gösterin
+                                                            echo "<td>" . $arac['Arac_marka'] . ' ' . $arac['Arac_model'] . "</td>";
+                                                        } else {
+                                                            echo "<td>Bilinmeyen Araç</td>";
+                                                        }
+                                                        echo "<td>" . $rezervasyon["baslangic_tarihi"] . "</td>";
+                                                        echo "<td>" . $rezervasyon["bitis_tarihi"] . "</td>";
+                                                        echo "<td>" . $rezervasyon["rezervasyon_tarihi"] . "</td>";
+                                                       
+                                                        echo "</tr>";
+                                                    }
+                                                } else {
+                                                    echo "<tr><td colspan='3'>Henüz rezervasyon yapılmamış.</td></tr>";
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                     </div>             
                 </div>
             </div>

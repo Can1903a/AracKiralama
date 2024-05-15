@@ -1,7 +1,7 @@
 <?php
+session_start();
 include 'database.php';
 include 'bootstrap.php';
-session_start();
 
 $welcomeMessage = "";
 $logoutLink = "";
@@ -86,17 +86,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
     // Veritabanına ekle
     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret,  $kart_id, $alis_sube_id, $varis_sube_id);
+    $arabakomut = "UPDATE araclar SET Arac_durum ='Dolu' WHERE arac_id =$arac_id";
+
 } else {
     $kart_id = $_POST['kayitli_kart'];
 
     // Veritabanına ekle
     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id);
+    $arabakomut = "UPDATE araclar SET Arac_durum ='Dolu' WHERE arac_id =$arac_id";
+
 }
-    if ($stmt->execute()) {
-        header("Refresh:2; profil.php");
-    } else {
-        echo "Rezervasyon başarısız: " . $stmt->error;
+    if ($stmt->execute() && $conn->query($arabakomut) === TRUE) {
+    // Rezervasyon başarılı olduğunda
+    echo '<script>
+    Swal.fire({
+        icon: "success",
+        title: "Rezervasyon Başarılı",
+        text: "Rezervasyonunuz başarıyla tamamlandı.",
+        showConfirmButton: false,
+        timer: 2000 // 2 saniye sonra otomatik kapanacak
+    }).then(function() {
+        // İşlem tamamlandıktan sonra yönlendirme yapabilirsiniz
+        window.location.href = "profil.php";
+    });
+
+     </script>';
+} else {
+    // Rezervasyon başarısız olduğunda
+    echo '<script>;
+    Swal.fire({
+        icon: "error",
+        title: "Rezervasyon Başarısız",
+        text: "Rezervasyon işlemi gerçekleştirilemedi. Lütfen tekrar deneyin."
+       </script>';
+
+$stmt->error;
     }
 
     $stmt->close();
@@ -111,6 +136,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/AracKiralama/css/login.css">
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.css">
+
     <title>Araç Kiralama</title>
     <style>
         .container {
@@ -236,16 +263,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
         }
     }
 </script>
+
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
         <div class="footer-container text-center">
             <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.js"></script>
     <script type="text/javascript" src="js/arac.js"></script>
     <script type="text/javascript" src="js/logout.js"></script>
     <script type="text/javascript" src="js/tarih.js"></script>
     <script type="text/javascript" src="js/kart.js"></script>
+    <script type="text/javascript" src="js/rezervasyon.js"></script>
+
 </body>
 </html>
