@@ -71,10 +71,11 @@ $KartlarResult = $conn->query($KartlarQuery);
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
     $kart_id = $_POST['kayitli_kart'];
     $toplam_ucret = $_POST['toplam_ucret'];
-    $baslangic_tarihi = DateTime::createFromFormat('d.m.Y', $_POST['baslangic_tarihi'])->format('Y-m-d');
-    $bitis_tarihi = DateTime::createFromFormat('d.m.Y', $_POST['bitis_tarihi'])->format('Y-m-d');
+    $baslangic_tarihi = $_POST['baslangic_tarihi'];
+    $bitis_tarihi = $_POST['bitis_tarihi'];
     $alis_sube_id = $_POST['alis_sube_id'];
     $varis_sube_id = $_POST['varis_sube_id'];
+    $rezervasyon_durumu = 1;
 
      // Eğer kullanıcı yeni bir kart ekliyorsa, kart bilgilerini al
      if (!empty($_POST['kart_ad_soyad']) && !empty($_POST['kart_numarasi']) && !empty($_POST['son_kullanma_tarihi']) && !empty($_POST['cvv'])) {
@@ -83,21 +84,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
         $son_kullanma_tarihi = $_POST['son_kullanma_tarihi'];
         $cvv = $_POST['cvv'];
         $kart_id = ""; // Yeni kart eklenirken kart_id boş olarak kalacak
-    // Veritabanına ekle
-    $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret,  $kart_id, $alis_sube_id, $varis_sube_id);
-    $arabakomut = "UPDATE araclar SET Arac_durum ='Dolu' WHERE arac_id =$arac_id";
+     // Rezervasyon bilgilerini ekle
+     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id, rezervasyon_durumu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+     $stmt->bind_param("iissdiiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id, $rezervasyon_durumu);
+ 
 
 } else {
     $kart_id = $_POST['kayitli_kart'];
 
-    // Veritabanına ekle
-    $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("iissdiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id);
-    $arabakomut = "UPDATE araclar SET Arac_durum ='Dolu' WHERE arac_id =$arac_id";
-
+     // Rezervasyon bilgilerini ekle
+     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id, rezervasyon_durumu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+     $stmt->bind_param("iissdiiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id, $rezervasyon_durumu);
+ 
 }
-    if ($stmt->execute() && $conn->query($arabakomut) === TRUE) {
+    if ($stmt->execute() ) {
     // Rezervasyon başarılı olduğunda
     echo '<script>
     Swal.fire({

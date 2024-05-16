@@ -3,7 +3,7 @@ $(document).ready(function(){
     
     // Başlangıç tarihi datetimepicker
     $('#baslangic_tarihi').datetimepicker({
-        format:'d.m.Y',
+        format:'y-m-d',
         timepicker:false,
         minDate: 0,
         step: 30,
@@ -23,7 +23,7 @@ $(document).ready(function(){
 
     // Bitiş tarihi datetimepicker
     $('#bitis_tarihi').datetimepicker({
-        format:'d.m.Y',
+        format:'y-m-d',
         timepicker:false,
         minDate: 0,
         step: 30,

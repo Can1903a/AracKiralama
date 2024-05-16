@@ -121,7 +121,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                     </div>
                     <div class="form-group">
                         <label for="bitis_tarihi">Bitiş Tarihi:</label>
-                        <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" readonly="readonly" required disabled>
+                        <input type="text" id="bitis_tarihi" name="bitis_tarihi" class="form-control" readonly="readonly" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Araçları Göster</button>
                 </form>
@@ -130,6 +130,7 @@ if (isset($_SESSION['Kullanici_id'])) {
     </div>
                        
 <script>
+    
     // Farklı varış şubesi kutucuğunun durumuna göre varış şubesi seçim alanını göster/gizle
     document.getElementById('farkli_varis_sube').addEventListener('change', function() {
         var varisSubeContainer = document.getElementById('varis_sube_container');

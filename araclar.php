@@ -43,7 +43,7 @@ if ($gun_sayisi == 0) {
 $toplam_bedel = 0;
 $sube_id = $_GET['alis_sube'];
 // Veritabanından araçların günlük ücretlerini al
-$sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+$sql = "SELECT Arac_gunluk_ucret FROM Araclar WHERE sube_id=$sube_id";
 $result = $conn->query($sql);
 
 // Her bir aracın günlük ücreti ile gün sayısını çarpıp toplam fiyatı hesapla
@@ -123,11 +123,6 @@ if(isset($_GET['baslangic_tarihi']) && isset($_GET['bitis_tarihi']) && !empty($_
     exit;
 }
 
-// Araçları sorgulama
-$sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$alis_sube";
-$result = $conn->query($sql);
-
-
 
 // Aktif tik işaretini oluştur
 function aktifTik($hedefAdim, $simdikiAdim) {
@@ -137,6 +132,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         return '';
     }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -210,12 +206,28 @@ function aktifTik($hedefAdim, $simdikiAdim) {
         $page = isset($_GET['page']) ? $_GET['page'] : 1; // Sayfa numarasını al
         $start = ($page - 1) * $limit; // Başlangıç indeksi hesapla
         
-        $sql = "SELECT * FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id LIMIT $start, $limit";
-        $result = $conn->query($sql);
-        if ($result->num_rows === 0) {
+// Araçları seçerken rezervasyon durumunu ve tarih aralığını kontrol eden sorgu
+$araclarQuery = "SELECT * FROM Araclar A 
+                WHERE A.Arac_id NOT IN (
+                    SELECT R.Arac_id FROM Rezervasyon R 
+                    WHERE R.rezervasyon_durumu = 1 
+                    AND ('$baslangic_tarihi' BETWEEN R.baslangic_tarihi AND R.bitis_tarihi) 
+                    OR ('$bitis_tarihi' BETWEEN R.baslangic_tarihi AND R.bitis_tarihi)
+                ) 
+                AND A.sube_id = $alis_sube";
+$araclarResult = $conn->query($araclarQuery);
+
+// Rezervasyon tarihlerini kontrol eden sorgu
+$rezervasyonCheckQuery = "SELECT * FROM Rezervasyon WHERE Arac_id = 'Arac_id'
+                        AND ((baslangic_tarihi <= '$baslangic_tarihi' AND bitis_tarihi >= '$baslangic_tarihi') 
+                        OR (baslangic_tarihi <= '$bitis_tarihi' AND bitis_tarihi >= '$bitis_tarihi')) 
+                        AND rezervasyon_durumu = 1";
+$rezervasyonCheckResult = $conn->query($rezervasyonCheckQuery);
+        
+        if ($araclarResult->num_rows === 0 && $rezervasyonCheckResult->num_rows === 0) {
             echo '<div class="col-md-12"><p class="text-center">Müsait aracımız kalmamıştır.</p></div>';
         } else {
-            while($row = $result->fetch_assoc()) {
+            while($row = $araclarResult->fetch_assoc()) {
                 ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
@@ -249,7 +261,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     <div class="row justify-content-center">
         <ul class="pagination">
             <?php
-            $sql = "SELECT COUNT(*) as total FROM Araclar WHERE Arac_durum='Bos' AND sube_id=$sube_id";
+            $sql = "SELECT COUNT(*) as total FROM Araclar WHERE sube_id=$sube_id";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             $total_pages = ceil($row["total"] / $limit); // Toplam sayfa sayısını hesapla
