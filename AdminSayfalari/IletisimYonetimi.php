@@ -25,6 +25,7 @@ $result = mysqli_query($conn, $query);
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php" class="active">İletişim Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/RezervasyonYonetimi.php">Rezervasyon Yönetimi</a></li>
             </ul>
         </div>
     </div>

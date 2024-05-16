@@ -39,16 +39,16 @@ if(isset($_POST['kaydet'])) {
     $yil = $_POST['yil'];
     $renk = $_POST['renk'];
     $gunluk_ucret = $_POST['gunluk_ucret'];
-    $durum = $_POST['durum'];
+    
     $sube_id = $_POST['sube'];
 
     // Yeni resim yüklendiyse
     if(isset($_FILES['yeni_resim']) && $_FILES['yeni_resim']['error'] == 0) {
         $yeni_resim = addslashes(file_get_contents($_FILES['yeni_resim']['tmp_name']));
-        $update_query = "UPDATE araclar SET Arac_marka = '$marka', Arac_model = '$model', Arac_yil = $yil, Arac_renk = '$renk', Arac_gunluk_ucret = $gunluk_ucret, Arac_durum = '$durum', Arac_Görsel = '$yeni_resim', sube_id = '$sube_id' WHERE Arac_id = $arac_id";
+        $update_query = "UPDATE araclar SET Arac_marka = '$marka', Arac_model = '$model', Arac_yil = $yil, Arac_renk = '$renk', Arac_gunluk_ucret = $gunluk_ucret,  Arac_Görsel = '$yeni_resim', sube_id = '$sube_id' WHERE Arac_id = $arac_id";
     } else {
         // Yeni resim yüklenmediyse, sadece metin bilgilerini güncelle
-        $update_query = "UPDATE araclar SET Arac_marka = '$marka', Arac_model = '$model', Arac_yil = $yil, Arac_renk = '$renk', Arac_gunluk_ucret = $gunluk_ucret, Arac_durum = '$durum', sube_id = '$sube_id' WHERE Arac_id = $arac_id";
+        $update_query = "UPDATE araclar SET Arac_marka = '$marka', Arac_model = '$model', Arac_yil = $yil, Arac_renk = '$renk', Arac_gunluk_ucret = $gunluk_ucret,  sube_id = '$sube_id' WHERE Arac_id = $arac_id";
     }
 
     // Güncelleme sorgusunu çalıştır
@@ -80,6 +80,7 @@ if(isset($_POST['kaydet'])) {
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php">İletişim Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/RezervasyonYonetimi.php">Rezervasyon Yönetimi</a></li>
             </ul>
         </div>
     </div>
@@ -98,11 +99,7 @@ if(isset($_POST['kaydet'])) {
             <input type="text" id="renk" name="renk" value="<?php echo $arac['Arac_renk']; ?>"><br>
             <label for="gunluk_ucret">Günlük Ücret:</label>
             <input type="text" id="gunluk_ucret" name="gunluk_ucret" value="<?php echo $arac['Arac_gunluk_ucret']; ?>"><br>
-            <label for="durum">Durum:</label>
-            <select id="durum" name="durum">
-                <option value="Boş" <?php if($arac['Arac_durum'] == 'Boş') echo 'selected'; ?>>Boş</option>
-                <option value="Dolu" <?php if($arac['Arac_durum'] == 'Dolu') echo 'selected'; ?>>Dolu</option>
-            </select><br>           
+                      
             <label for="sube">Şube:</label>
             <select id="sube" name="sube">
     <?php foreach ($subeler as $sube): ?>
