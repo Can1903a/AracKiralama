@@ -49,6 +49,7 @@ if(isset($_POST['sil']) && is_array($_POST['sil'])) {
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php">İletişim Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/RezervasyonYonetimi.php">Rezervasyon Yönetimi</a></li>
             </ul>
         </div>
     </div>
@@ -70,8 +71,8 @@ if(isset($_POST['sil']) && is_array($_POST['sil'])) {
                     echo "<h3><strong>" . $row['Arac_marka'] . " " . $row['Arac_model'] . "</strong></h3>";
                     echo "<p><strong>Yıl:</strong> " . $row['Arac_yil'] . "</p>";
                     echo "<p><strong>Renk:</strong> " . $row['Arac_renk'] . "</p>";
-                    echo "<p><strong>Günlük Ücret:</strong> " . $row['Arac_gunluk_ucret'] . "</p>";
-                    echo "<p><strong>Durum:</strong> " . $row['Arac_durum'] . "</p>";
+                    echo "<p><strong>Günlük Ücret:</strong> " . $row['Arac_gunluk_ucret'] ." TL". "</p>";
+                    
                     
                     // Şube adını almak için sorgu oluştur
                     $sube_query = "SELECT Sube_adi FROM subeler WHERE Sube_id = " . $row['sube_id'];
