@@ -9,8 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $KullaniciSifre = $_POST['Kullanici_sifre'];
     $Kullanicitelefon = $_POST['Kullanici_telefon'];
 
-    $stmt = $conn->prepare("INSERT INTO kullanici (Kullanici_isim, Kullanici_soyisim, Kullanici_eposta, Kullanici_sifre, Kullanici_telefon) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $KullaniciIsim, $KullaniciSoyisim, $KullaniciEposta, $KullaniciSifre, $Kullanicitelefon);
+
+  $sql = "INSERT INTO kullanici (Kullanici_isim, Kullanici_soyisim, Kullanici_eposta, Kullanici_sifre, Kullanici_telefon)
+          VALUES ('$KullaniciIsim', '$KullaniciSoyisim', '$KullaniciEposta', '$KullaniciSifre', '$Kullanicitelefon')";
 
     if ($stmt->execute()) {
         header("Location: /AracKiralama/index.php");
