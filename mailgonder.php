@@ -1,4 +1,5 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -29,21 +30,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = "smtp.gmail.com";
         $mail->Username = "eucar4941@gmail.com"; //bu kısma ayarlarını yaptığınız mail adresi
         $mail->Password = "icuccfbliqcppucj"; //bu kısma 16 basamaklı şifrenizi yapıştırmalısınız
-        $mail->setFrom('eucar4941@gmail.com', 'Şifre Hatırlatma');
+        $mail->setFrom('eucar4941@gmail.com', 'Sifre Hatirlatma');
         $mail->addAddress($gemail);
-        $mail->Subject = "Sifre Hatirlatma";
+        $mail->Subject = "Sifre Hatırlatma";
         $mail->Body = "Sifreniz: ".$gideceksifre;
 
         if ($mail->send()) {
-            echo "Şifre hatırlatma e-postası gönderildi.";
+            $_SESSION['message'] = array(
+                "type" => "success",
+                "text" => "Şifre hatırlatma e-postası gönderildi."
+            );
         } else {
-            echo "E-posta gönderilemedi. Hata: " . $mail->ErrorInfo;
+            $_SESSION['message'] = array(
+                "type" => "error",
+                "text" => "E-posta gönderilemedi. Hata: " . $mail->ErrorInfo
+            );
         }
     } else {
-        echo "Bu e-posta adresi ile kayıtlı bir kullanıcı bulunamadı.";
+        $_SESSION['message'] = array(
+            "type" => "error",
+            "text" => "Bu e-posta adresi ile kayıtlı bir kullanıcı bulunamadı."
+        );
     }
 
     $query->close();
     $conn->close();
+
+    // Redirect to login page
+    header("Location: login.php");
+    exit();
 }
 ?>

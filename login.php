@@ -119,8 +119,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             document.getElementById('forgot-password-form').classList.remove('hidden');
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
+<?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        echo "<script>
+            Swal.fire({
+                icon: '" . $message['type'] . "',
+                title: '" . ($message['type'] == 'success' ? 'Başarılı!' : 'Hata!') . "',
+                text: '" . $message['text'] . "',
+                confirmButtonText: 'Tamam'
+            });
+        </script>";
+        unset($_SESSION['message']);
+    }
+    ?>
     <div class="container">
         <form action="login.php" method="post">
             <div class="header">

@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $Kullanicitelefon = $_POST['Kullanici_telefon'];
 
 
-
   $sql = "INSERT INTO kullanici (Kullanici_isim, Kullanici_soyisim, Kullanici_eposta, Kullanici_sifre, Kullanici_telefon)
           VALUES ('$KullaniciIsim', '$KullaniciSoyisim', '$KullaniciEposta', '$KullaniciSifre', '$Kullanicitelefon')";
 
