@@ -58,7 +58,7 @@ body {
 
 /* Buton stilleri */
 .btn-primary {
-    background-color: #ff9100; /* Arka plan rengi */
+    background-color: #ffad42; /* Arka plan rengi */
     color: #fff; /* Yazı rengi */
     border: none; /* Kenar çizgisi */
     border-radius: 5px; /* Köşe yuvarlaklığı */
@@ -73,4 +73,30 @@ body {
     background-color: #ff7b00; /* Hover arka plan rengi */
     color: #fff; /* Hover yazı rengi */
     text-decoration: none; /* Hover metin altı çizgisi */
+}
+.detaylar {
+    text-align: center;
+}
+
+.detaylar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.detaylar ul li {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    background-color: #f2f2f2;
+}
+
+.detaylar ul li.active {
+    background-color: #ffad42;
+    color: rgb(0, 0, 0);
+}
+
+.detaylar ul li:last-child {
+    margin-right: 0;
 }

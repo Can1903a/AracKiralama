@@ -43,9 +43,12 @@ if (isset($_SESSION['Kullanici_id'])) {
 <body>
     
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,15 +72,30 @@ if (isset($_SESSION['Kullanici_id'])) {
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
-        
+            
             </ul>
         </div>
     </div>
 </nav>
+<br>
+<br>
 
-<br>    
-<br>    
-
+<script>
+document.getElementById('openLocationBtn').addEventListener('click', function() {
+    // Belirli bir konumu Google Haritalar'da aç
+    var locationUrl = 'https://www.google.com/maps?hl=tr&gl=tr&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x14cab05e1290d865:0x3eaf193a91f768c8';
+    // Yeni pencerede konumu aç
+    window.open(locationUrl, '_blank');
+});
+</script>
+<script>
+document.getElementById('openLocationBtn').addEventListener('click', function() {
+    // Belirli bir konumu Google Haritalar'da aç
+    var locationUrl = 'https://www.google.com/maps?hl=tr&gl=tr&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x14cab05e1290d865:0x3eaf193a91f768c8';
+    // Yeni pencerede konumu aç
+    window.open(locationUrl, '_blank');
+});
+</script>
         <!-- Ana içerik -->
     <div class="main-container mt-5">
         <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
@@ -190,13 +208,17 @@ function kisalt($metin, $uzunluk = 30, $son = '...') {
         ?>
         
     </div>
-
 </section>
+<br><br><br>
+<div class="hero bg-google-map text-white text-center d-flex align-items-center justify-content-center">
+    <div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.6316377771385!2d28.978305914887588!3d41.01298997929867!2m3!1f0!2f0!3f0!3m2!1i1024
+        !2i768!4f13.1!3m3!1m2!1s0x14cab05e1290d865%3A0x3eaf193a91f768c8!2sIstanbul%20Airport!5e0!3m2!1sen!2str!4v1621464608028!5m2!1sen!2str" width="2500" height="300"  allowfullscreen="" loading="lazy"></iframe>
 
-<br>
-<br>
-<br>    
-    
+    </div>
+</div>
+
+
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
         <div class="footer-container text-center">
@@ -208,5 +230,6 @@ function kisalt($metin, $uzunluk = 30, $son = '...') {
     <script type="text/javascript" src="js/arac.js"></script>
     <script type="text/javascript" src="js/logout.js"></script>
     <script type="text/javascript" src="js/tarih.js"></script>
+
 </body>
 </html>
