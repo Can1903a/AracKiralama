@@ -7,6 +7,7 @@ $welcomeMessage = "";
 $logoutLink = "";
 $loginLink = "<a class='nav-link'  href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
+$profil ="";
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
@@ -129,45 +130,48 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
-    <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
+    <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">  
     <title>Araç Detay</title>
 </head>
 
 <body>
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Araç Kiralama</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
-                    </li>
-                    <?php echo $loginLink; ?>
-                    <?php echo $signupLink; ?>
-                    <?php echo $welcomeMessage; ?>
-                    <?php echo $logoutLink; ?>
-                </ul>
-            </div>
+       <!-- Navbar -->
+       <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
+        <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                </li>
+                
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+                
+                 <?php echo $welcomeMessage ; ?>
+                <?php echo $profil; ?>
+            
+                <?php echo $logoutLink ; ?>
+            
+            </ul>
         </div>
-    </nav>
-    <nav class="detaylar">
-    <ul>
-    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
-    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
-<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
-        <!-- Diğer adımlar buraya eklenebilir -->
-    </ul>
+    </div>
 </nav>
+<br><br><br><br><br>
+
 
 
 
@@ -183,13 +187,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                 <p class="lead">Günlük Ücret: <?php echo $gunluk_bedel; ?> ₺</p>
                 <p class="lead"><?php echo $gunsayisi; ?> Gün'ün Toplam Ücreti": <?php echo $toplam_bedel; ?> ₺</p>
                 <hr>
-                <!-- Diğer araç özellikleri buraya eklenebilir -->
-
-                <!-- Ek seçenekler -->
-                <div class="ek-secenekler mt-4">
-                    <h3>Ek Seçenekler</h3>
-                    <!-- Ek seçenekler buraya eklenebilir -->
-                </div>
+           
                 <form action="rezervasyon.php" method="GET">
     <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
     <input type="hidden" name="sube" value="<?php echo $_GET['sube']; ?>">
@@ -204,10 +202,11 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     </div>
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
+
 
 
     <script type="text/javascript" src="js/arac.js"></script>

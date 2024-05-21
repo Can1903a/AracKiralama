@@ -42,35 +42,36 @@ p {
     transform: scale(1.01); /* Üzerine gelince boyutunu büyüt */
 }
 
-.welcome-message {
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    margin: 0;
-    padding: 10px;
+/* Sekmeli menü */
+.nav-tabs {
+    border-bottom: 2px solid #ccc; /* Sekme menüsü alt çizgisi */
+    display: flex;
+    justify-content: center;
 }
 
-.navbar {
-    background-color: #ffad42; /* Hexadecimal renk değeri */
-    height: 100px;
-    padding: 10px; /* Sağ ve sol boşluk */
-    font-weight: bold;
-}
-.welcome-message {
-    color: black; /* İstediğiniz renk kodunu buraya yazın */
-}       
-
-
-/* Navbar linklerinin stilleri */
-.navbar-nav .nav-link {
-    color: #0a0a00; /* Yazı rengi */
-    font-weight: bold;
-    font-size: 18px; /* Yazı boyutunu belirle */
-    text-align: right;
+.nav-item {
+    margin-right: 10px; /* Sekme arasındaki boşluk */
 }
 
-/* Navbar linklerinin hover stilleri */
-.navbar-nav .nav-link:hover {
-    color: white; /* Hover rengi */
-   
+.nav-link {
+    color: #333; /* Sekme metin rengi */
+    font-weight: bold; /* Sekme metin kalınlığı */
+    text-decoration: none; /* Sekme metin alt çizgisi kaldırma */
+    padding: 10px 20px; /* Sekme içerik boşluğu */
+    border-bottom: 2px solid transparent; /* Sekme alt çizgisi */
+    transition: border-color 0.3s ease; /* Geçiş efekti */
+}
+.footer-container {
+    background-color: black;
+    position: fixed; /* Sabit pozisyon */
+    bottom: 0; /* Sayfanın altına yapıştır */
+    width: 100%; /* Tam genişlik */
+    background-color: #030303; /* Arka plan rengi */
+    text-align: center; /* Metin hizalama */
+    padding: 10px 0; /* Kenar boşlukları */
+}
+.nav-link.active,
+.nav-link:hover {
+    color: #ffad42; /* Etkin veya üzerine gelindiğinde metin rengi */
+    border-bottom-color: #007bff; /* Etkin veya üzerine gelindiğinde alt çizgi rengi */
 }
