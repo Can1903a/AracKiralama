@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost";
+$servername = "localhost:3307";
 $username = "root";
 $password = "1234";
 $dbname = "arac_kiralama";
