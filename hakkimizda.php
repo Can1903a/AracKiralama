@@ -45,7 +45,11 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/hakkimizda.css">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+    <link rel="stylesheet" href="/AracKiralama/css/index.css">
+    
     <title>Hakkımızda</title>
 </head>
 <body>
@@ -62,14 +66,14 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                    <a class="nav-link " href="/AracKiralama/iletisim.php">İletişim |</a>
                 </li>
                 
                 <?php echo $loginLink ;  ?>
@@ -77,6 +81,7 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
                 <?php echo $signupLink ; ?>
                 
                  <?php echo $welcomeMessage ; ?>
+
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>

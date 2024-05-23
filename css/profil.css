@@ -1,22 +1,4 @@
-/* Sekmeli menü */
-.nav-tabs {
-    border-bottom: 2px solid #ccc; /* Sekme menüsü alt çizgisi */
-    display: flex;
-    justify-content: center;
-}
 
-.nav-item {
-    margin-right: 10px; /* Sekme arasındaki boşluk */
-}
-
-.nav-link {
-    color: #333; /* Sekme metin rengi */
-    font-weight: bold; /* Sekme metin kalınlığı */
-    text-decoration: none; /* Sekme metin alt çizgisi kaldırma */
-    padding: 10px 20px; /* Sekme içerik boşluğu */
-    border-bottom: 2px solid transparent; /* Sekme alt çizgisi */
-    transition: border-color 0.3s ease; /* Geçiş efekti */
-}
 .footer-container {
     background-color: black;
     position: fixed; /* Sabit pozisyon */
@@ -25,9 +7,4 @@
     background-color: #030303; /* Arka plan rengi */
     text-align: center; /* Metin hizalama */
     padding: 10px 0; /* Kenar boşlukları */
-}
-.nav-link.active,
-.nav-link:hover {
-    color: #ffad42; /* Etkin veya üzerine gelindiğinde metin rengi */
-    border-bottom-color: #007bff; /* Etkin veya üzerine gelindiğinde alt çizgi rengi */
 }

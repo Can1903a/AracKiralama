@@ -37,6 +37,7 @@ if (isset($_SESSION['Kullanici_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/AracKiralama/css/login.css">
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
+  <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <title>Araç Kiralama</title>
    
 </head>
