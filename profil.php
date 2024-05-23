@@ -125,42 +125,55 @@ if (isset($_SESSION['Kullanici_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
+  <link rel="stylesheet" href="/AracKiralama/css/profil.css">
+  <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+  <link rel="stylesheet" href="/AracKiralama/css/footer.css">
+  
+  
     <title>Profil</title>
    
 </head>
 <body>
+    
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
-    <div class="background-image"></div> <!-- Arka plan resmi -->
-    <div class="overlay"></div> <!-- Sağ kısmı tekrar etmek için overlay -->
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
                 </li>
-                <?php echo $loginLink; ?>
-                <?php echo $signupLink; ?>
-                <?php echo $welcomeMessage; ?>
+                
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+                
+                 <?php echo $welcomeMessage ; ?>
                 <?php echo $profil; ?>
-                <?php echo $logoutLink; ?>
-        
+            
+                <?php echo $logoutLink ; ?>
+            
             </ul>
         </div>
     </div>
 </nav>
+
 
 
 <div class="container mt-5">
@@ -361,13 +374,13 @@ if (isset($_SESSION['Kullanici_id'])) {
         </div>
     </div>
 
+  
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
-
     <script type="text/javascript" src="js/logout.js"></script>
     <script type="text/javascript" src="js/kart.js"></script>
 </body>

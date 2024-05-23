@@ -7,6 +7,7 @@ $welcomeMessage = "";
 $logoutLink = "";
 $loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
+$profil = "";
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
@@ -20,13 +21,13 @@ if (isset($_SESSION['Kullanici_id'])) {
         $kullanici = $KullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim']; 
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
-
 // Hakkımızda bilgilerini veritabanından al
 $hakkimizdaQuery = "SELECT * FROM hakkimizda";
 $hakkimizdaResult = $conn->query($hakkimizdaQuery);
@@ -44,29 +45,40 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/hakkimizda.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+    <link rel="stylesheet" href="/AracKiralama/css/index.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
+    
     <title>Hakkımızda</title>
 </head>
 <body>
-     
+
+<video id="ArkaPlanVideo" autoplay="true" loop muted>
+            <source src="/AracKiralama/images/arkaplan.mp4" type="video/mp4">
+            </video>
+      
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                    <a class="nav-link " href="/AracKiralama/iletisim.php">İletişim |</a>
                 </li>
                 
                 <?php echo $loginLink ;  ?>
@@ -74,15 +86,18 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
                 <?php echo $signupLink ; ?>
                 
                  <?php echo $welcomeMessage ; ?>
+
+                <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
-        
-          
-        
-                </ul>
-            </div>
+            
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+
+
 
     <!-- Hakkımızda İçeriği -->
     <div class="container mt-5">

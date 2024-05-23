@@ -146,54 +146,52 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     <link rel="stylesheet" href="/AracKiralama/css/sayfalama.css">
     <title>Araçlar</title>
    
-    <style>
-        body {
-            padding-top: 60px; /* Navbar'ı gölgelememesi için */
-        }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #f5f5f5;
-            text-align: center;
-            padding: 10px 0;
-        }
-    </style>
+
 </head>
 <body>
- <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Araç Kiralama</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim</a>
-                    </li>
-                    <?php echo $loginLink; ?>
-                    <?php echo $signupLink; ?>
-                    <?php echo $welcomeMessage; ?>
-                    <?php echo $profil; ?>
-                    <?php echo $logoutLink; ?>
-                </ul>
-            </div>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
+        <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                </li>
+                
+                <?php echo $loginLink ;  ?>
+               
+                <?php echo $signupLink ; ?>
+                
+                 <?php echo $welcomeMessage ; ?>
+                <?php echo $profil; ?>
+            
+                <?php echo $logoutLink ; ?>
+            
+            </ul>
         </div>
-    </nav>
-    <nav class="detaylar">
+    </div>
+</nav>
+
+<br><br><br><br><br>
+<nav class="detaylar">
     <ul>
     <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
-    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: </li>
-<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
-        <!-- Diğer adımlar buraya eklenebilir -->
+        <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: </li>
+        <li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
+       
     </ul>
 </nav>
 
@@ -285,12 +283,13 @@ $rezervasyonCheckResult = $conn->query($rezervasyonCheckQuery);
 </div>
 
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+     <!-- Footer -->
+     <footer class="footer mt-auto py-3 bg-light">
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
+
     <script type="text/javascript" src="js/arac.js"></script>
     <script type="text/javascript" src="js/tarih.js"></script>
 

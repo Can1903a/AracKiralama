@@ -27,6 +27,7 @@ $result = mysqli_query($conn, $query);
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php">İletişim Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/RezervasyonYonetimi.php" class="active">Rezervasyon Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/KullanicilariYonet.php">Kullanıcıları Yönet</a></li>
             </ul>
         </div>
     </div>
@@ -73,8 +74,13 @@ $result = mysqli_query($conn, $query);
                     echo "<tr onclick='window.location=\"rezervasyondetay.php?id={$row['rezervasyon_id']}\"'>";
                     echo "<td>{$row['rezervasyon_id']}</td>";
                     echo "<td>{$kullanici_row['ad_soyad']}</td>";
-                    echo "<td>{$arac_row['Arac_marka']}</td>";
-                    echo "<td>{$arac_row['Arac_model']}</td>";
+                    if ($arac_row) {
+                        echo "<td>{$arac_row['Arac_marka']}</td>";
+                        echo "<td>{$arac_row['Arac_model']}</td>";
+                    } else {
+                        echo "<td>Araç Silinmiş</td>";
+                        echo "<td>Araç Silinmiş</td>";
+                    }
                     echo "<td>{$row['baslangic_tarihi']}</td>";
                     echo "<td>{$row['bitis_tarihi']}</td>";
                     echo "<td>{$alis_sube_row['Sube_adi']}</td>";

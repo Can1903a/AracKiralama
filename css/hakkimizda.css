@@ -1,16 +1,23 @@
-/* Hakkımızda İçeriği Stili */
-.container {
+* {
+    margin: 0;
+    padding: 0;
     
-    margin: auto;
+}
+
+/* General styles */
+body {
+    
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 h2 {
-    
     color: black;
     font-size: 2.5rem;
     margin-bottom: 20px;
     font-family: 'Pacifico', cursive;
-    
 }
 
 p {
@@ -19,58 +26,35 @@ p {
     margin-bottom: 40px;
 }
 
-.footer {
-    position: fixed; /* Sabit pozisyon */
-    bottom: 0; /* Sayfanın altına yapıştır */
-    width: 100%; /* Tam genişlik */
-    background-color: #030303; /* Arka plan rengi */
-    text-align: center; /* Metin hizalama */
-    padding: 10px 0; /* Kenar boşlukları */
+#ArkaPlanVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.container.mt-5 {
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    
 }
 
 .row {
-    
-    background-color: #c5c5c5; /* Hafif arka plan rengi */
-    transition: transform 0.3s ease-in-out; /* Dönüşüm efekti için geçiş */
+    background-color: rgba(197, 197, 197, 0.5); /* Semi-transparent background color */
     border-radius: 10px;
-    margin-top: 25%;
-    padding: 20px; /* İçeriğin etrafına 20 piksellik boşluk bırakır */
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1;
 }
 
-/* Hover efekti */
+/* Hover effect */
 .row:hover {
-    transform: scale(1.01); /* Üzerine gelince boyutunu büyüt */
-}
-
-.welcome-message {
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    margin: 0;
-    padding: 10px;
-}
-
-.navbar {
-    background-color: #ffad42; /* Hexadecimal renk değeri */
-    height: 100px;
-    padding: 10px; /* Sağ ve sol boşluk */
-    font-weight: bold;
-}
-.welcome-message {
-    color: black; /* İstediğiniz renk kodunu buraya yazın */
-}       
-
-
-/* Navbar linklerinin stilleri */
-.navbar-nav .nav-link {
-    color: #0a0a00; /* Yazı rengi */
-    font-weight: bold;
-    font-size: 18px; /* Yazı boyutunu belirle */
-    text-align: right;
-}
-
-/* Navbar linklerinin hover stilleri */
-.navbar-nav .nav-link:hover {
-    color: white; /* Hover rengi */
-   
+    transform: scale(1.01);
 }

@@ -145,21 +145,22 @@ $stmt->error;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/AracKiralama/css/login.css">
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
+  <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+  <link rel="stylesheet" href="/AracKiralama/css/footer.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.css">
 
     <title>Araç Kiralama</title>
-    <style>
-        .container {
-            margin-top: 50px;
-        }
-    </style>
+    
 </head>
 <body>
     
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+    <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -183,7 +184,7 @@ $stmt->error;
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
-        
+            
             </ul>
         </div>
     </div>
@@ -213,7 +214,7 @@ $stmt->error;
                     </div>
                     <div class="row mt-4">
                         <div class="col-md-6">
-                            <h4>Toplam Ücret: <?php echo $toplam_bedel; ?></h4>
+                            <h4>Toplam Ücret: <?php echo $toplam_bedel; ?> ₺</h4>
                             <input type="hidden" name="toplam_ucret" value="<?php echo $toplam_bedel; ?>">
                             <input type="hidden" name="arac_id" value="<?php echo $arac_id; ?>">
                             <input type="hidden" name="baslangic_tarihi" value="<?php echo $_GET['baslangic_tarihi']; ?>">

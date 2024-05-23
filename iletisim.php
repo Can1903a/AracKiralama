@@ -3,10 +3,12 @@ include 'database.php';
 include 'bootstrap.php';
 session_start();
 
+
 $welcomeMessage = "";
 $logoutLink = "";
 $loginLink = "<a class='nav-link' href='/AracKiralama/login.php'>Giriş Yap</a>";
 $signupLink = "<a class='nav-link' href='/AracKiralama/register.php'>Kayıt Ol</a>";
+$profil = "";
 
 // Kullanıcı giriş yapmışsa
 if (isset($_SESSION['Kullanici_id'])) {
@@ -20,13 +22,13 @@ if (isset($_SESSION['Kullanici_id'])) {
         $kullanici = $KullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim']; 
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
-
 // Form gönderildiğinde
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Formdan gelen verileri al
@@ -52,8 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/iletisim.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
     <br>
     <br>
     <br><br>
@@ -61,16 +65,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
+ 
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
                 </li>
                 <li class="nav-item">
@@ -85,21 +93,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php echo $signupLink ; ?>
                 
                  <?php echo $welcomeMessage ; ?>
+                <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
-        
-          
-        
-                </ul>
-            </div>
+            
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+        
+               
     <!-- Ana içerik -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">İletişim Formu</h1>
+        
         <div class="row justify-content-center">
+        
             <div class="col-md-6">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <h1 class="text-center mb-4">İletişim Formu</h1>
                     <div class="form-group">
                         <label for="adSoyad">Ad Soyad:</label>
                         <input type="text" id="adSoyad" name="adSoyad" class="form-control" required>
@@ -126,12 +137,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer mt-auto py-3 black">
-        <div class="container text-center">
-            <span class="text-muted">Araç Kiralama &copy; 2024</span>
+   <!-- Footer -->
+   <footer class="footer mt-auto py-3 bg-black">
+        <div class="footer-container text-center">
+            <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
+
+    
+
 
     <script type="text/javascript" src="js/arac.js"></script>
 </body>
