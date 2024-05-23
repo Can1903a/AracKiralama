@@ -23,11 +23,13 @@ if (isset($_SESSION['Kullanici_id'])) {
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
         $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
+    
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
 }
+
 // Aracı getir
 if(isset($_GET['arac_id'])) {
     $arac_id = $_GET['arac_id'];
@@ -63,8 +65,15 @@ if ($gunsayisi == 0) {
 
 $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
 // Kullanıcının kayıtlı kartlarını alalım
-$KartlarQuery = "SELECT * FROM kartlar WHERE kullanici_id = $KullaniciID";
+if ($KullaniciID !=0) {
+    $KartlarQuery = "SELECT * FROM kartlar WHERE kullanici_id = $KullaniciID";
 $KartlarResult = $conn->query($KartlarQuery);
+}
+else {
+    header("Location: /AracKiralama/login.php");
+
+}
+
 
 
 // Form gönderildiğinde rezervasyonu ekle
