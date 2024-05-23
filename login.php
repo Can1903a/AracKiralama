@@ -57,11 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
 </head>
 <style>
-
+        
         .baslik {
             margin: 0;
             font-size: 24px;
-            color: #333;
+            color: white;
         }
         .input-box {
             margin: 15px 0;
@@ -137,6 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         unset($_SESSION['message']);
     }
     ?>
+    <div class="tamamı">
     <div class="container">
         <form action="login.php" method="post">
             <div class="header">
@@ -159,8 +160,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button class="btn" type="submit">GÖNDER</button>
         </form>
+        
 
         <p class="mesaj">Üye Değil Misin? <a href="register.php">Hesap Oluştur</a></p>
     </div>
+    </div>
+    
 </body>
 </html>

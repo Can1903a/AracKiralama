@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
     <div class="container mt-5">
         <form action="register.php" method="post">
             <div class="header text-center mb-4">

@@ -54,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/iletisim.css">
     <link rel="stylesheet" href="/AracKiralama/css/footer.css">
@@ -104,10 +105,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                
     <!-- Ana içerik -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">İletişim Formu</h1>
+        
         <div class="row justify-content-center">
+        
             <div class="col-md-6">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <h1 class="text-center mb-4">İletişim Formu</h1>
                     <div class="form-group">
                         <label for="adSoyad">Ad Soyad:</label>
                         <input type="text" id="adSoyad" name="adSoyad" class="form-control" required>

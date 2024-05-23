@@ -54,6 +54,10 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
     <title>Hakkımızda</title>
 </head>
 <body>
+
+<video id="ArkaPlanVideo" autoplay="true" loop muted>
+            <source src="/AracKiralama/images/arkaplan.mp4" type="video/mp4">
+            </video>
       
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
@@ -91,6 +95,9 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
         </div>
     </div>
 </nav>
+
+
+
 
     <!-- Hakkımızda İçeriği -->
     <div class="container mt-5">
