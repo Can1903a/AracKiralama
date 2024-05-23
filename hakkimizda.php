@@ -49,6 +49,7 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
     <title>Hakkımızda</title>
 </head>
 <body>
+      
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
