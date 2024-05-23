@@ -11,6 +11,17 @@
     align-items: center;
 }
 
+.map-container {
+    width: 100%; /* Ebeveynin genişliğini kaplayacak */
+    max-width: 1200px; /* Maksimum genişlik, örneğin 1200px */
+    margin: 0 auto; /* Ortalamak için */
+}
+.map-container iframe {
+    width: 100%; /* Konteynerin genişliğini kaplayacak */
+    height: 300px; /* Yüksekliği burada sabit tutabilirsiniz */
+}
+
+
 .foto {
  
     background-image: url('/AracKiralama/images/uzun.png');

@@ -49,6 +49,7 @@ $aciklama = $hakkimizdaBilgileri['aciklama'];
     <link rel="stylesheet" href="/AracKiralama/css/hakkimizda.css">
     <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <link rel="stylesheet" href="/AracKiralama/css/index.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
     
     <title>Hakkımızda</title>
 </head>

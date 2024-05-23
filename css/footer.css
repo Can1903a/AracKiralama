@@ -1,0 +1,24 @@
+.footer {
+    position: fixed; /* Sabit pozisyon */
+    bottom: 0; /* Sayfanın altına yapıştır */
+    width: 100%; /* Tam genişlik */
+    background-color: #ffffff; /* Arka plan rengi */
+    text-align: center; /* Metin hizalama */
+    padding: 10px 0; /* Kenar boşlukları */
+    
+}
+
+.footer-container {
+    
+    position: fixed; /* Sabit pozisyon */
+    bottom: 0; /* Sayfanın altına yapıştır */
+    width: 100%; /* Tam genişlik */
+    background-color: #ffad42; /* Arka plan rengi */
+    text-align: center; /* Metin hizalama */
+    padding: 10px 0; /* Kenar boşlukları */
+}
+
+.text-muted
+{
+color: black;
+}

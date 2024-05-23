@@ -38,6 +38,7 @@ if (isset($_SESSION['Kullanici_id'])) {
   <link rel="stylesheet" href="/AracKiralama/css/login.css">
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
   <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+  <link rel="stylesheet" href="/AracKiralama/css/footer.css">
     <title>Araç Kiralama</title>
    
 </head>
@@ -212,10 +213,8 @@ function kisalt($metin, $uzunluk = 30, $son = '...') {
 </section>
 <br><br><br>
 <div class="hero bg-google-map text-white text-center d-flex align-items-center justify-content-center">
-    <div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.6316377771385!2d28.978305914887588!3d41.01298997929867!2m3!1f0!2f0!3f0!3m2!1i1024
-        !2i768!4f13.1!3m3!1m2!1s0x14cab05e1290d865%3A0x3eaf193a91f768c8!2sIstanbul%20Airport!5e0!3m2!1sen!2str!4v1621464608028!5m2!1sen!2str" width="2500" height="300"  allowfullscreen="" loading="lazy"></iframe>
-
+    <div class="map-container" style="width: 100%; max-width: 100%; margin: 0 auto;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.6316377771385!2d28.978305914887588!3d41.01298997929867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab05e1290d865%3A0x3eaf193a91f768c8!2sIstanbul%20Airport!5e0!3m2!1sen!2str!4v1621464608028!5m2!1sen!2str" width="100%" height="300" allowfullscreen="" loading="lazy"></iframe>
     </div>
 </div>
 

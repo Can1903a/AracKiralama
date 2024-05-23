@@ -127,17 +127,9 @@
 }
 
 /* Footer */
-.footer {
-    background-color: #f8f9fa; /* Footer arka plan rengi */
-    position: absolute; /* Footerı alt kısmına sabitle */
-    bottom: 0; /* Footerı sayfanın en altına hizala */
-    width: 100%; /* Footer genişliği */
-    padding: 20px 0; /* Footer içerik boşluğu */
-}
 
-.text-muted {
-    color: #333; /* Footer metin rengi */
-}
+
+
 
 /* Genel stil */
 body {

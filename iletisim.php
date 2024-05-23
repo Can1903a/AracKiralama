@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/iletisim.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
     <br>
     <br>
     <br><br>
@@ -139,6 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="text-muted">Araç Kiralama &copy; 2024. Tüm hakları saklıdır.</span>
         </div>
     </footer>
+
+    
 
 
     <script type="text/javascript" src="js/arac.js"></script>

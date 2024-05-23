@@ -129,6 +129,7 @@ if (isset($_SESSION['Kullanici_id'])) {
   <link rel="stylesheet" href="/AracKiralama/css/index.css">
   <link rel="stylesheet" href="/AracKiralama/css/profil.css">
   <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+  <link rel="stylesheet" href="/AracKiralama/css/footer.css">
   
   
     <title>Profil</title>
@@ -137,9 +138,13 @@ if (isset($_SESSION['Kullanici_id'])) {
 <body>
     
     <!-- Navbar -->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
+    <a class="navbar-brand" href="#">
+                <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
         <a class="navbar-brand" href="#">Araç Kiralama</a>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -163,7 +168,7 @@ if (isset($_SESSION['Kullanici_id'])) {
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
-        
+            
             </ul>
         </div>
     </div>
