@@ -83,7 +83,6 @@ if(isset($_GET['alis_sube']) && !empty($_GET['alis_sube'])) {
     echo "Alış şubesi belirtilmemiş.";
     exit;
 }
-
 // Varış şubesi (varsayılan olarak alış şubesi ile aynı)
 if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
     $varis_sube = $_GET['varis_sube'];
