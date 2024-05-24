@@ -128,6 +128,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
 
     $stmt->close();
 }
+// Alış şubesini belirle
+if(isset($_GET['sube']) && !empty($_GET['sube'])) {
+    $alis_sube = $_GET['sube'];
+    
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$alis_sube";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $sube = $result->fetch_assoc();
+
+        // Alış şube adını al
+        $alis_sube_ad = $sube['Sube_adi'];
+        
+    } else {
+        // Şube bulunamadı, hata mesajı gösterilebilir
+        echo "Alış şube bulunamadı.";
+        exit;
+    }
+} else {
+    // Alış şube parametresi belirtilmemiş veya boş, hata mesajı gösterilebilir
+    echo "Alış şube belirtilmemiş veya boş.";
+    exit;
+}
+
+// Varış şubesi (varsayılan olarak alış şubesi ile aynı)
+if(isset($_GET['varis_sube']) && !empty($_GET['varis_sube'])) {
+    $varis_sube = $_GET['varis_sube'];
+    $sql = "SELECT * FROM Subeler WHERE Sube_id=$varis_sube";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $sube = $result->fetch_assoc();
+
+        $varis_sube_ad = $sube['Sube_adi'];
+    }
+} else {
+    // Eğer varış şubesi belirtilmemişse, alış şubesini varsayılan olarak kullan
+    $varis_sube_ad = $alis_sube_ad;
+}
+
+// Tarih aralığı
+$baslangic_tarihi = isset($_GET['baslangic_tarihi']) ? $_GET['baslangic_tarihi'] : "Belirtilmedi";
+$bitis_tarihi = isset($_GET['bitis_tarihi']) ? $_GET['bitis_tarihi'] : "Belirtilmedi";
+$tarih_araligi = $baslangic_tarihi . ' - ' . $bitis_tarihi;
+
+// Adım
+$adim = isset($_GET['adim']) ? $_GET['adim'] : 3; 
+
+// Aktif tik işaretini oluştur
+function aktifTik($hedefAdim, $simdikiAdim) {
+    if ($hedefAdim == $simdikiAdim) {
+        return '<span class="tik">&#10003;</span>';
+    } else {
+        return '';
+    }
+}
+
+$gunluk_bedel = $arac['Arac_gunluk_ucret'];
+
+
+$gunsayisi = $_SESSION['gun_sayisi'];
+if ($gunsayisi == 0) {
+    $gunsayisi = 1;
+}else {
+    $gunsayisi += 1; // Başlangıç tarihinin de dahil edilmesi gerekiyor
+}
+
+$toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
 ?>
 
 <!DOCTYPE html>
@@ -139,6 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
     <link rel="stylesheet" href="/AracKiralama/css/index.css">
     <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <link rel="stylesheet" href="/AracKiralama/css/footer.css">
+    <link rel="stylesheet" href="/AracKiralama/css/rezervasyon.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.css">
     <title>Araç Kiralama</title>
 </head>
@@ -174,6 +243,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
             </div>
         </div>
     </nav>
+
+
+    <br><br>
+<nav class="detaylar">
+    <ul>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
+    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
+<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
+        <!-- Diğer adımlar buraya eklenebilir -->
+    </ul>
+</nav>
+
 
     <div class="container">
         <h2 class="mb-4">Rezervasyon Yap</h2>

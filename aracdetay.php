@@ -131,6 +131,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">  
+    <link rel="stylesheet" href="/AracKiralama/css/araclar.css">  
     <link rel="stylesheet" href="/AracKiralama/css/footer.css">  
     <link rel="stylesheet" href="/AracKiralama/css/navbar.css">  
     <title>Araç Detay</title>
@@ -172,7 +173,15 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
         </div>
     </div>
 </nav>
-<br><br><br><br><br>
+<br><br>
+<nav class="detaylar">
+    <ul>
+    <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
+    <li class="<?php echo $adim == 2 ? 'active' : ''; ?>"><?php echo aktifTik(2, $adim); ?> Seçilen Araç: <?php echo $secilen_arac_ad_model; ?></li>
+<li class="<?php echo $adim == 3 ? 'active' : ''; ?>"><?php echo aktifTik(3, $adim); ?> Ödeme Bilgileri</li>
+        <!-- Diğer adımlar buraya eklenebilir -->
+    </ul>
+</nav>
 
 
 

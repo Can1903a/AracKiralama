@@ -32,11 +32,11 @@
             $kartAdsoyad = $_POST["kart_ad_soyad"];
             $sonKullanimTarihi = $_POST["son_kullanma_tarihi"];
             $CVV = $_POST["cvv"];
-
+            
             // Kart ekleme sorgusu
             $kartEkleQuery = "INSERT INTO kartlar (kullanici_id, kart_ad_soyad, kart_numarasi, son_kullanma_tarihi, cvv) VALUES ('$KullaniciID', '$kartAdsoyad', '$kartNumarasi', '$sonKullanimTarihi', '$CVV')";
 
-            if ($conn->query($kartEkleQuery) === TRUE) {
+            if ($conn->query($kartEkleQuery) === TRUE ) {
                 echo "Kart başarıyla eklendi.";
             } else {
                 echo "Kart eklenirken bir hata oluştu: " . $conn->error;
