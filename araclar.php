@@ -200,6 +200,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
 
 
 <!-- Ana içerik -->
+<div class = "containertop">
 <div class="container mt-5">
     <div class="row justify-content-center mt-5">
         <?php
@@ -255,6 +256,7 @@ $rezervasyonCheckResult = $conn->query($rezervasyonCheckQuery);
         }
         ?>
     </div>
+</div>
 </div>
 
 <!-- Sayfalama Butonları -->

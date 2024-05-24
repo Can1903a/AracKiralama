@@ -5,7 +5,12 @@ body {
 }
 
 .container {
-    padding-top: 5px; /* Container üst boşluk */
+    padding-top: 3px; /* Container üst boşluk */
+}
+
+.containertop{
+    margin-top: -50px;
+    
 }
 
 /* Kart stilleri */
@@ -91,6 +96,7 @@ body {
     margin-right: 10px;
     background-color: #f2f2f2;
 }
+
 
 .detaylar ul li.active {
     background-color: #ffad42;

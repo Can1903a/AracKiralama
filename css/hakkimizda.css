@@ -37,12 +37,13 @@ p {
 }
 
 .container.mt-5 {
-    padding-top: 20%;
+    padding-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
     position: relative;
+
     
 }
 
@@ -52,6 +53,8 @@ p {
     padding: 20px;
     transition: transform 0.3s ease-in-out;
     z-index: 1;
+    
+    
 }
 
 /* Hover effect */

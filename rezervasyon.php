@@ -255,7 +255,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     </ul>
 </nav>
 
-
+<div class = "containertop">
     <div class="container">
         <h2 class="mb-4">Rezervasyon Yap</h2>
         <div class="row">
@@ -323,6 +323,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
     <script>

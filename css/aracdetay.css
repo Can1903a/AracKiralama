@@ -3,6 +3,8 @@
     color: black; /* İstediğiniz renk kodunu buraya yazın */
 }       
 
+
+
 .main-container {
     background-color: transparent; /* Ana içeriğin arka planını şeffaf yap */
     font-weight: bold;
@@ -32,7 +34,8 @@
 }
 /* Detaylar bölümü tasarımı */
 .container.my-5 .col-md-6 {
-    padding: 30px;
+    
+    padding: 20px;
     border-radius: 10px;
     background-color: #f4f4f4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -127,6 +130,11 @@ body {
 .row {
     margin-right: -15px; /* Satır sağ boşluk */
     margin-left: -15px; /* Satır sol boşluk */
+    justify-content: space-between;
+}
+
+.row:last-child {
+    margin-bottom: 0; /* Son satırın alt boşluğunu kaldır */
 }
 
 /* Medya sorguları */
@@ -135,3 +143,5 @@ body {
         max-width: 200px; /* Küçük ekranlarda marka logosunun maksimum genişliği */
     }
 }
+
+

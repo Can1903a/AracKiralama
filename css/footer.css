@@ -6,6 +6,7 @@
     text-align: center; /* Metin hizalama */
     padding: 10px 0; /* Kenar boşlukları */
     color: black;
+    z-index: 1000;
 }
 
 .footer-container {
@@ -16,6 +17,7 @@
     background-color: #ffad42; /* Arka plan rengi */
     text-align: center; /* Metin hizalama */
     padding: 10px 0; /* Kenar boşlukları */
+    z-index: 1000;
 }
 
 .text-muted
