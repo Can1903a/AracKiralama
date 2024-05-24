@@ -20,7 +20,7 @@ $result = mysqli_query($conn, $query);
         <h2>Admin Paneli</h2>
         <div class="menu">
             <ul>
-                <li><a href="/AracKiralama/AdminSayfalari/AdminSayfa.php">Anasayfa</a></li>
+                
                 <li><a href="/AracKiralama/AdminSayfalari/AracYonetimi.php">Araç Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
