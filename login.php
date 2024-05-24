@@ -57,25 +57,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
 </head>
 <style>
-                    body {
+        body {
             background-image: url("/AracKiralama/images/arkaplanimg.jpg"); /* Arka plan resminin URL'sini belirtin */
             background-repeat: no-repeat; /* Arka plan resminin tekrar etmemesini sağlar */
             background-size: cover; /* Arka plan resminin body'ye tam sığdırılmasını sağlar */
+            background-attachment: fixed;
         }
-        .container {
-    width: 420px;
-    margin: auto;
-    background-color: rgb(63, 85, 136, 0.8);
-    color: rgb(56, 44, 44);
-    border-radius: 10px;
-    padding: 30px 40px;
-    margin-top: -800px;
-    transition: transform 0.5s ease-in-out; /* Geçiş efekti için transform özelliği, daha yavaş ve yumuşak */
-}
 
-.container:hover {
-    transform: scale(1.05); /* Mouse ile üstüne gelindiğinde büyüme efekti */
-}
+                .logo {
+            
+            margin-left: -50px;
+            width: 450px; /* Resmin genişliği */
+            height: auto; /* Resmin orijinal en-boy oranını korur */
+            
+
+        }
+
+        .container {
+            width: 420px;
+            margin: auto;
+            background-color: rgb(63, 85, 136, 0.8);
+            color: rgb(56, 44, 44);
+            border-radius: 10px;
+            padding: 30px 40px;
+            margin-top: -850px;
+            transition: transform 0.5s ease-in-out; /* Geçiş efekti için transform özelliği, daha yavaş ve yumuşak */
+        }
+
+        .container:hover {
+            transform: scale(1.05); /* Mouse ile üstüne gelindiğinde büyüme efekti */
+        }
         
         
         .baslik {
@@ -86,13 +97,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-box {
             margin: 15px 0;
         }
+
+        .ustkisim {
+            background-image: url('kanyon.jpg');
+            height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
         .input-box input {
-            width: calc(100%);
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            border:none;
+            outline: none;
+            border: 2px solid rgba(0, 0, 0, 0.2); /* Renk değeri düzeltildi */
+            border-radius: 40px;
+            font-size: 16px;
+            color: black;
+            padding: 0 45px 0 20px; /* Sağa ve sola padding eklendi */
         }
         .btn {
             background-color: #5cb85c;
@@ -139,6 +164,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .mesaj a:hover {
             text-decoration: underline;
         }
+        .container .input-box{
+        position: relative; /* Eklendi */
+        width: 100%;
+        height: 50px;
+        margin: 30px 0;
+    }
     </style>
 <body>
   <div class="ustkisim">

@@ -1,6 +1,6 @@
 
     .ustkisim {
-        background-image: url('kanyon.jpg');
+    background-image: url('kanyon.jpg');
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -21,14 +21,7 @@
         background-size: cover; /* Resmin tam olarak görünmesini sağlar */
         background-attachment: fixed;
     }
-    .logo {
     
-            margin-left: -50px;
-            width: 450px; /* Resmin genişliği */
-            height: auto; /* Resmin orijinal en-boy oranını korur */
-            
-        
-    }
     .ayrac{
         font-size: 30px;
     margin: 0px 20px;
@@ -100,6 +93,15 @@
     color: rgb(203,165,108);
     font-weight: 600;
     margin-top: 20px; /* Düğme ile alan arasına biraz boşluk ekleyelim */
+
+}
+
+.logo {
+            
+    margin-left: -50px;
+    width: 450px; /* Resmin genişliği */
+    height: auto; /* Resmin orijinal en-boy oranını korur */
+    
 
 }
 
