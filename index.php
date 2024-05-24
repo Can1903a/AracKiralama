@@ -45,6 +45,7 @@ if (isset($_SESSION['Kullanici_id'])) {
 <body>
     
     <!-- Navbar -->
+    <div class="custom-border ">
     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">
@@ -79,17 +80,10 @@ if (isset($_SESSION['Kullanici_id'])) {
         </div>
     </div>
 </nav>
+</div>
 <br>
 <br>
 
-<script>
-document.getElementById('openLocationBtn').addEventListener('click', function() {
-    // Belirli bir konumu Google Haritalar'da aç
-    var locationUrl = 'https://www.google.com/maps?hl=tr&gl=tr&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x14cab05e1290d865:0x3eaf193a91f768c8';
-    // Yeni pencerede konumu aç
-    window.open(locationUrl, '_blank');
-});
-</script>
 <script>
 document.getElementById('openLocationBtn').addEventListener('click', function() {
     // Belirli bir konumu Google Haritalar'da aç
