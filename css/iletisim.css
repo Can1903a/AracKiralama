@@ -1,11 +1,15 @@
 .main-container {
-    border: 5px solid #0e0404; /* Kenarlık kalınlığı ve rengi */
-    background-color: wheat; /* Arka plan rengi */
-    padding: 20px 50px; /* İçerik ile kenarlık arasındaki boşluk, sağdan ve soldan kısaltıldı */
+    border: 3px solid #ff9100; /* Kenarlık kalınlığı ve rengi */
+    background-color: rgb(244, 244, 244); /* Arka plan rengi */
+    padding: 25px ; /* İçerik ile kenarlık arasındaki boşluk, sağdan ve soldan kısaltıldı */
     border-radius: 10px; /* Kenar yuvarlaklığı */
-    margin: 20px auto; /* Ortalamak için üst ve alt boşluk */
-    max-width: 80%; /* Maksimum genişlik */
+    margin: 20px auto; /* Ortalamak için üst ve alt boşluk */   
+    max-width: 60%; /* Maksimum genişlik */
     align-items: center;
+}
+
+.mt-5, .my-5 {
+    margin-top: 0.5rem !important;
 }
 /* Form elemanlarına daha belirgin bir stil uygulama */
 input[type="text"],

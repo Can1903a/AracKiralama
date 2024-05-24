@@ -3,8 +3,8 @@
 
 
 .main-container {
-    border: 5px solid #0e0404; /* Kenarlık kalınlığı ve rengi */
-    background-color: wheat; /* Arka plan rengi */
+    border: 3px solid #ff9100; /* Kenarlık kalınlığı ve rengi */
+    background-color: rgb(244, 244, 244); /* Arka plan rengi */
     padding: 30px 50px; /* İçerik ile kenarlık arasındaki boşluk, sağdan ve soldan kısaltıldı */
     border-radius: 25px; /* Kenar yuvarlaklığı */
     margin: 20px auto; /* Ortalamak için üst ve alt boşluk */
