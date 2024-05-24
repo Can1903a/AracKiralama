@@ -21,6 +21,7 @@ if (isset($_SESSION['Kullanici_id'])) {
         $kullanici = $kullaniciResult->fetch_assoc();
         $isim = $kullanici['Kullanici_isim'];
         $welcomeMessage = "<h1 id='hosgeldin' class='welcome-message'>Hoşgeldiniz, " . $isim . "</h1>";
+        $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
 
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
@@ -129,11 +130,12 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">  
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">  
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">  
     <link rel="stylesheet" href="/AracKiralama/css/footer.css">  
-    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">  
+    
     <title>Araç Detay</title>
 </head>
 
@@ -165,6 +167,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                 <?php echo $signupLink ; ?>
                 
                  <?php echo $welcomeMessage ; ?>
+                 
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
@@ -173,7 +176,8 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
         </div>
     </div>
 </nav>
-<br><br>
+
+
 <nav class="detaylar">
     <ul>
     <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>

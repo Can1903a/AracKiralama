@@ -4,10 +4,8 @@ body {
     margin-bottom: 100px; /* Footer'ın altında boşluk bırak */
 }
 
-
-
 .container {
-    padding-top: 20px; /* Container üst boşluk */
+    padding-top: 5px; /* Container üst boşluk */
 }
 
 /* Kart stilleri */
@@ -18,11 +16,17 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Kart gölge */
     transition: all 0.3s ease; /* Kart geçiş efekti */
     margin-bottom: 20px; /* Kartlar arasındaki boşluk */
-    height: 500px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .card:hover {
     transform: translateY(-5px); /* Hover efekti */
+}
+
+.card-body {
+    flex: 1; /* Kart gövdesinin esnek olması */
 }
 
 .card-title {
@@ -46,7 +50,8 @@ body {
     border-top-left-radius: 10px; /* Görsel köşe yuvarlaklığı */
     border-top-right-radius: 10px; /* Görsel köşe yuvarlaklığı */
     width: 100%; /* Görsel genişlik */
-    height: auto; /* Görsel yükseklik */
+    height: 200px; /* Görsel sabit yükseklik */
+    object-fit: contain; /* Görseli sığdır */
 }
 
 /* Buton stilleri */
@@ -67,8 +72,10 @@ body {
     color: #fff; /* Hover yazı rengi */
     text-decoration: none; /* Hover metin altı çizgisi */
 }
+
 .detaylar {
     text-align: center;
+    margin-top: 100px;
 }
 
 .detaylar ul {
@@ -92,4 +99,11 @@ body {
 
 .detaylar ul li:last-child {
     margin-right: 0;
+}
+
+.card-footer {
+    background-color: #f8f9fa; /* Kart alt kısmı arka plan rengi */
+    border-top: 1px solid #ddd; /* Kart alt kısmı kenar çizgisi */
+    text-align: center; /* Metin hizalama */
+    padding: 10px 0; /* Kart alt kısmı iç boşluk */
 }

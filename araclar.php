@@ -139,12 +139,13 @@ function aktifTik($hedefAdim, $simdikiAdim) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <link rel="stylesheet" href="/AracKiralama/css/araclar.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/sayfalama.css">
     <link rel="stylesheet" href="/AracKiralama/css/footer.css">
-    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+    
     <title>Araçlar</title>
    
 
@@ -176,7 +177,8 @@ function aktifTik($hedefAdim, $simdikiAdim) {
                
                 <?php echo $signupLink ; ?>
                 
-                 <?php echo $welcomeMessage ; ?>
+                <?php echo $welcomeMessage ; ?>
+
                 <?php echo $profil; ?>
             
                 <?php echo $logoutLink ; ?>
@@ -186,7 +188,7 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     </div>
 </nav>
 
-<br><br>
+
 <nav class="detaylar">
     <ul>
     <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
