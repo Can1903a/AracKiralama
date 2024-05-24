@@ -10,7 +10,6 @@ if(isset($_POST['ekle'])) {
     $yil = $_POST['yil']; // Aracın üretim yılı
     $renk = $_POST['renk']; // Aracın rengi
     $gunluk_ucret = $_POST['gunluk_ucret']; // Aracın günlük kiralama ücreti
-    $durum = $_POST['durum']; // Aracın durumu (Dolu veya Boş)
     $sube_id = $_POST['sube']; // Aracın hangi şubede bulunduğu
 
     // Resim dosyasını işleme
@@ -26,13 +25,13 @@ if(isset($_POST['ekle'])) {
     mysqli_stmt_close($stmt); // Sorgu bağlantısını kapat
 
     // SQL sorgusunu hazırla
-    $sorgu = "INSERT INTO araclar (Arac_marka, Arac_model, Arac_yil, Arac_renk, Arac_gunluk_ucret, Arac_durum, sube_id, Arac_Görsel) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sorgu = "INSERT INTO araclar (Arac_marka, Arac_model, Arac_yil, Arac_renk, Arac_gunluk_ucret, sube_id, Arac_Görsel) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     // Sorguyu hazırla ve bağlantıyı kullan
     $stmt = mysqli_prepare($conn, $sorgu); // Sorguyu hazırla
     if ($stmt) {
         // Değişkenleri bağla
-        mysqli_stmt_bind_param($stmt, "ssssdsis", $marka, $model, $yil, $renk, $gunluk_ucret, $durum, $sube_id, $resimIcerik);
+        mysqli_stmt_bind_param($stmt, "sssidss", $marka, $model, $yil, $renk, $gunluk_ucret, $sube_id, $resimIcerik);
 
         // Sorguyu çalıştır
         if(mysqli_stmt_execute($stmt)) {
@@ -52,7 +51,6 @@ if(isset($_POST['ekle'])) {
 $query = "SELECT Sube_id, Sube_adi FROM subeler"; // Şubeleri alacak sorguyu hazırla
 $result = mysqli_query($conn, $query); // Sorguyu çalıştır ve sonucu al
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,11 +90,7 @@ $result = mysqli_query($conn, $query); // Sorguyu çalıştır ve sonucu al
             <input type="text" id="renk" name="renk" required><br>
             <label for="gunluk_ucret">Günlük Ücret:</label>
             <input type="text" id="gunluk_ucret" name="gunluk_ucret" required><br>
-            <label for="durum">Durum:</label>
-            <select id="durum" name="durum">
-                <option value="Boş">Bos</option>
-                <option value="Dolu">Dolu</option>
-            </select><br>
+            
             <label for="sube">Şube:</label>
             <select id="sube" name="sube" required>
                 <?php
