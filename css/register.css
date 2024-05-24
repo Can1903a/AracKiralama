@@ -1,48 +1,58 @@
 
-.ustkisim {
-    background-image: url('kanyon.jpg');
-   height: 100vh;
-   width: 100%;
-   background-size: cover;
-   background-position: center center;
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-}
-
-.navbar {
-    
-    margin-top: -2px ;
-
+    .ustkisim {
+        background-image: url('kanyon.jpg');
+    height: 100vh;
     width: 100%;
-    background-color: rgba(13, 24, 11, 0.7); /* Saydamlık için rgba kullanımı */
-    font-weight: bold;
-    color: black;
-    background-image: url('arkaplan.png'); /* Navbarın arkasındaki resim */
-    background-size: cover; /* Resmin tam olarak görünmesini sağlar */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
-}
-.logo {
-   
-        margin-left: -50px;
-         width: 450px; /* Resmin genişliği */
-         height: auto; /* Resmin orijinal en-boy oranını korur */
-         
-    
-}
-.ayrac{
-    font-size: 30px;
-margin: 0px 20px;
-}
+    }
 
-.container {
+    .navbar {
+        
+        margin-top: -2px ;
+
+        width: 100%;
+        background-color: rgba(13, 24, 11, 0.7); /* Saydamlık için rgba kullanımı */
+        font-weight: bold;
+        color: black;
+        background-image: url('arkaplan.png'); /* Navbarın arkasındaki resim */
+        background-size: cover; /* Resmin tam olarak görünmesini sağlar */
+        background-attachment: fixed;
+    }
+    .logo {
+    
+            margin-left: -50px;
+            width: 450px; /* Resmin genişliği */
+            height: auto; /* Resmin orijinal en-boy oranını korur */
+            
+        
+    }
+    .ayrac{
+        font-size: 30px;
+    margin: 0px 20px;
+    }
+
+    body {
+        background-image: url("/AracKiralama/images/arkaplanimg.jpg"); /* Arka plan resminin URL'sini belirtin */
+        background-repeat: no-repeat; /* Arka plan resminin tekrar etmemesini sağlar */
+        background-size: cover; /* Arka plan resminin body'ye tam sığdırılmasını sağlar */
+    }
+    .container {
     width: 420px;
     margin: auto;
-    background-color: rgb(63, 85, 136);
+    background-color: rgb(63, 85, 136, 0.8);
     color: rgb(56, 44, 44);
     border-radius: 10px;
     padding: 30px 40px;
-    margin-top:-700px; /* Navbar ile container arasındaki boşluğu ayarlar */
-}
+    margin-top: -800px;
+    transition: transform 0.5s ease-in-out; /* Geçiş efekti için transform özelliği, daha yavaş ve yumuşak */
+    }
+
+    .container:hover {
+        transform: scale(1.05); /* Mouse ile üstüne gelindiğinde büyüme efekti */
+    }
 
 
 .container h1{
@@ -91,6 +101,11 @@ margin: 0px 20px;
     font-weight: 600;
     margin-top: 20px; /* Düğme ile alan arasına biraz boşluk ekleyelim */
 
+}
+
+button.btn.btn-primary.btn-block:hover {
+    background-color: #5cb85c;
+    color: #fff;
 }
 .container .header {
     display:flexbox;

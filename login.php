@@ -57,17 +57,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
 </head>
 <style>
+                    body {
+            background-image: url("/AracKiralama/images/arkaplanimg.jpg"); /* Arka plan resminin URL'sini belirtin */
+            background-repeat: no-repeat; /* Arka plan resminin tekrar etmemesini sağlar */
+            background-size: cover; /* Arka plan resminin body'ye tam sığdırılmasını sağlar */
+        }
+        .container {
+    width: 420px;
+    margin: auto;
+    background-color: rgb(63, 85, 136, 0.8);
+    color: rgb(56, 44, 44);
+    border-radius: 10px;
+    padding: 30px 40px;
+    margin-top: -800px;
+    transition: transform 0.5s ease-in-out; /* Geçiş efekti için transform özelliği, daha yavaş ve yumuşak */
+}
+
+.container:hover {
+    transform: scale(1.05); /* Mouse ile üstüne gelindiğinde büyüme efekti */
+}
+        
         
         .baslik {
             margin: 0;
             font-size: 24px;
-            color: white;
+            color: rgb(203,165,108);
         }
         .input-box {
             margin: 15px 0;
         }
         .input-box input {
-            width: calc(100% - 20px);
+            width: calc(100%);
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ddd;
@@ -83,6 +103,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             cursor: pointer;
             font-size: 16px;
             margin-top: 10px;
+            margin-bottom:15px;
+        }
+
+        .btn:hover {
+            background-color: #5cb85c;
+            color: #fff;
+            
         }
 
         .link {
@@ -91,9 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: #007bff;
             cursor: pointer;
             text-decoration: none;
+            color:white;
         }
         .link:hover {
             text-decoration: underline;
+            color:white;
         }
         .hidden {
             display: none;
@@ -101,9 +130,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .mesaj {
             margin-top: 20px;
             font-size: 14px;
+            color:white;
         }
         .mesaj a {
-            color: #007bff;
+            color: white;
             text-decoration: none;
         }
         .mesaj a:hover {
@@ -162,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
         
 
-        <p class="mesaj">Üye Değil Misin? <a href="register.php">Hesap Oluştur</a></p>
+        <p class="mesaj">Üye Değil Misin? - <a href="register.php" class="hesapolustur">Hesap Oluştur</a></p>
     </div>
     </div>
     
