@@ -245,7 +245,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     </nav>
 
 
-    <br><br>
+    
 <nav class="detaylar">
     <ul>
     <li class="<?php echo $adim == 1 ? 'active' : ''; ?>"><?php echo aktifTik(1, $adim); ?> Tarih Aralığı: <?php echo $tarih_araligi; ?> | Alış Şube: <?php echo $alis_sube_ad; ?> |  Varış Şube: <?php echo $varis_sube_ad; ?></li>
@@ -255,7 +255,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     </ul>
 </nav>
 
-
+    <div class = "container2">  
     <div class="container">
         <h2 class="mb-4">Rezervasyon Yap</h2>
         <div class="row">
@@ -323,6 +323,7 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script>
         function disableOtherInput(selectElement) {

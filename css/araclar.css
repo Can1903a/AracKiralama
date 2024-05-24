@@ -7,7 +7,7 @@ body {
 
 
 .container {
-    padding-top: 20px; /* Container üst boşluk */
+    padding-top: 5px; /* Container üst boşluk */
 }
 
 /* Kart stilleri */
@@ -69,6 +69,8 @@ body {
 }
 .detaylar {
     text-align: center;
+    margin-top: 100px;
+    
 }
 
 .detaylar ul {
