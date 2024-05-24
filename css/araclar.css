@@ -4,14 +4,7 @@ body {
     margin-bottom: 100px; /* Footer'ın altında boşluk bırak */
 }
 
-.footer {
-    position: relative; /* Diğer içeriklerin üzerine binmesini engelle */
-    background-color: #f5f5f5;
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    bottom: 0;
-}
+
 
 .container {
     padding-top: 20px; /* Container üst boşluk */

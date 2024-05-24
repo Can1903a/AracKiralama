@@ -131,6 +131,8 @@ $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">  
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">  
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">  
     <title>Araç Detay</title>
 </head>
 

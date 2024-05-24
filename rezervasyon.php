@@ -24,7 +24,6 @@ if (isset($_SESSION['Kullanici_id'])) {
         $profil = "<a class='nav-link' href='/AracKiralama/profil.php'>Profil</a>";
     }
     
-
     $logoutLink = "<a class='nav-link' href='/AracKiralama/logout.php'>Çıkış Yap</a>";
     $loginLink = ""; // Giriş yap linkini görünmez yap
     $signupLink = ""; // Kayıt ol linkini görünmez yap
@@ -55,7 +54,6 @@ if(isset($_GET['arac_id'])) {
 
 $gunluk_bedel = $arac['Arac_gunluk_ucret'];
 
-
 $gunsayisi = $_SESSION['gun_sayisi'];
 if ($gunsayisi == 0) {
     $gunsayisi = 1;
@@ -64,17 +62,14 @@ if ($gunsayisi == 0) {
 }
 
 $toplam_bedel = $arac['Arac_gunluk_ucret'] * $gunsayisi;
+
 // Kullanıcının kayıtlı kartlarını alalım
-if ($KullaniciID !=0) {
+if ($KullaniciID != 0) {
     $KartlarQuery = "SELECT * FROM kartlar WHERE kullanici_id = $KullaniciID";
-$KartlarResult = $conn->query($KartlarQuery);
-}
-else {
+    $KartlarResult = $conn->query($KartlarQuery);
+} else {
     header("Location: /AracKiralama/login.php");
-
 }
-
-
 
 // Form gönderildiğinde rezervasyonu ekle
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
@@ -86,117 +81,106 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['kirala'])) {
     $varis_sube_id = $_POST['varis_sube_id'];
     $rezervasyon_durumu = 1;
 
-     // Eğer kullanıcı yeni bir kart ekliyorsa, kart bilgilerini al
-     if (!empty($_POST['kart_ad_soyad']) && !empty($_POST['kart_numarasi']) && !empty($_POST['son_kullanma_tarihi']) && !empty($_POST['cvv'])) {
+    // Eğer kullanıcı yeni bir kart ekliyorsa, kart bilgilerini al
+    if (!empty($_POST['kart_ad_soyad']) && !empty($_POST['kart_numarasi']) && !empty($_POST['son_kullanma_tarihi']) && !empty($_POST['cvv'])) {
         $kart_ad_soyad = $_POST['kart_ad_soyad'];
         $kart_numarasi = $_POST['kart_numarasi'];
         $son_kullanma_tarihi = $_POST['son_kullanma_tarihi'];
         $cvv = $_POST['cvv'];
         $kart_id = ""; // Yeni kart eklenirken kart_id boş olarak kalacak
-     // Rezervasyon bilgilerini ekle
-     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id, rezervasyon_durumu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-     $stmt->bind_param("iissdiiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id, $rezervasyon_durumu);
- 
 
-} else {
-    $kart_id = $_POST['kayitli_kart'];
+        // Yeni kart bilgilerini veritabanına ekle
+        $kartEkleStmt = $conn->prepare("INSERT INTO kartlar (kullanici_id, kart_ad_soyad, kart_numarasi, son_kullanma_tarihi, cvv) VALUES (?, ?, ?, ?, ?)");
+        $kartEkleStmt->bind_param("issss", $KullaniciID, $kart_ad_soyad, $kart_numarasi, $son_kullanma_tarihi, $cvv);
+        $kartEkleStmt->execute();
+        $kart_id = $kartEkleStmt->insert_id; // Yeni eklenen kartın ID'sini al
+        $kartEkleStmt->close();
+    }
 
-     // Rezervasyon bilgilerini ekle
-     $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id, rezervasyon_durumu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-     $stmt->bind_param("iissdiiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id, $rezervasyon_durumu);
- 
-}
-    if ($stmt->execute() ) {
-    // Rezervasyon başarılı olduğunda
-    echo '<script>
-    Swal.fire({
-        icon: "success",
-        title: "Rezervasyon Başarılı",
-        text: "Rezervasyonunuz başarıyla tamamlandı.",
-        showConfirmButton: false,
-        timer: 2000 // 2 saniye sonra otomatik kapanacak
-    }).then(function() {
-        // İşlem tamamlandıktan sonra yönlendirme yapabilirsiniz
-        window.location.href = "profil.php";
-    });
+    // Rezervasyon bilgilerini ekle
+    $stmt = $conn->prepare("INSERT INTO Rezervasyon (kullanici_id, arac_id, baslangic_tarihi, bitis_tarihi, toplam_ucret, kart_id, alis_sube_id, varis_sube_id, rezervasyon_durumu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("iissdiiii", $KullaniciID, $arac_id, $baslangic_tarihi, $bitis_tarihi, $toplam_ucret, $kart_id, $alis_sube_id, $varis_sube_id, $rezervasyon_durumu);
 
-     </script>';
-} else {
-    // Rezervasyon başarısız olduğunda
-    echo '<script>;
-    Swal.fire({
-        icon: "error",
-        title: "Rezervasyon Başarısız",
-        text: "Rezervasyon işlemi gerçekleştirilemedi. Lütfen tekrar deneyin."
-       </script>';
-
-$stmt->error;
+    if ($stmt->execute()) {
+        // Rezervasyon başarılı olduğunda
+        echo '<script>
+        Swal.fire({
+            icon: "success",
+            title: "Rezervasyon Başarılı",
+            text: "Rezervasyonunuz başarıyla tamamlandı.",
+            showConfirmButton: false,
+            timer: 2000 // 2 saniye sonra otomatik kapanacak
+        }).then(function() {
+            // İşlem tamamlandıktan sonra yönlendirme yapabilirsiniz
+            window.location.href = "profil.php";
+        });
+        </script>';
+    } else {
+        // Rezervasyon başarısız olduğunda
+        echo '<script>
+        Swal.fire({
+            icon: "error",
+            title: "Rezervasyon Başarısız",
+            text: "Rezervasyon işlemi gerçekleştirilemedi. Lütfen tekrar deneyin."
+        });
+        </script>';
     }
 
     $stmt->close();
 }
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/AracKiralama/css/login.css">
-  <link rel="stylesheet" href="/AracKiralama/css/index.css">
-  <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
-  <link rel="stylesheet" href="/AracKiralama/css/footer.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.css">
-
+    <link rel="stylesheet" href="/AracKiralama/css/login.css">
+    <link rel="stylesheet" href="/AracKiralama/css/index.css">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.7/sweetalert2.min.css">
     <title>Araç Kiralama</title>
-    
 </head>
 <body>
-    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
-    <div class="container">
-    <a class="navbar-brand" href="#">
+        <div class="container">
+            <a class="navbar-brand" href="#">
                 <img src="/AracKiralama/images/CarDuckLogo.png" style="max-width:300px;height: 120px" alt="Resim" class="logo">
-        <a class="navbar-brand" href="#">Araç Kiralama</a>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
-                </li>
-                
-                <?php echo $loginLink ;  ?>
-               
-                <?php echo $signupLink ; ?>
-                
-                 <?php echo $welcomeMessage ; ?>
-                <?php echo $profil; ?>
+            </a>
+            <a class="navbar-brand" href="#">Araç Kiralama</a>
             
-                <?php echo $logoutLink ; ?>
-            
-            </ul>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/AracKiralama/Index.php">Anasayfa |</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/AracKiralama/hakkimizda.php">Hakkımızda |</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/AracKiralama/iletisim.php">İletişim |</a>
+                    </li>
+                    <?php echo $loginLink; ?>
+                    <?php echo $signupLink; ?>
+                    <?php echo $welcomeMessage; ?>
+                    <?php echo $profil; ?>
+                    <?php echo $logoutLink; ?>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-
-<div class="container">
+    <div class="container">
         <h2 class="mb-4">Rezervasyon Yap</h2>
         <div class="row">
             <!-- Sol Tarafta Kart Seçimi -->
             <div class="col-md-6">
-                <form id="rezervasyonForm" action="rezervasyon.php?arac_id=<?php echo $arac_id; ?>&sube=<?php echo $_GET['sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>" method="POST">
+                <form id="rezervasyonForm" action="rezervasyon.php?arac_id=<?php echo $arac_id; ?>&sube=<?php echo $_GET['sube']; ?>&varis_sube=<?php echo $_GET['varis_sube']; ?>&baslangic_tarihi=<?php echo $_GET['baslangic_tarihi']; ?>&bitis_tarihi=<?php echo $_GET['bitis_tarihi']; ?>" method="POST" onsubmit="return validateForm()">
                     <div class="form-group">
                         <label for="kayitli_kart">Kayıtlı Kart Seçin:</label>
                         <select class="form-control" id="kayitli_kart" name="kayitli_kart" onchange="disableOtherInput(this)">
@@ -231,48 +215,66 @@ $stmt->error;
                     </div>
                 </form>
             </div>
-        <!-- Sağ Tarafta Yeni Kart Ekleme -->
-        <div class="col-md-6">
-            <div class="card">
-                <h5 class="card-header">Yeni Kart Ekle</h5>
-                <div class="card-body">
-                    <form id="yeniKartEkleForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                        <div class="form-group">
-                            <label for="kart_ad_soyad">Kart Sahibi Adı Soyadı:</label>
-                            <input type="text" class="form-control" id="kart_ad_soyad" name="kart_ad_soyad">
-                        </div>
-                        <div class="form-group">
-                            <label for="kart_numarasi">Kart Numarası:</label>
-                            <input type="text" class="form-control" id="kart_numarasi" name="kart_numarasi" required oninput="formatKartNumarasi(this)">
-                        </div>
-                        <div class="form-group">
-                            <label for="son_kullanma_tarihi">Son Kullanma Tarihi:</label>
-                            <input type="date" class="form-control" id="son_kullanma_tarihi" name="son_kullanma_tarihi">
-                        </div>
-                        <div class="form-group">
-                            <label for="cvv">CVV:</label>
-                            <input type="text" class="form-control" id="cvv" name="cvv">
-                        </div>
-                    </form>
+            <!-- Sağ Tarafta Yeni Kart Ekleme -->
+            <div class="col-md-6">
+                <div class="card">
+                    <h5 class="card-header">Yeni Kart Ekle</h5>
+                    <div class="card-body">
+                        <form id="yeniKartEkleForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                            <div class="form-group">
+                                <label for="kart_ad_soyad">Kart Sahibi Adı Soyadı:</label>
+                                <input type="text" class="form-control" id="kart_ad_soyad" name="kart_ad_soyad">
+                            </div>
+                            <div class="form-group">
+                                <label for="kart_numarasi">Kart Numarası:</label>
+                                <input type="text" class="form-control" id="kart_numarasi" name="kart_numarasi" required oninput="formatKartNumarasi(this)">
+                            </div>
+                            <div class="form-group">
+                                <label for="son_kullanma_tarihi">Son Kullanma Tarihi:</label>
+                                <input type="date" class="form-control" id="son_kullanma_tarihi" name="son_kullanma_tarihi">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV:</label>
+                                <input type="text" class="form-control" id="cvv" name="cvv">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    function disableOtherInput(selectElement) {
-        var otherInput = document.getElementById('yeniKartEkleForm');
-        if (selectElement.value !== '') {
-            otherInput.querySelectorAll('input').forEach(function (input) {
-                input.disabled = true;
-            });
-        } else {
-            otherInput.querySelectorAll('input').forEach(function (input) {
-                input.disabled = false;
-            });
+    <script>
+        function disableOtherInput(selectElement) {
+            var otherInput = document.getElementById('yeniKartEkleForm');
+            if (selectElement.value !== '') {
+                otherInput.querySelectorAll('input').forEach(function (input) {
+                    input.disabled = true;
+                });
+            } else {
+                otherInput.querySelectorAll('input').forEach(function (input) {
+                    input.disabled = false;
+                });
+            }
         }
-    }
-</script>
+
+        function validateForm() {
+            var kayitliKart = document.getElementById('kayitli_kart').value;
+            var kartAdSoyad = document.getElementById('kart_ad_soyad').value;
+            var kartNumarasi = document.getElementById('kart_numarasi').value;
+            var sonKullanmaTarihi = document.getElementById('son_kullanma_tarihi').value;
+            var cvv = document.getElementById('cvv').value;
+
+            if (kayitliKart === '' && (kartAdSoyad === '' || kartNumarasi === '' || sonKullanmaTarihi === '' || cvv === '')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Kart Bilgisi Eksik',
+                    text: 'Lütfen kayıtlı bir kart seçin veya yeni kart bilgilerini eksiksiz doldurun.'
+                });
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <!-- Footer -->
     <footer class="footer mt-auto py-3 bg-light">
@@ -287,6 +289,5 @@ $stmt->error;
     <script type="text/javascript" src="js/tarih.js"></script>
     <script type="text/javascript" src="js/kart.js"></script>
     <script type="text/javascript" src="js/rezervasyon.js"></script>
-
 </body>
 </html>

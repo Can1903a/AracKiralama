@@ -45,6 +45,7 @@ if (isset($_SESSION['Kullanici_id'])) {
 <body>
     
     <!-- Navbar -->
+    <div class="custom-border ">
     <nav class="navbar navbar-expand-lg   #ff7b00 fixed-top">
     <div class="container">
     <a class="navbar-brand" href="#">
@@ -79,25 +80,11 @@ if (isset($_SESSION['Kullanici_id'])) {
         </div>
     </div>
 </nav>
+</div>
 <br>
 <br>
 
-<script>
-document.getElementById('openLocationBtn').addEventListener('click', function() {
-    // Belirli bir konumu Google Haritalar'da aç
-    var locationUrl = 'https://www.google.com/maps?hl=tr&gl=tr&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x14cab05e1290d865:0x3eaf193a91f768c8';
-    // Yeni pencerede konumu aç
-    window.open(locationUrl, '_blank');
-});
-</script>
-<script>
-document.getElementById('openLocationBtn').addEventListener('click', function() {
-    // Belirli bir konumu Google Haritalar'da aç
-    var locationUrl = 'https://www.google.com/maps?hl=tr&gl=tr&um=1&ie=UTF-8&fb=1&sa=X&ftid=0x14cab05e1290d865:0x3eaf193a91f768c8';
-    // Yeni pencerede konumu aç
-    window.open(locationUrl, '_blank');
-});
-</script>
+
         <!-- Ana içerik -->
     <div class="main-container mt-5">
         <h1 class="text-center mb-4">Araç Kiralama Sistemi</h1>
@@ -176,6 +163,7 @@ document.getElementById('openLocationBtn').addEventListener('click', function() 
 <br>    
     <h2 class="text-center mb-4">Son Blog Yazıları</h2>
     <div class="row justify-content-center">
+        
         <!-- Blog Kartları -->
         <?php
         // İçerik sütunundaki metni kısaltmak için fonksiyon
@@ -189,7 +177,7 @@ function kisalt($metin, $uzunluk = 30, $son = '...') {
     return $kisaltilmisMetin . $son;
 }
         // Blog gönderilerini veritabanından al
-        $blogQuery = "SELECT * FROM blog ORDER BY id DESC LIMIT 3"; // Örnek sorgu, 3 adet en son blog gönderisini alır
+        $blogQuery = "SELECT * FROM blog ORDER BY id ASC LIMIT 3";// Örnek sorgu, 3 adet en son blog gönderisini alır
         $blogResult = $conn->query($blogQuery);
 
         if ($blogResult->num_rows > 0) {
@@ -212,6 +200,7 @@ function kisalt($metin, $uzunluk = 30, $son = '...') {
     </div>
 </section>
 <br><br><br>
+
 <div class="hero bg-google-map text-white text-center d-flex align-items-center justify-content-center">
     <div class="map-container" style="width: 100%; max-width: 100%; margin: 0 auto;">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.6316377771385!2d28.978305914887588!3d41.01298997929867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab05e1290d865%3A0x3eaf193a91f768c8!2sIstanbul%20Airport!5e0!3m2!1sen!2str!4v1621464608028!5m2!1sen!2str" width="100%" height="300" allowfullscreen="" loading="lazy"></iframe>

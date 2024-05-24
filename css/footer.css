@@ -5,11 +5,11 @@
     background-color: #ffffff; /* Arka plan rengi */
     text-align: center; /* Metin hizalama */
     padding: 10px 0; /* Kenar boşlukları */
-    
+    color: black;
 }
 
 .footer-container {
-    
+    color: black;
     position: fixed; /* Sabit pozisyon */
     bottom: 0; /* Sayfanın altına yapıştır */
     width: 100%; /* Tam genişlik */

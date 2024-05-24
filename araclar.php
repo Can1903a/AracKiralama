@@ -144,6 +144,8 @@ function aktifTik($hedefAdim, $simdikiAdim) {
     <link rel="stylesheet" href="/AracKiralama/css/aracdetay.css">
     <link rel="stylesheet" href="/AracKiralama/css/login.css">
     <link rel="stylesheet" href="/AracKiralama/css/sayfalama.css">
+    <link rel="stylesheet" href="/AracKiralama/css/footer.css">
+    <link rel="stylesheet" href="/AracKiralama/css/navbar.css">
     <title>Araçlar</title>
    
 

@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
                
     <!-- Ana içerik -->
-    <div class="container mt-5">
+    <div class="main-container mt-5">
         
         <div class="row justify-content-center">
         
