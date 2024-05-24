@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: rgb(56, 44, 44);
             border-radius: 10px;
             padding: 30px 40px;
-            margin-top: -850px;
+            margin-top: -47%;
             transition: transform 0.5s ease-in-out; /* Geçiş efekti için transform özelliği, daha yavaş ve yumuşak */
         }
 
