@@ -12,7 +12,7 @@ if(isset($_POST['kaydet'])) {
         $insert_query = "INSERT INTO blog (baslik, icerik, resim) VALUES ('$baslik', '$icerik', '$resim')";
         
         // Blogu veritabanına ekle
-        if(mysqli_query($conn, $insert_query)) {
+        if(mysqli_query($conn, $insert_query)) {    
             echo "Yeni blog başarıyla eklendi.";
             // Formu temizle
             $_POST = array();

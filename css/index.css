@@ -108,8 +108,9 @@ button[type="submit"]:hover {
 .card-img-top {
     border-top-left-radius: 10px; /* Kart resmi köşe yuvarlaklığı */
     border-top-right-radius: 10px; /* Kart resmi köşe yuvarlaklığı */
+    max-width: 100%; /* Görselin maksimum genişliği */
+    height: auto; /* Otomatik yükseklik ayarı */
 }
-
 
 
 
