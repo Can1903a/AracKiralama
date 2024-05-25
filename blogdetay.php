@@ -94,6 +94,10 @@ $blogResult = $conn->query($blogQuery);
 </div>
     <!-- Main Content -->
     <div class="main-container mt-5">
+        <div class = "blogdetaylari">
+        <h1 class="text-center mb-4">Blog Detayları</h1>
+        </div>
+        
         <div class = "Blogdetayi">
         <h1 class="text-center mb-4">Blog Detayı</h1> 
         </div>
@@ -111,6 +115,7 @@ $blogResult = $conn->query($blogQuery);
                     ?>
                     <div class="blog-post">
                         <h2 class="blog-title"><?php echo $blogTitle; ?></h2>
+                        
                         
                         <div class="blog-image">
                             <img src='data:image/jpeg;base64,<?php echo $blogImage; ?>' alt='<?php echo $blogTitle; ?>' class='img-fluid'>

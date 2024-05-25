@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($num_row >= 1) {
         $row = $result->fetch_assoc();
-        $gideceksifre = $row['Kullanici_sifre']; // Note: This is not secure. Do not send plain text passwords.
+        $gideceksifre = $row['Kullanici_sifre']; 
 
         $mail = new PHPMailer();
         $mail->isSMTP();
