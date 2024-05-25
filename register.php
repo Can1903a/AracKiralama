@@ -9,19 +9,90 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $KullaniciSifre = $_POST['Kullanici_sifre'];
     $Kullanicitelefon = $_POST['Kullanici_telefon'];
 
+    // E-posta adresinin benzersiz olup olmadığını kontrol et
+    $check_email_query = "SELECT COUNT(*) as count FROM kullanici WHERE Kullanici_eposta = ?";
+    $stmt_check_email = $conn->prepare($check_email_query);
+    $stmt_check_email->bind_param("s", $KullaniciEposta);
+    $stmt_check_email->execute();
+    $result = $stmt_check_email->get_result();
+    $row = $result->fetch_assoc();
+    $email_count = $row['count'];
 
-  $sql = "INSERT INTO kullanici (Kullanici_isim, Kullanici_soyisim, Kullanici_eposta, Kullanici_sifre, Kullanici_telefon)
-          VALUES ('$KullaniciIsim', '$KullaniciSoyisim', '$KullaniciEposta', '$KullaniciSifre', '$Kullanicitelefon')";
-
-    if ($stmt->execute()) {
-        header("Location: /AracKiralama/index.php");
-        exit();
+    if ($email_count > 0) {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Kayıt Ol</title>
+            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="/AracKiralama/css/register.css">
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        </head>
+        <body>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    icon: "error",
+                    title: "E-Posta Hatası!",
+                    text: "E-posta kullanımda lütfen farklı bir e-posta ile kayıt olunuz!",
+                    
+                }).then(function() {
+                    window.location = "/AracKiralama/register.php"; 
+                });
+            });
+        </script>
+        </body>
+        </html>
+        <?php
     } else {
-        echo "Hata: " . $stmt->error;
+        // Eğer e-posta kullanımda değilse, kayıt işlemini gerçekleştir
+        $sql = "INSERT INTO kullanici (Kullanici_isim, Kullanici_soyisim, Kullanici_eposta, Kullanici_sifre, Kullanici_telefon)
+        VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssss", $KullaniciIsim, $KullaniciSoyisim, $KullaniciEposta, $KullaniciSifre, $Kullanicitelefon);
+
+        if ($stmt->execute()) {
+            ?>
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Kayıt Ol</title>
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="/AracKiralama/css/register.css">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            </head>
+            <body>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı!',
+                        text: 'Kayıt başarı ile tamamlandı, giriş sayfasına yönlendiriliyorsunuz...',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(function() {
+                        window.location = "/AracKiralama/login.php";
+                    });
+                });
+            </script>
+            </body>
+            </html>
+            <?php
+        } else {
+            echo "Hata: " . $stmt->error;
+        }
+
+        $stmt->close();
     }
 
-    $stmt->close();
+    $stmt_check_email->close();
     $conn->close();
+    exit(); // Kayıt işlemi tamamlandıktan sonra scriptin çalışmasını sonlandır
 }
 ?>
 <!DOCTYPE html>
