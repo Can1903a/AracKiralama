@@ -94,12 +94,10 @@ $blogResult = $conn->query($blogQuery);
 </div>
     <!-- Main Content -->
     <div class="main-container mt-5">
-        <div class = "blogdetaylari">
-        <h1 class="text-center mb-4">Blog Detayları</h1>
-        </div>
+        
         
         <div class = "Blogdetayi">
-        <h1 class="text-center mb-4">Blog Detayı</h1> 
+        <h1 class="text-center mb-4">Blog Detayları</h1> 
         </div>
         
         <div class="row justify-content-center">
