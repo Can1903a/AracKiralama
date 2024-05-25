@@ -94,7 +94,10 @@ $blogResult = $conn->query($blogQuery);
 </div>
     <!-- Main Content -->
     <div class="main-container mt-5">
-        <h1 class="text-center mb-4">Blog Detayı</h1>
+        <div class = "Blogdetayi">
+        <h1 class="text-center mb-4">Blog Detayı</h1> 
+        </div>
+        
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <?php
@@ -108,7 +111,7 @@ $blogResult = $conn->query($blogQuery);
                     ?>
                     <div class="blog-post">
                         <h2 class="blog-title"><?php echo $blogTitle; ?></h2>
-                        <p class="blog-date"><?php echo $blogDate; ?></p>
+                        
                         <div class="blog-image">
                             <img src='data:image/jpeg;base64,<?php echo $blogImage; ?>' alt='<?php echo $blogTitle; ?>' class='img-fluid'>
                         </div>

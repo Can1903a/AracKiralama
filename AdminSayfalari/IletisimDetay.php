@@ -30,7 +30,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="menu">
             <ul>
                 
-                <li><a href="/AracKiralama/AdminSayfalari/AracYonetimi.php">Araç Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/index.php">Araç Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php">İletişim Yönetimi</a></li>

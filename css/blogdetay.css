@@ -5,10 +5,15 @@
 
 /* Blog Post */
 .blog-post {
-    border: 2px solid #ddd; /* Border rengi ve kalınlığı */
+    border: 2px solid #ff9100; /* Border rengi ve kalınlığı */
     border-radius: 10px; /* Köşe yuvarlama */
     padding: 20px; /* İçerikle border arasındaki boşluk */
     margin-bottom: 30px; /* Alt kısmındaki boşluk */
+}
+
+.Blogdetayi{
+text-decoration: underline;
+text-underline-offset: 12px;
 }
 
 /* Başlık */
@@ -17,6 +22,7 @@
     font-weight: bold;
     color: #333;
     margin-bottom: 20px;
+    
 }
 
 /* Tarih */

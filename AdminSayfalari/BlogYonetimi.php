@@ -41,7 +41,7 @@ if(isset($_POST['sil'])) {
         <div class="menu">
             <ul>
                 
-                <li><a href="/AracKiralama/AdminSayfalari/AracYonetimi.php">Araç Yönetimi</a></li>
+                <li><a href="/AracKiralama/AdminSayfalari/index.php">Araç Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/BlogYonetimi.php" class="active">Blog Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/HakkimizdaYonetimi.php">Hakkımızda Yönetimi</a></li>
                 <li><a href="/AracKiralama/AdminSayfalari/IletisimYonetimi.php">İletişim Yönetimi</a></li>
