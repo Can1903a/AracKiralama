@@ -5,13 +5,13 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Formdan gelen verileri al
-    $KullaniciEmail = $_POST['Kullanici_eposta'];
-    $KullaniciSifre = $_POST['Kullanici_sifre'];
+    $kullaniciadi = $_POST['kullaniciadi'];
+    $sifre = $_POST['sifre'];
 
     // Veritabanında bu kullanıcıyı kontrol et
-    $sql = "SELECT * FROM kullanici WHERE Kullanici_eposta = ?";
+    $sql = "SELECT * FROM admins WHERE kullaniciadi = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $KullaniciEmail);
+    $stmt->bind_param("s", $kullaniciadi);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
 
         // Şifre kontrolü
-        if ($KullaniciSifre == $row['Kullanici_sifre'] && $KullaniciEmail == $row['Kullanici_eposta']) {
+        if ($sifre == $row['sifre'] && $kullaniciadi == $row['kullaniciadi']) {
             // Giriş başarılı, oturumu başlat
-            $_SESSION['Kullanici_id'] = $row['Kullanici_id'];
+            $_SESSION['id'] = $row['id'];
 
             // SweetAlert2 ile başarı mesajı göster ve yönlendir
             echo '<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Swal.fire({
                         icon: "success",
                         title: "Başarılı!",
-                        text: "Giriş başarılı, ana sayfaya yönlendiriliyorsunuz...",
-                        timer: 3000,
+                        text: "Giriş başarılı, admin paneline yönlendiriliyorsunuz.",
+                        timer: 2000,
                         timerProgressBar: true,
                         showConfirmButton: false,
                         didClose: () => {
-                            window.location.href = "/AracKiralama/index.php";
+                            window.location.href = "/AracKiralama/AdminSayfalari/index.php";
                         }
                     });
                 </script>';
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Swal.fire({
                         icon: "error",
                         title: "Hata!",
-                        text: "Hatalı şifre veya e-posta adresi!",
+                        text: "Hatalı şifre veya kullanıcı adı!",
                         confirmButtonText: "Tamam"
                     });
                 </script>';
@@ -217,21 +217,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
     <div class="tamamı">
     <div class="container">
-        <form action="login.php" method="post">
+        <form action="adminlogin.php" method="post">
             <div class="header">
                 <img src="/AracKiralama/images/CarDuckLogo.png" alt="Resim" class="logo">
-                <h1 class="baslik">HOŞGELDİNİZ</h1>
+                <h1 class="baslik">YÖNETİCİ GİRİŞİ</h1>
             </div>
             <div class="input-box">
-                <input type="email" placeholder="Eposta Adresi" id="eposta" name="Kullanici_eposta" required>
+                <input placeholder="Kullanıcı Adı" id="kullaniciadi" name="kullaniciadi" required>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Şifre" id="sifre" name="Kullanici_sifre" required>
+                <input type="password" placeholder="Şifre" id="sifre" name="sifre" required>
             </div>
             <button type="submit" class="btn">Giriş Yap</button>
         </form>
 
+        <!--
         <a class="link" onclick="showForgotPasswordForm()">Şifremi Unuttum</a>
+
+        
         <form id="forgot-password-form" action="mailgonder.php" method="POST" class="hidden">
             <div class="input-box">
                 <input type="email" name="eposta" placeholder="Eposta giriniz" required />
@@ -241,7 +244,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
         <p class="mesaj">Üye Değil Misin? - <a href="register.php" class="hesapolustur">Hesap Oluştur</a></p>
-        <p class="mesaj"><a href="adminlogin.php" class="admingiris">Yönetici Giriş</a></p>
+        -->
+        <p class="mesaj"><a href="login.php" class="admingiris">Müşteri Girişine Dön</a></p>
     </div>
     </div>
     
